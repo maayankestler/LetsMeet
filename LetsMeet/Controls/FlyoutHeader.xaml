@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             x:Class="LetsMeet.Controls.FlyoutHeader"
+             HeightRequest="200">
+    <Grid BackgroundColor="#D3E3E7">
+        <Image Aspect="AspectFit"
+               HeightRequest="200"
+               Source="LogoVerticalTransparent.png" 
+               Opacity="0.6" />
+    </Grid>
+</ContentView>

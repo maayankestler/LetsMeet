@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             x:Class="LetsMeet.Views.AboutPage"
+             Title="About">
+    <ContentPage.Resources>
+        <Color x:Key="Primary">#96d1ff</Color>
+        <Color x:Key="LightTextColor">#999999</Color>
+    </ContentPage.Resources>
+    
+    <ScrollView>
+         <Grid RowDefinitions="Auto,*">
+            <StackLayout BackgroundColor="#D3E3E7" 
+                         VerticalOptions="FillAndExpand" 
+                         HorizontalOptions="Fill">
+                <StackLayout Orientation="Horizontal" 
+                             HorizontalOptions="Center" 
+                             VerticalOptions="Center">
+                    <ContentView Padding="0,40,0,40" 
+                                 VerticalOptions="FillAndExpand">
+                        <Image Source="LogoHorizontalTransparent.png" 
+                               Aspect="Fill"
+                               VerticalOptions="Center" />
+                    </ContentView>
+                </StackLayout>
+            </StackLayout>
+            <ScrollView Grid.Row="1">
+                <StackLayout Orientation="Vertical" 
+                             Padding="16,40,16,40"
+                             Spacing="10">
+                    <Label FontSize="22">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <FormattedString.Spans>
+                                    <Span Text="Let's meet" FontAttributes="Bold" FontSize="22" TextColor="Black"/>
+                                    <Span Text=" " />
+                                    <Span Text="1.0" 
+                                          ForegroundColor="{StaticResource LightTextColor}" />
+                                </FormattedString.Spans>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <Label FontSize="18">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <FormattedString.Spans>
+                                    <Span Text="This app was written by " />
+                                    <Span Text="Maayan Kestler " FontAttributes="Bold" FontSize="18"/>
+                                    <Span Text="as final project for object oriented programming seminar, " />
+                                    <Span Text="Course #20586" FontAttributes="Bold" TextColor="Blue" TextDecorations="Underline" FontSize="18">
+                                        <Span.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding TapCommand, Mode=OneWay}"
+                                                                 CommandParameter="https://www-e.openu.ac.il/courses/20586.htm" />
+                                        </Span.GestureRecognizers>
+                                    </Span>
+                                    <Span Text=" in the " />
+                                    <Span Text="open university of Israel" FontAttributes="Bold" TextColor="Blue" TextDecorations="Underline" FontSize="18">
+                                        <Span.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding TapCommand, Mode=OneWay}"
+                                                                 CommandParameter="https://www.openu.ac.il/en/pages/default.aspx" />
+                                        </Span.GestureRecognizers>
+                                    </Span>
+                                </FormattedString.Spans>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <Button HeightRequest="1" BackgroundColor="LightGray" Margin="0,25,0,10"/>
+                    <Grid >
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="60"/>
+                            <RowDefinition Height="60"/>
+                            <RowDefinition Height="40"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Text="contact me:" Grid.Row="0" Grid.ColumnSpan="3" FontSize="32" FontAttributes="Bold" TextDecorations="Underline"  />
+                        <Image Source="github.png" Grid.Row="1" Grid.Column="0" Aspect="AspectFill">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding TapCommand, Mode=OneWay}"
+                                                                 CommandParameter="https://github.com/maayankestler" />
+                        </Image.GestureRecognizers>
+                        </Image>
+                        <Label Text="github"  Grid.Row="2" Grid.Column="0" HorizontalOptions="Center"/>
+                        <Image Source="gmail.png" Grid.Row="1" Grid.Column="1">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding TapCommand, Mode=OneWay}"
+                                                                 CommandParameter="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=maayan3002@gmail.com" />
+                        </Image.GestureRecognizers>
+                        </Image>
+                        <Label Text="gmail"  Grid.Row="2" Grid.Column="1" HorizontalOptions="Center"/>
+                        <Image Source="facebook.png" Grid.Row="1" Grid.Column="2">
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding TapCommand, Mode=OneWay}"
+                                                                 CommandParameter="https://www.facebook.com/maayan300" />
+                            </Image.GestureRecognizers>
+                        </Image>
+                        <Label Text="facebook"  Grid.Row="2" Grid.Column="2" HorizontalOptions="Center"/>
+                    </Grid>
+                </StackLayout>
+            </ScrollView>
+        </Grid>
+    </ScrollView>
+</ContentPage>
