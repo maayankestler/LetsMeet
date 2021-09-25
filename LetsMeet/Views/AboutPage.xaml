@@ -46,7 +46,7 @@
                                 <FormattedString.Spans>
                                     <Span Text="This app was written by " />
                                     <Span Text="Maayan Kestler " FontAttributes="Bold" FontSize="18"/>
-                                    <Span Text="as final project for object oriented programming seminar, " />
+                                    <Span Text="as final project for object oriented programming workshop, " />
                                     <Span Text="Course #20586" FontAttributes="Bold" TextColor="Blue" TextDecorations="Underline" FontSize="18">
                                         <Span.GestureRecognizers>
                                             <TapGestureRecognizer Command="{Binding TapCommand, Mode=OneWay}"
@@ -80,7 +80,7 @@
                         <Image Source="github.png" Grid.Row="1" Grid.Column="0" Aspect="AspectFill">
                         <Image.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding TapCommand, Mode=OneWay}"
-                                                                 CommandParameter="https://github.com/maayankestler" />
+                                                                 CommandParameter="https://github.com/maayankestler/LetsMeet" />
                         </Image.GestureRecognizers>
                         </Image>
                         <Label Text="github"  Grid.Row="2" Grid.Column="0" HorizontalOptions="Center"/>
