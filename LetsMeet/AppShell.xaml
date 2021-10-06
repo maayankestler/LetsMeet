@@ -165,11 +165,11 @@
 
     <FlyoutItem Route="animals"
                 FlyoutDisplayOptions="AsMultipleItems">
-        <ShellContent Route="monkeys"
+        <ShellContent Route="users"
                       Style="{StaticResource MonkeysShell}"
                       Title="Profile"
                       Icon="profile.png"
-                      ContentTemplate="{DataTemplate views:MonkeysPage}" />
+                      ContentTemplate="{DataTemplate views:UserPage}" />
         <ShellContent Route="elephants"
                       Style="{StaticResource ElephantsShell}"
                       Title="Create meeting"

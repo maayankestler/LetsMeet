@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:LetsMeet.Controls"
+             xmlns:data="clr-namespace:LetsMeet.Data"
+             xmlns:views="clr-namespace:LetsMeet.Views"
+             x:Class="LetsMeet.Views.UserPage">
+    <ContentPage.Resources>
+        <Style TargetType="Grid">
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal" />
+                        <VisualState x:Name="Selected">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor" 
+                                        Value="#689F39" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
+    </ContentPage.Resources>
+
+    <Shell.SearchHandler>
+        <controls:UsersSearchHandler Placeholder="Enter search term"
+                                      ShowsResults="true"
+                                      ItemTemplate="{StaticResource AnimalSearchTemplate}"
+                                      Users="{x:Static data:UsersData.Users}"
+                                      SelectedItemNavigationTarget="{x:Type views:UserDetailPage}" />
+    </Shell.SearchHandler>
+    <!--<Shell.TitleView>
+        <Image Source="LogoHorizontalTransparent.png"
+            HorizontalOptions="Center"
+            VerticalOptions="Center"/>
+    </Shell.TitleView>-->
+
+    <CollectionView Margin="20"
+                    ItemsSource="{x:Static data:UsersData.Users}"
+                    ItemTemplate="{StaticResource UserTemplate}"
+                    SelectionMode="Single"
+                    SelectionChanged="OnCollectionViewSelectionChanged" />
+</ContentPage>

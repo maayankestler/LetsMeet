@@ -38,6 +38,39 @@
                        VerticalOptions="Center" />
             </Grid>
         </DataTemplate>
-        
+
+        <DataTemplate x:Key="UserTemplate">
+            <Grid Padding="10"
+                  RowDefinitions="Auto,Auto"
+                  ColumnDefinitions="Auto,Auto">
+                <Image Grid.RowSpan="2" 
+                       Source="{Binding IconURL}" 
+                       Aspect="AspectFill"
+                       HeightRequest="60" 
+                       WidthRequest="60" />
+                <Label Grid.Column="1" 
+                       Text="{Binding Name}" 
+                       FontAttributes="Bold" />
+                <Label Grid.Row="1"
+                       Grid.Column="1" 
+                       Text="{Binding age}"
+                       FontAttributes="Italic" 
+                       VerticalOptions="End" />
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="UserSearchTemplate">
+            <Grid Padding="10"
+                  ColumnDefinitions="0.15*,0.85*">
+                <Image Source="{Binding IconURL}"
+                       HeightRequest="40"
+                       WidthRequest="40" />
+                <Label Grid.Column="1" 
+                       Text="{Binding Name}" 
+                       FontAttributes="Bold"
+                       VerticalOptions="Center" />
+            </Grid>
+        </DataTemplate>
+
     </Application.Resources>
 </Application>
