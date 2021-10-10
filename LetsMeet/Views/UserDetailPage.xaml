@@ -12,7 +12,7 @@
             <Label Text="{Binding User.born_date}" 
                    FontAttributes="Italic" 
                    HorizontalOptions="Center" />
-            <Image Source="{Binding User.ImageUrl}" 
+            <Image Source="{Binding User.IconURL}" 
                    HeightRequest="200" 
                    WidthRequest="200" 
                    HorizontalOptions="CenterAndExpand" />

@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LetsMeet.Views.LoginPage"
+             Shell.FlyoutBehavior="Disabled"
+             Shell.NavBarIsVisible="False"
+             Title="Login">
+    <ScrollView>
+        <Grid RowDefinitions="Auto,*">
+            <StackLayout BackgroundColor="#D3E3E7" 
+                         VerticalOptions="FillAndExpand" 
+                         HorizontalOptions="Fill">
+                <StackLayout Orientation="Horizontal" 
+                             HorizontalOptions="Center" 
+                             VerticalOptions="Center">
+                    <ContentView Padding="0,40,0,40" 
+                                 VerticalOptions="FillAndExpand">
+                        <Image Source="LogoHorizontalTransparent.png" 
+                               Aspect="Fill"
+                               VerticalOptions="Center" />
+                    </ContentView>
+                </StackLayout>
+            </StackLayout>
+            <ScrollView Grid.Row="1">
+                <StackLayout Orientation="Vertical" 
+                             Padding="16,40,16,40"
+                             Spacing="10">
+                    <Label Text="Username:"/>
+                    <Entry Placeholder="Username" Text="{Binding UserName}"/>
+                    <Label Text="Password:"/>
+                    <Entry IsPassword="True" Placeholder="Password" Text="{Binding Password}"/>
+                    <Button Text="Login" Command="{Binding Login}"/>
+                    <Label Text="Register" HorizontalOptions="Center">
+                        <!--<Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+                        </Label.GestureRecognizers>-->
+                    </Label>
+                </StackLayout>
+            </ScrollView>
+        </Grid>
+    </ScrollView>
+    <!--<StackLayout VerticalOptions="Center" HorizontalOptions="FillAndExpand">
+        <Image Source="LogoHorizontalTransparent.png" Aspect="Fill" VerticalOptions="Center" Margin="0,0,0,0"/>
+        <Label Text="Username:"/>
+        <Entry Placeholder="Username"/>
+        <Label Text="Password:"/>
+        <Entry IsPassword="True" Placeholder="Password"/>
+        <Button Text="Login" Clicked="Button_Clicked"/>
+        <Label Text="Register" HorizontalOptions="Center">
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+            </Label.GestureRecognizers>
+        </Label>
+    </StackLayout>-->
+</ContentPage>

@@ -15,7 +15,7 @@ public class User {
 
     public string UserName { get; set; }
 
-    private string Passwrod { get; set; }
+    public string Passwrod { get; set; }
 
     private string[] FavoriteTypesIds;
 
