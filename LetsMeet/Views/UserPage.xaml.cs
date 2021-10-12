@@ -20,9 +20,9 @@ namespace LetsMeet.Views
 
         async void OnCollectionViewSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            string userName = (e.CurrentSelection.FirstOrDefault() as User).Name;
+            string userId = (e.CurrentSelection.FirstOrDefault() as User).Id;
             // The following route works because route names are unique in this application.
-            await Shell.Current.GoToAsync($"userdetails?name={userName}");
+            await Shell.Current.GoToAsync($"userdetails?id={userId}");
             // The full route is shown below.
             // await Shell.Current.GoToAsync($"//animals/monkeys/monkeydetails?name={monkeyName}");
         }

@@ -24,8 +24,13 @@ namespace LetsMeet.Views
         {
             base.OnAppearing();
             if(MainViewModel.GetInstance.IsLoggedIn())
-                //await Shell.Current.GoToAsync($"userdetails?name={MainViewModel.GetInstance.CurrentUser.Name}");
-                await Shell.Current.GoToAsync("//users"); 
+            {
+                await Shell.Current.GoToAsync("//users");
+            }
+            else
+            {
+                BindingContext = new LoginPageViewModel();
+            }
 
         }
     }

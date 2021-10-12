@@ -9,15 +9,14 @@
             <Label Text="{Binding User.Name}" 
                    HorizontalOptions="Center" 
                    Style="{DynamicResource TitleStyle}" />
-            <Label Text="{Binding User.born_date}" 
-                   FontAttributes="Italic" 
-                   HorizontalOptions="Center" />
             <Image Source="{Binding User.IconURL}" 
                    HeightRequest="200" 
                    WidthRequest="200" 
                    HorizontalOptions="CenterAndExpand" />
-            <!--<Label Text="{Binding Monkey.Details}" 
-                   Style="{DynamicResource BodyStyle}" />-->
+            <Label Text="{Binding User.born_date, StringFormat='{0:dd/MM/yyyy}'}" 
+                   FontAttributes="Italic" 
+                   HorizontalOptions="Center" />
+            <Button x:Name="LogoutButton" Text="Logout" Command="{Binding Logout}" IsVisible="{Binding IsLoggedOnUser}"/>
         </StackLayout>
     </ScrollView>
 </ContentPage>

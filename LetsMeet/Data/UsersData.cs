@@ -18,6 +18,7 @@ namespace LetsMeet.Data
 
             UsersList.Add(new User
             {
+                Id="1",
                 Name = "maayan",
                 UserName = "maayan3002",
                 Passwrod="123456",
@@ -27,6 +28,7 @@ namespace LetsMeet.Data
 
             UsersList.Add(new User
             {
+                Id = "2",
                 Name = "ido",
                 UserName = "ido5",
                 Passwrod = "555",
@@ -36,10 +38,11 @@ namespace LetsMeet.Data
 
             UsersList.Add(new User
             {
+                Id = "3",
                 Name = "tomer",
-                UserName = "tomerico",
-                Passwrod = "qwe123",
-                IconURL = "https://lh3.googleusercontent.com/proxy/X82ZMY5qQWrRcs7o6ljRXYMH09hM7digrGRUPnonFhAx3S1862iLocDw5g1GJ4vmjHcNdY69QXkUYSflYj2iWPfCuTkNLUtCkT2aGdUXqCqKi14_g2TWMQ",
+                UserName = "t",
+                Passwrod = "a",
+                IconURL = "https://aux.iconspalace.com/uploads/1867938351348566395.png",
                 born_date = new DateTime(1990, 11, 7)
             });
 

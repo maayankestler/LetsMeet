@@ -24,7 +24,7 @@ namespace LetsMeet.ViewModels
             MainViewModel.GetInstance.Login(UserName, Password);
             if (MainViewModel.GetInstance.IsLoggedIn())
             {
-                await Shell.Current.GoToAsync($"userdetails?name={MainViewModel.GetInstance.CurrentUser.Name}");
+                await Shell.Current.GoToAsync($"userdetails?id={MainViewModel.GetInstance.CurrentUser.Id}");
             }
             else
             {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Xamarin.Forms;
 using LetsMeet.Data;
 
 namespace LetsMeet.ViewModels
@@ -22,9 +23,10 @@ namespace LetsMeet.ViewModels
 //        private User _currentUser = null;
         public User CurrentUser { get; private set; }
 
-        public void LogOut()
+        async public void LogOut()
         {
             CurrentUser = null;
+            await Shell.Current.GoToAsync("//LoginPage");
         }
 
         public void Login(string UserName, string Password)

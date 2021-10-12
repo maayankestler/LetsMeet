@@ -26,7 +26,7 @@
     <Shell.SearchHandler>
         <controls:UsersSearchHandler Placeholder="Enter search term"
                                       ShowsResults="true"
-                                      ItemTemplate="{StaticResource AnimalSearchTemplate}"
+                                      ItemTemplate="{StaticResource UserTemplate}"
                                       Users="{x:Static data:UsersData.Users}"
                                       SelectedItemNavigationTarget="{x:Type views:UserDetailPage}" />
     </Shell.SearchHandler>

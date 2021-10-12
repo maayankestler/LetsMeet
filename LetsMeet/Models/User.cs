@@ -9,7 +9,7 @@ public class User {
     public User() {
     }
 
-    private string Id { get; }
+    public string Id { get; set; } // TODO add auto genrator
 
     public string Name { get; set; }
 
@@ -40,6 +40,17 @@ public class User {
         }
     }
 
+    public override bool Equals(object obj) => this.Equals(obj as User);
+
+    public bool Equals(User U)
+    {
+        if (U is null || this.GetType() != U.GetType())
+        {
+            return false;
+        }
+
+        return (Id == U.Id);
+    }
 
     public Meeting[] GetMeetings() {
         // TODO implement here
