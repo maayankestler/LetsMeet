@@ -26,7 +26,7 @@ namespace LetsMeet.ViewModels
         async public void LogOut()
         {
             CurrentUser = null;
-            await Shell.Current.GoToAsync("//LoginPage");
+            await Shell.Current.GoToAsync("//login");
         }
 
         public void Login(string UserName, string Password)

@@ -15,7 +15,7 @@ public class User {
 
     public string UserName { get; set; }
 
-    public string Passwrod { get; set; }
+    public string Password { get; set; }
 
     private string[] FavoriteTypesIds;
 
@@ -27,12 +27,12 @@ public class User {
 
     public string IconURL { get; set; }
 
-    public DateTime born_date { get; set; }
+    public DateTime BornDate { get; set; }
 
     public int age {
         get
         {
-            DateTime start = this.born_date;
+            DateTime start = this.BornDate;
             DateTime end = DateTime.Now;
             return (end.Year - start.Year - 1) +
             (((end.Month > start.Month) ||

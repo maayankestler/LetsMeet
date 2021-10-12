@@ -13,7 +13,7 @@
                    HeightRequest="200" 
                    WidthRequest="200" 
                    HorizontalOptions="CenterAndExpand" />
-            <Label Text="{Binding User.born_date, StringFormat='{0:dd/MM/yyyy}'}" 
+            <Label Text="{Binding User.BornDate, StringFormat='{0:dd/MM/yyyy}'}" 
                    FontAttributes="Italic" 
                    HorizontalOptions="Center" />
             <Button x:Name="LogoutButton" Text="Logout" Command="{Binding Logout}" IsVisible="{Binding IsLoggedOnUser}"/>

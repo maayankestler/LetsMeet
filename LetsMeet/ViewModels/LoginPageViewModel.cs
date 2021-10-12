@@ -13,10 +13,12 @@ namespace LetsMeet.ViewModels
         public string Password { get; set; }
 
         public ICommand Login { get; }
+        public ICommand Register { get; }
 
         public LoginPageViewModel ()
         {
             Login = new Command(Login_Button_Clicked);
+            Register = new Command(Register_Button_Clicked);
         }
 
         async void Login_Button_Clicked()
@@ -24,7 +26,7 @@ namespace LetsMeet.ViewModels
             MainViewModel.GetInstance.Login(UserName, Password);
             if (MainViewModel.GetInstance.IsLoggedIn())
             {
-                await Shell.Current.GoToAsync($"userdetails?id={MainViewModel.GetInstance.CurrentUser.Id}");
+                await Shell.Current.GoToAsync("//profile");
             }
             else
             {
@@ -32,10 +34,9 @@ namespace LetsMeet.ViewModels
             }
         }
 
-
-        private async void TapGestureRecognizer_Tapped(object sender, EventArgs e)
+        async void Register_Button_Clicked()
         {
-            // await Shell.Current.GoToAsync($"{nameof(RegistrationPage)}");
+            await Shell.Current.GoToAsync("//register");
         }
     }
 }

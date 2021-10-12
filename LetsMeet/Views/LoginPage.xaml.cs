@@ -25,7 +25,7 @@ namespace LetsMeet.Views
             base.OnAppearing();
             if(MainViewModel.GetInstance.IsLoggedIn())
             {
-                await Shell.Current.GoToAsync("//users");
+                await Shell.Current.GoToAsync("//profile");
             }
             else
             {

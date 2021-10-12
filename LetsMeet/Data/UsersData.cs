@@ -21,9 +21,9 @@ namespace LetsMeet.Data
                 Id="1",
                 Name = "maayan",
                 UserName = "maayan3002",
-                Passwrod="123456",
+                Password="123456",
                 IconURL = "https://www.onlyou.co.il/data/EIw2xdZedc_500572.jpg",
-                born_date = new DateTime(1997, 3, 17)
+                BornDate = new DateTime(1997, 3, 17)
             });
 
             UsersList.Add(new User
@@ -31,9 +31,9 @@ namespace LetsMeet.Data
                 Id = "2",
                 Name = "ido",
                 UserName = "ido5",
-                Passwrod = "555",
+                Password = "555",
                 IconURL = "https://png.pngtree.com/png-vector/20191101/ourmid/pngtree-cartoon-color-simple-male-avatar-png-image_1934459.jpg",
-                born_date = new DateTime(1999, 4, 10)
+                BornDate = new DateTime(1999, 4, 10)
             });
 
             UsersList.Add(new User
@@ -41,9 +41,9 @@ namespace LetsMeet.Data
                 Id = "3",
                 Name = "tomer",
                 UserName = "t",
-                Passwrod = "a",
+                Password = "a",
                 IconURL = "https://aux.iconspalace.com/uploads/1867938351348566395.png",
-                born_date = new DateTime(1990, 11, 7)
+                BornDate = new DateTime(1990, 11, 7)
             });
 
             return UsersList;
@@ -51,13 +51,17 @@ namespace LetsMeet.Data
 
         public static User GetUser(string UserName, string Password)
         {
-            List<User> AllUsers = GetAllUsers();
-            var User = AllUsers.Find(x => x.UserName == UserName && x.Passwrod == Password);
+            var User = Users.Find(x => x.UserName == UserName && x.Password == Password);
             if (User == null)
             {
                 System.Diagnostics.Debug.WriteLine("login failed"); //todo make display alert
             }
             return User;
+        }
+
+        public static void CreateUser(User NewUser)
+        {
+            Users.Add(NewUser);
         }
     }
 }

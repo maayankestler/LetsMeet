@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="LetsMeet.Views.LoginPage"
+             x:Class="LetsMeet.Views.RegistrationPage"
              Shell.FlyoutBehavior="Disabled"
              Shell.NavBarIsVisible="False"
-             Title="Login">
+             Title="Register">
     <ScrollView>
         <Grid RowDefinitions="Auto,*">
             <StackLayout BackgroundColor="#D3E3E7" 
@@ -25,27 +25,21 @@
                 <StackLayout Orientation="Vertical" 
                              Padding="16,40,16,40"
                              Spacing="10">
+                    <Image BindingContext="{x:Reference IconURLEntry}" Source="{Binding Path=Text}" HeightRequest="200" WidthRequest="200"/>
                     <Label Text="Username:"/>
                     <Entry Placeholder="Username" Text="{Binding UserName}"/>
                     <Label Text="Password:"/>
                     <Entry IsPassword="True" Placeholder="Password" Text="{Binding Password}"/>
-                    <Button Text="Login" Command="{Binding Login}"/>
-                    <Button Text="Register" Command="{Binding Register}"/>
+                    <Label Text="display name:"/>
+                    <Entry Placeholder="name" Text="{Binding Name}"/>
+                    <Label Text="born date"/>
+                    <DatePicker Date="{Binding BornDate}" Format="dd/MM/yyyy"/>
+                    <Label Text="icon URL"/>
+                    <Entry x:Name="IconURLEntry" Placeholder="icon URL" Text="{Binding IconURL}"/>
+                    <Button Text="Sign up" Command="{Binding SignUp}"/>
+                    <Button Text="Sign in" Command="{Binding SignIn}"/>
                 </StackLayout>
             </ScrollView>
         </Grid>
     </ScrollView>
-    <!--<StackLayout VerticalOptions="Center" HorizontalOptions="FillAndExpand">
-        <Image Source="LogoHorizontalTransparent.png" Aspect="Fill" VerticalOptions="Center" Margin="0,0,0,0"/>
-        <Label Text="Username:"/>
-        <Entry Placeholder="Username"/>
-        <Label Text="Password:"/>
-        <Entry IsPassword="True" Placeholder="Password"/>
-        <Button Text="Login" Clicked="Button_Clicked"/>
-        <Label Text="Register" HorizontalOptions="Center">
-            <Label.GestureRecognizers>
-                <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
-            </Label.GestureRecognizers>
-        </Label>
-    </StackLayout>-->
 </ContentPage>
