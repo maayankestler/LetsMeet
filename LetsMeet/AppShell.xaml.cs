@@ -40,23 +40,5 @@ namespace LetsMeet
         {
 
         }
-
-        //protected override void OnNavigating(ShellNavigatingEventArgs args)
-        //{
-        //    base.OnNavigating(args);
-
-        //    // Cancel any back navigation
-        //    //if (e.Source == ShellNavigationSource.Pop)
-        //    //{
-        //    //    e.Cancel();
-        //    //}
-        //}
-
-        //protected override void OnNavigated(ShellNavigatedEventArgs args)
-        //{
-        //    base.OnNavigated(args);
-
-        //    // Perform required logic
-        //}
     }
 }

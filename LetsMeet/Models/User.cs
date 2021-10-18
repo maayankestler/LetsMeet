@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+using LetsMeet.Data;
+
 public class User {
 
     public User() {
@@ -21,9 +23,16 @@ public class User {
 
     public HashSet<MeetingType> FavoriteTypes { get; } = new HashSet<MeetingType>();
 
-    private string[] FriendsIds;
+    private List<string> FriendsIds = new List<string>();
 
-    public HashSet<User> Friends { get; private set; } = new HashSet<User>();
+    public HashSet<User> Friends
+    {
+        get
+        {
+            List<User> friends = FriendsIds.ConvertAll(new Converter<string, User>(LetsMeet.Data.UsersData.GetUser));
+            return new HashSet<User>(friends);
+        }
+    }
 
     public string IconURL { get; set; }
 
@@ -57,20 +66,12 @@ public class User {
         return new Meeting[] { };
     }
 
-    public void LogIn() {
-        // TODO implement here
-    }
-
-    public void LogOut() {
-        // TODO implement here
-    }
-
     public void AddFavoriteType (MeetingType meeting_type)
     {
         if (!this.FavoriteTypes.Contains(meeting_type))
         {
             this.FavoriteTypes.Add(meeting_type);
-            // add to DB
+            // TODO add to DB
         }
     }
 
@@ -79,11 +80,11 @@ public class User {
         if (this.FavoriteTypes.Contains(meeting_type))
         {
             this.FavoriteTypes.Remove(meeting_type);
-            // remove from db
+            // TODO remove from db
         }
         else
         {
-            // can't find user
+            // TODO can't find user
         }
     }
 
@@ -91,22 +92,23 @@ public class User {
     {
         if (!this.Friends.Contains(user))
         {
-            this.Friends.Add(user);
-            // add to DB
+            //this.Friends.Add(user);
+            FriendsIds.Add(user.Id);
+            // TODO add to DB
         }
+    }
+
+    public bool IsFreind(User user)
+    {
+        return !this.Equals(user) && FriendsIds.Contains(user.Id);
     }
 
     public void RemoveFriend(User user)
     {
-        if (this.Friends.Contains(user))
+        if (IsFreind(user))
         {
-            this.Friends.Remove(user);
-            // remove from db
-        }
-        else
-        {
-            // can't find user
-        }
+            FriendsIds.Remove(user.Id);
+        }    
     }
 
 }

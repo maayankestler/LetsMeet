@@ -65,104 +65,6 @@
         <controls:FlyoutFooter />
     </Shell.FlyoutFooter>
 
-    <!-- Template for FlyoutHeader -->
-    <!-- Not required, as the FlyoutHeader is set above -->
-    <!--    <Shell.FlyoutHeaderTemplate>
-        <DataTemplate>
-            <Grid BackgroundColor="Black"
-                  HeightRequest="200">
-                <Image Aspect="AspectFill" 
-                       Source="xamarinstore.jpg" 
-                       Opacity="0.6" />
-                <Label Text="Animals" 
-                       TextColor="White" 
-                       FontAttributes="Bold" 
-                       HorizontalTextAlignment="Center"
-                       VerticalTextAlignment="Center" />
-            </Grid>            
-        </DataTemplate>
-    </Shell.FlyoutHeaderTemplate>-->
-
-    <!-- Template for FlyoutFooter -->
-    <!-- Not required, as the FlyoutFooter is set above -->
-    <!--<Shell.FlyoutFooterTemplate>
-        <DataTemplate>
-            <StackLayout>
-                <Label Text="LetsMeet"
-                       TextColor="GhostWhite"
-                       FontAttributes="Bold"
-                       HorizontalOptions="Center" />
-                <Label Text="{Binding Source={x:Static sys:DateTime.Now}, StringFormat='{0:MMMM dd, yyyy}'}"
-                       TextColor="GhostWhite"
-                       HorizontalOptions="Center" />
-            </StackLayout>
-        </DataTemplate>
-    </Shell.FlyoutFooterTemplate>-->
-
-    <!-- FlyoutContent -->
-    <!-- Not required, just an example -->
-    <!--<Shell.FlyoutContent>
-        <CollectionView BindingContext="{x:Reference shell}"
-                        IsGrouped="True"
-                        ItemsSource="{Binding FlyoutItems}">
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <Label Text="{Binding Title}"
-                           TextColor="White"
-                           FontSize="Large" />
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
-    </Shell.FlyoutContent>-->
-
-    <!-- Template for FlyoutContent -->
-    <!-- Not required, just an example -->
-    <!--<Shell.FlyoutContentTemplate>
-        <DataTemplate>
-            <CollectionView BindingContext="{x:Reference shell}"
-                            IsGrouped="True"
-                            ItemsSource="{Binding FlyoutItems}">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <Label Text="{Binding Title}"
-                               TextColor="White"
-                               FontSize="Large" />
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-        </DataTemplate>
-    </Shell.FlyoutContentTemplate>-->
-
-    <!-- Template each FlyoutItem -->
-    <!--    <Shell.ItemTemplate>
-        <DataTemplate>
-            <Grid ColumnDefinitions="0.2*,0.8*">
-                <Image Source="{Binding Icon}"
-                       Margin="5"
-                       HeightRequest="45" />
-                <Label Grid.Column="1"
-                       Text="{Binding Title}"
-                       FontAttributes="Italic"
-                       VerticalTextAlignment="Center" /> 
-            </Grid>
-        </DataTemplate>
-    </Shell.ItemTemplate>-->
-
-    <!-- Template each MenuItem -->
-    <!--    <Shell.MenuItemTemplate>
-        <DataTemplate>
-            <Grid ColumnDefinitions="0.2*,0.8*">
-                <Image Source="{Binding Icon}"
-                       Margin="5"
-                       HeightRequest="45" />
-                <Label Grid.Column="1"
-                       Text="{Binding Text}"
-                       FontAttributes="Italic"
-                       VerticalTextAlignment="Center" /> 
-            </Grid>
-        </DataTemplate>
-    </Shell.MenuItemTemplate>-->
-
     <ShellItem Route="login" FlyoutItemIsVisible="False">
         <ShellContent ContentTemplate="{DataTemplate views:LoginPage}"/>
     </ShellItem>
@@ -173,21 +75,16 @@
 
     <FlyoutItem Route="animals"
                 FlyoutDisplayOptions="AsMultipleItems">
-        <!--<ShellContent Route="users"
-                      Style="{StaticResource ProfileShell}"
-                      Title="Profile"
-                      Icon="profile.png"
-                      ContentTemplate="{DataTemplate views:UserPage}" />-->
         <ShellContent Route="profile"
                       Style="{StaticResource ProfileShell}"
                       Title="Profile"
                       Icon="profile.png"
-                      ContentTemplate="{DataTemplate views:UserDetailPage}" />
+                      ContentTemplate="{DataTemplate views:UserDetailPage}"/>
         <ShellContent Route="elephants"
                       Style="{StaticResource ElephantsShell}"
                       Title="Create meeting"
                       Icon="create.png"
-                      ContentTemplate="{DataTemplate views:ElephantsPage}" />
+                      ContentTemplate="{DataTemplate views:UserPage}" />
         <Tab Title="Search meetings" Route="domestic" Icon="search.png">
             <ShellContent Route="cats"
                           Style="{StaticResource DomesticShell}"

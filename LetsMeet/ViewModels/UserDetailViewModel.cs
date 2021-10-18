@@ -13,13 +13,19 @@ namespace LetsMeet.ViewModels
 {
     public class UserDetailViewModel : IQueryAttributable, INotifyPropertyChanged
     {
-        public User User { get; private set; }
-        public bool IsLoggedOnUser { get; private set; } = false;
+        public User User { get; set; }
+        public bool IsLoggedOnUser { get; set; }
+        public bool IsFriend { get; set; }
         public ICommand Logout { get; }
+        public ICommand AddFriend { get; }
+        public ICommand RemoveFriend { get; }
+        private string Id = MainViewModel.GetInstance.CurrentUser.Id;
 
         public UserDetailViewModel()
         {
             Logout = new Command(MainViewModel.GetInstance.LogOut);
+            AddFriend = new Command(AddFriend_Button_Clicked);
+            RemoveFriend = new Command(RemoveFriend_Button_Clicked);
         }
 
         public void ApplyQueryAttributes(IDictionary<string, string> query)
@@ -27,23 +33,18 @@ namespace LetsMeet.ViewModels
             if (query.ContainsKey("id"))
             {
                 // Only a single query parameter is passed, which needs URL decoding.
-                string id = HttpUtility.UrlDecode(query["id"]);
-                LoadUser(id);
-            }
-            else
-            {
-                LoadUser();
+                Id = HttpUtility.UrlDecode(query["id"]);
             }
         }
 
-        void LoadUser(string id)
+        public void LoadUser()
         {
             try
             {
-                User = UsersData.Users.FirstOrDefault(a => a.Id == id);
+                User = UsersData.Users.FirstOrDefault(a => a.Id == Id);
                 IsLoggedOnUser = User.Equals(MainViewModel.GetInstance.CurrentUser);
+                IsFriend = MainViewModel.GetInstance.CurrentUser.IsFreind(User);
                 OnPropertyChanged("User");
-                OnPropertyChanged("IsLoggedOnUser");
             }
             catch (Exception)
             {
@@ -51,9 +52,18 @@ namespace LetsMeet.ViewModels
             }
         }
 
-        void LoadUser()
+        void AddFriend_Button_Clicked()
         {
-            LoadUser(MainViewModel.GetInstance.CurrentUser.Id);
+            MainViewModel.GetInstance.CurrentUser.AddFriend(User);
+            IsFriend = true;
+            OnPropertyChanged("Friends");
+        }
+
+        void RemoveFriend_Button_Clicked()
+        {
+            MainViewModel.GetInstance.CurrentUser.RemoveFriend(User);
+            IsFriend = false;
+            OnPropertyChanged("Friends");
         }
 
         #region INotifyPropertyChanged

@@ -4,19 +4,38 @@
              x:Class="LetsMeet.Views.UserDetailPage"
              x:Name="self"
              Title="User Details">
-    <ScrollView>
-        <StackLayout Margin="20">
-            <Label Text="{Binding User.Name}" 
+    <StackLayout Margin="20">
+        <Label Text="{Binding User.Name}" 
                    HorizontalOptions="Center" 
                    Style="{DynamicResource TitleStyle}" />
-            <Image Source="{Binding User.IconURL}" 
+        <Image Source="{Binding User.IconURL}" 
                    HeightRequest="200" 
                    WidthRequest="200" 
                    HorizontalOptions="CenterAndExpand" />
-            <Label Text="{Binding User.BornDate, StringFormat='{0:dd/MM/yyyy}'}" 
+        <Label Text="{Binding User.BornDate, StringFormat='{0:dd/MM/yyyy}'}" 
                    FontAttributes="Italic" 
                    HorizontalOptions="Center" />
-            <Button x:Name="LogoutButton" Text="Logout" Command="{Binding Logout}" IsVisible="{Binding IsLoggedOnUser}"/>
-        </StackLayout>
-    </ScrollView>
+        <Button x:Name="LogoutButton" Text="Logout" Command="{Binding Logout}" IsVisible="{Binding IsLoggedOnUser}"/>
+        <Button x:Name="AddFriendButton" Text="add as friend" Command="{Binding AddFriend}">
+            <Button.Triggers>
+                <MultiTrigger TargetType="Button">
+                    <MultiTrigger.Conditions>
+                        <BindingCondition Binding="{Binding IsFriend}" Value="False"/>
+                        <BindingCondition Binding="{Binding IsLoggedOnUser}" Value="true"/>
+                    </MultiTrigger.Conditions>
+                    <Setter Property="IsVisible" Value="False" />
+                </MultiTrigger>
+                <DataTrigger TargetType="Button" Binding="{Binding IsFriend}" Value="True">
+                    <Setter Property="IsVisible" Value="False" />
+                </DataTrigger>
+            </Button.Triggers>
+        </Button>
+        <Button x:Name="RemoveFriendButton" Text="remove from friend" Command="{Binding RemoveFriend}" IsVisible="{Binding IsFriend}"/>
+        <Label Text="Friends:" />
+        <CollectionView Margin="20"
+                    ItemsSource="{Binding User.Friends}"
+                    ItemTemplate="{StaticResource UserTemplate}"
+                    SelectionMode="Single"
+                    SelectionChanged="OnCollectionViewSelectionChanged" />
+    </StackLayout>
 </ContentPage>

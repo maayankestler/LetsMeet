@@ -59,6 +59,16 @@ namespace LetsMeet.Data
             return User;
         }
 
+        public static User GetUser(string id)
+        {
+            var User = Users.Find(x => x.Id == id);
+            if (User == null)
+            {
+                System.Diagnostics.Debug.WriteLine("can't find user"); // TODO make display alert
+            }
+            return User;
+        }
+
         public static void CreateUser(User NewUser)
         {
             Users.Add(NewUser);
