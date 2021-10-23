@@ -31,11 +31,22 @@
             </Button.Triggers>
         </Button>
         <Button x:Name="RemoveFriendButton" Text="remove from friend" Command="{Binding RemoveFriend}" IsVisible="{Binding IsFriend}"/>
+        <Button x:Name="RemoveFriendsButton" Text="remove selected friends" Command="{Binding RemoveFriends}" IsVisible="{Binding IsLoggedOnUser}"/>
         <Label Text="Friends:" />
-        <CollectionView Margin="20"
+        <!--<CollectionView Margin="20"
                     ItemsSource="{Binding User.Friends}"
                     ItemTemplate="{StaticResource UserTemplate}"
                     SelectionMode="Single"
-                    SelectionChanged="OnCollectionViewSelectionChanged" />
+                    SelectionChanged="OnCollectionViewSelectionChanged" />-->
+        <CollectionView ItemsSource="{Binding User.Friends}"
+                        ItemTemplate="{StaticResource UserTemplate}"
+                        SelectionMode="None"
+                        SelectedItems="{Binding SelectedObjects, Mode=TwoWay}">
+            <CollectionView.Triggers>
+                <DataTrigger TargetType="CollectionView" Binding="{Binding IsLoggedOnUser}" Value="true">
+                    <Setter Property="SelectionMode" Value="Multiple" />
+                </DataTrigger>
+            </CollectionView.Triggers>
+        </CollectionView>
     </StackLayout>
 </ContentPage>

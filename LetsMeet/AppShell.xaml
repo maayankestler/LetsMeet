@@ -102,11 +102,11 @@
                       Icon="search.png" 
                       Style="{StaticResource DomesticShell}" 
                       ContentTemplate="{DataTemplate views:CatsPage}"/>-->
-        <ShellContent Route="bears"
+        <ShellContent Route="users"
                       Style="{StaticResource BearsShell}"
-                      Title="My meetings"
+                      Title="Users"
                       Icon="list.png"
-                      ContentTemplate="{DataTemplate views:BearsPage}" />
+                      ContentTemplate="{DataTemplate views:UserPage}" />
     </FlyoutItem>
 
     <ShellContent Route="about"

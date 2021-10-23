@@ -61,9 +61,9 @@
 
         <DataTemplate x:Key="MeetingTemplate">
             <Grid Padding="10"
-                  RowDefinitions="Auto,Auto"
+                  RowDefinitions="Auto,Auto,Auto"
                   ColumnDefinitions="Auto,Auto">
-                <Image Grid.RowSpan="2" 
+                <Image Grid.RowSpan="3" 
                        Source="{Binding IconURL}" 
                        Aspect="AspectFill"
                        HeightRequest="60" 
@@ -74,8 +74,15 @@
                        Text="{Binding Name}" 
                        FontAttributes="Bold" />
                 <Label Grid.Row="1"
-                       Grid.Column="1" 
-                       VerticalOptions="Center" >
+                       Grid.Column="1" >
+                    <Label.Text>
+                        <MultiBinding StringFormat="type: {0}">
+                            <Binding Path="Type.Name"/>
+                        </MultiBinding>
+                    </Label.Text>
+                </Label>
+                <Label Grid.Row="2"
+                       Grid.Column="1" >
                     <Label.Text>
                         <MultiBinding StringFormat="{}{0:dd/MM/yyyy HH:mm} - {1:HH:mm}">
                             <Binding Path="StartTime"/>

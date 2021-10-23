@@ -16,9 +16,9 @@ public class MeetingType {
 
     public string Id;
 
-    public string Name;
+    public string Name { get; set; }
 
-    public string IconURL;
+    public string IconURL { get; set; }
 
     private string _categoryId;
     public MeetingCategory category
@@ -30,10 +30,5 @@ public class MeetingType {
     }
 
     private string template_id;
-
-
-    public void get_type() {
-        // TODO implement here
-    }
 
 }

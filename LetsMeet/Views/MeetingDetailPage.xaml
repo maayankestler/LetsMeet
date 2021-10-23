@@ -65,20 +65,25 @@
             </Button.Triggers>
         </Button>
         <Button x:Name="CancelMeetingButton" Text="Cancel meeting" Command="{Binding CancelMeeting}" IsVisible="{Binding IsOwner}"/>
-        <Label>
-            <Label.FormattedText>
-                <FormattedString>
-                    <FormattedString.Spans>
-                        <Span Text="Owner: " FontSize="18"/>
-                        <Span Text="{Binding Meeting.Owner.Name}" FontSize="18" />
-                    </FormattedString.Spans>
-                </FormattedString>
-            </Label.FormattedText>
-        </Label>
-        <!--<Label Text="Owner:" />
-        <CollectionView
-            ItemsSource="{Binding Meeting.Owner}"
-            ItemTemplate="{StaticResource UserTemplate}"/>-->
+        
+        <StackLayout Orientation="Horizontal">
+            <Label>
+                <Label.FormattedText>
+                    <FormattedString>
+                        <FormattedString.Spans>
+                            <Span Text="Owner: " FontSize="18"/>
+                            <Span Text="{Binding Meeting.Owner.Name}" FontSize="18" />
+                        </FormattedString.Spans>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Button x:Name="RemoveMembersButton" 
+                    Text="remove members" 
+                    Command="{Binding RemoveMembers}" 
+                    IsVisible="{Binding IsOwner}" 
+                    HeightRequest="30" 
+                    FontSize="10"/>
+        </StackLayout>
         <Label>
             <Label.FormattedText>
                 <FormattedString>
@@ -90,9 +95,21 @@
                 </FormattedString>
             </Label.FormattedText>
         </Label>
-        <CollectionView
-            ItemsSource="{Binding Meeting.Members}"
-            ItemTemplate="{StaticResource UserTemplate}"/>
+        <!--<CollectionView ItemsSource="{Binding Meeting.Members}"
+                    ItemTemplate="{StaticResource UserTemplate}"
+                    SelectionMode="Multiple"
+                    SelectedItems="{Binding SelectedObjects, Mode=TwoWay}"
+                    IsVisible="{Binding IsOwner}"/>-->
+        <CollectionView ItemsSource="{Binding Meeting.Members}"
+                        ItemTemplate="{StaticResource UserTemplate}"
+                        SelectionMode="None"
+                        SelectedItems="{Binding SelectedObjects, Mode=TwoWay}">
+            <CollectionView.Triggers>
+                <DataTrigger TargetType="CollectionView" Binding="{Binding IsOwner}" Value="true">
+                    <Setter Property="SelectionMode" Value="Multiple" />
+                </DataTrigger>
+            </CollectionView.Triggers>
+        </CollectionView>
         <!--<CollectionView Margin="20"
                     ItemsSource="{Binding Meeting.Members}"
                     ItemTemplate="{StaticResource UserTemplate}"

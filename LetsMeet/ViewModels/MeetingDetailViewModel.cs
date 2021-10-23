@@ -8,6 +8,7 @@ using Xamarin.Forms;
 using LetsMeet.Data;
 using LetsMeet.Models;
 using System.Windows.Input;
+using System.Collections.ObjectModel;
 
 namespace LetsMeet.ViewModels
 {
@@ -19,12 +20,20 @@ namespace LetsMeet.ViewModels
         public ICommand JoinMeeting { get; }
         public ICommand QuitMeeting { get; }
         public ICommand CancelMeeting { get; }
+        public ICommand RemoveMembers { get; }
+        //public ICommand MeetingSelectionCommand { get; }
+        public ObservableCollection<object> SelectedObjects { get; set; }
+        public List<User> SelectedMembers { get; set; }
 
         public MeetingDetailViewModel()
         {
             JoinMeeting = new Command(JoinMeeting_Button_Clicked);
             QuitMeeting = new Command(QuitMeeting_Button_Clicked);
             CancelMeeting = new Command(CancelMeeting_Button_Clicked);
+            RemoveMembers = new Command(RemoveMembers_Button_Clicked);
+            SelectedObjects = new ObservableCollection<object>();
+            SelectedObjects.CollectionChanged += SelectedObjectsChanged;
+            SelectedMembers = new List<User>();
         }
         public void ApplyQueryAttributes(IDictionary<string, string> query)
         {
@@ -64,9 +73,27 @@ namespace LetsMeet.ViewModels
             OnPropertyChanged("Meeting");
         }
 
+        void RemoveMembers_Button_Clicked()
+        {
+            Meeting.RemoveMembers(SelectedMembers);
+            OnPropertyChanged("Meeting");
+        }
+
         void CancelMeeting_Button_Clicked()
         {
             Meeting.Cancel();
+        }
+
+        async void SelectedObjectsChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            SelectedMembers = SelectedObjects.OfType<User>().ToList();
+            // remove owner
+            var itemToRemove = SelectedMembers.SingleOrDefault(m => m.Id == Meeting.Owner.Id);
+            if (itemToRemove != null)
+            {
+                SelectedMembers.Remove(itemToRemove);
+                // SelectedObjects.Remove(itemToRemove);
+            }
         }
 
         #region INotifyPropertyChanged

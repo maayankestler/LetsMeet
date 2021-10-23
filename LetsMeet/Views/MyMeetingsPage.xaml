@@ -4,8 +4,7 @@
              xmlns:controls="clr-namespace:LetsMeet.Controls"
              xmlns:data="clr-namespace:LetsMeet.Data"
              xmlns:views="clr-namespace:LetsMeet.Views"
-             Title="Meetings list"
-             x:Class="LetsMeet.Views.MeetingsListPage">
+             x:Class="LetsMeet.Views.MyMeetingsPage">
     <ContentPage.Resources>
         <Style TargetType="Grid">
             <Setter Property="VisualStateManager.VisualStateGroups">
@@ -15,7 +14,7 @@
                         <VisualState x:Name="Selected">
                             <VisualState.Setters>
                                 <Setter Property="BackgroundColor" 
-                                        Value="#039BE6" />
+                                        Value="#546DFE" />
                             </VisualState.Setters>
                         </VisualState>
                     </VisualStateGroup>
@@ -23,16 +22,8 @@
             </Setter>
         </Style>
     </ContentPage.Resources>
-    <!--<Shell.SearchHandler>
-        <controls:MeetingsSearchHandler Placeholder="Enter search term"
-                                       ShowsResults="true"
-                                       ItemTemplate="{StaticResource MeetingSearchTemplate}"
-                                       Meetings="{x:Static data:MeetingsData.Meetings}"
-                                       SelectedItemNavigationTarget="{x:Type views:MeetingDetailPage}" />
-    </Shell.SearchHandler>-->
-
     <CollectionView Margin="20"
-                    ItemsSource="{x:Static data:MeetingsData.Meetings}"
+                    ItemsSource="{Binding MyMeetings}"
                     ItemTemplate="{StaticResource MeetingTemplate}"
                     SelectionMode="Single"
                     SelectionChanged="OnCollectionViewSelectionChanged" />

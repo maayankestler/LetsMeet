@@ -55,5 +55,15 @@ namespace LetsMeet.Data
 
             return MeetingsList;
         }
+        
+        public static List<Meeting> GetMeetingsByUser(User User)
+        {
+            return Meetings.FindAll(m => m.Members.Contains(User));
+        }
+
+        public static List<Meeting> GetMeetingsByUser(string UserId)
+        {
+            return Meetings.FindAll(m => m.Members.Exists(member => member.Id == UserId));
+        }
     }
 }

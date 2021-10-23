@@ -19,17 +19,24 @@ public class User {
 
     public string Password { get; set; }
 
-    private string[] FavoriteTypesIds;
+    private List<string> _favoriteTypesIds = new List<string>();
 
-    public HashSet<MeetingType> FavoriteTypes { get; } = new HashSet<MeetingType>();
+    public HashSet<MeetingType> FavoriteTypes
+    {
+        get
+        {
+            List<MeetingType> types = _favoriteTypesIds.ConvertAll(new Converter<string, MeetingType>(MeetingTypesData.GetMeetingType));
+            return new HashSet<MeetingType>(types);
+        }
+    }
 
-    private List<string> FriendsIds = new List<string>();
+    private List<string> _friendsIds = new List<string>();
 
     public HashSet<User> Friends
     {
         get
         {
-            List<User> friends = FriendsIds.ConvertAll(new Converter<string, User>(UsersData.GetUser));
+            List<User> friends = _friendsIds.ConvertAll(new Converter<string, User>(UsersData.GetUser));
             return new HashSet<User>(friends);
         }
     }
@@ -93,22 +100,29 @@ public class User {
         if (!this.Friends.Contains(user))
         {
             //this.Friends.Add(user);
-            FriendsIds.Add(user.Id);
+            _friendsIds.Add(user.Id);
+            user.AddFriend(this);
             // TODO add to DB
         }
     }
 
     public bool IsFreind(User user)
     {
-        return !this.Equals(user) && FriendsIds.Contains(user.Id);
+        return !this.Equals(user) && _friendsIds.Contains(user.Id);
     }
 
-    public void RemoveFriend(User user)
+    public void RemoveFriend(User friend)
     {
-        if (IsFreind(user))
+        if (IsFreind(friend))
         {
-            FriendsIds.Remove(user.Id);
+            _friendsIds.Remove(friend.Id);
+            friend.RemoveFriend(this);
         }    
+    }
+
+    public void RemoveFriends(List<User> Friends)
+    {
+        Friends.ForEach(f => RemoveFriend(f));
     }
 
 }

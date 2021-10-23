@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Xamarin.Forms;
 using LetsMeet.Data;
+//using Navigation.NavigationStack;
 
 namespace LetsMeet.ViewModels
 {
@@ -26,6 +27,8 @@ namespace LetsMeet.ViewModels
         async public void LogOut()
         {
             CurrentUser = null;
+            // clear navigation stack https://stackoverflow.com/questions/27175079/how-to-restart-the-application-using-xamarin-forms
+            (Application.Current).MainPage = new AppShell(); 
             await Shell.Current.GoToAsync("//login");
         }
 

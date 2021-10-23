@@ -103,11 +103,19 @@ public class Meeting {
     }
 
     public void AddMember(User Member) {
-        _membersIds.Add(Member.Id);
+        if (Member.age >= MinAge && Member.age <= MaxAge && _membersIds.Count < MaxMembers)
+            _membersIds.Add(Member.Id);
+        else
+            Console.WriteLine("can't join meeting");
     }
     public void RemoveMember(User Member)
     {
         _membersIds.Remove(Member.Id);
+    }
+
+    public void RemoveMembers(List<User> Members)
+    {
+        Members.ForEach(m => RemoveMember(m));
     }
 
 }
