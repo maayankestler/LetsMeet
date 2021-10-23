@@ -29,7 +29,7 @@ public class User {
     {
         get
         {
-            List<User> friends = FriendsIds.ConvertAll(new Converter<string, User>(LetsMeet.Data.UsersData.GetUser));
+            List<User> friends = FriendsIds.ConvertAll(new Converter<string, User>(UsersData.GetUser));
             return new HashSet<User>(friends);
         }
     }

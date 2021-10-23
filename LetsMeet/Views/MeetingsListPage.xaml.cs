@@ -6,23 +6,22 @@ using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using LetsMeet.Models;
 
 namespace LetsMeet.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class UserPage : ContentPage
+    public partial class MeetingsListPage : ContentPage
     {
-        public UserPage()
+        public MeetingsListPage()
         {
             InitializeComponent();
         }
 
         async void OnCollectionViewSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            string userId = (e.CurrentSelection.FirstOrDefault() as User).Id;
-            // The following route works because route names are unique in this application.
-            await Shell.Current.GoToAsync($"UserDetails?id={userId}");
+            string meetingId = (e.CurrentSelection.FirstOrDefault() as Meeting).Id;
+            //// The following route works because route names are unique in this application.
+            await Shell.Current.GoToAsync($"MeetingDetails?id={meetingId}");
         }
     }
 }

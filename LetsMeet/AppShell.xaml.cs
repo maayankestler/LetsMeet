@@ -26,9 +26,10 @@ namespace LetsMeet
             Routes.Add("catdetails", typeof(CatDetailPage));
             Routes.Add("dogdetails", typeof(DogDetailPage));
             Routes.Add("elephantdetails", typeof(ElephantDetailPage));
-            Routes.Add("userdetails", typeof(UserDetailPage));
+            Routes.Add("UserDetails", typeof(UserDetailPage));
+            Routes.Add("MeetingDetails", typeof(MeetingDetailPage));
             Routes.Add("users", typeof(UserPage));
-            //Routes.Add("register", typeof(RegistrationPage));
+            
 
             foreach (var item in Routes)
             {

@@ -3,19 +3,31 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using LetsMeet.Data;
 
 public class MeetingType {
 
-    public MeetingType() {
+    public MeetingType(string id, string name, string IconURL, string category_id) {
+        this.Id = id;
+        this.Name = name;
+        this.IconURL = IconURL;
+        this._categoryId = category_id;
     }
 
-    private string id;
+    public string Id;
 
-    private string name;
+    public string Name;
 
-    private MeetingCategory category;
+    public string IconURL;
 
-    // private image icon;
+    private string _categoryId;
+    public MeetingCategory category
+    {
+        get
+        {
+            return MeetingCatogriesData.GetCategory(_categoryId);
+        }
+    }
 
     private string template_id;
 

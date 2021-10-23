@@ -4,7 +4,7 @@
              xmlns:controls="clr-namespace:LetsMeet.Controls"
              xmlns:data="clr-namespace:LetsMeet.Data"
              xmlns:views="clr-namespace:LetsMeet.Views"
-             x:Class="LetsMeet.Views.UserPage">
+             x:Class="LetsMeet.Views.MeetingsListPage">
     <ContentPage.Resources>
         <Style TargetType="Grid">
             <Setter Property="VisualStateManager.VisualStateGroups">
@@ -14,7 +14,7 @@
                         <VisualState x:Name="Selected">
                             <VisualState.Setters>
                                 <Setter Property="BackgroundColor" 
-                                        Value="#689F39" />
+                                        Value="#039BE6" />
                             </VisualState.Setters>
                         </VisualState>
                     </VisualStateGroup>
@@ -22,23 +22,17 @@
             </Setter>
         </Style>
     </ContentPage.Resources>
-
-    <Shell.SearchHandler>
-        <controls:UsersSearchHandler Placeholder="Enter search term"
-                                      ShowsResults="true"
-                                      ItemTemplate="{StaticResource DefaultSearchTemplate}"
-                                      Users="{x:Static data:UsersData.Users}"
-                                      SelectedItemNavigationTarget="{x:Type views:UserDetailPage}" />
-    </Shell.SearchHandler>
-    <!--<Shell.TitleView>
-        <Image Source="LogoHorizontalTransparent.png"
-            HorizontalOptions="Center"
-            VerticalOptions="Center"/>
-    </Shell.TitleView>-->
+    <!--<Shell.SearchHandler>
+        <controls:MeetingsSearchHandler Placeholder="Enter search term"
+                                       ShowsResults="true"
+                                       ItemTemplate="{StaticResource MeetingSearchTemplate}"
+                                       Meetings="{x:Static data:MeetingsData.Meetings}"
+                                       SelectedItemNavigationTarget="{x:Type views:MeetingDetailPage}" />
+    </Shell.SearchHandler>-->
 
     <CollectionView Margin="20"
-                    ItemsSource="{x:Static data:UsersData.Users}"
-                    ItemTemplate="{StaticResource UserTemplate}"
+                    ItemsSource="{x:Static data:MeetingsData.Meetings}"
+                    ItemTemplate="{StaticResource MeetingTemplate}"
                     SelectionMode="Single"
                     SelectionChanged="OnCollectionViewSelectionChanged" />
 </ContentPage>

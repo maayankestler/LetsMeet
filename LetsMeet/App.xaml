@@ -59,7 +59,34 @@
             </Grid>
         </DataTemplate>
 
-        <DataTemplate x:Key="UserSearchTemplate">
+        <DataTemplate x:Key="MeetingTemplate">
+            <Grid Padding="10"
+                  RowDefinitions="Auto,Auto"
+                  ColumnDefinitions="Auto,Auto">
+                <Image Grid.RowSpan="2" 
+                       Source="{Binding IconURL}" 
+                       Aspect="AspectFill"
+                       HeightRequest="60" 
+                       WidthRequest="60"
+                       Margin="0,0,15,0" />
+                <Label Grid.Row="0"
+                       Grid.Column="1" 
+                       Text="{Binding Name}" 
+                       FontAttributes="Bold" />
+                <Label Grid.Row="1"
+                       Grid.Column="1" 
+                       VerticalOptions="Center" >
+                    <Label.Text>
+                        <MultiBinding StringFormat="{}{0:dd/MM/yyyy HH:mm} - {1:HH:mm}">
+                            <Binding Path="StartTime"/>
+                            <Binding Path="EndTime" />
+                        </MultiBinding>
+                    </Label.Text>
+                </Label>
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="DefaultSearchTemplate">
             <Grid Padding="10"
                   ColumnDefinitions="0.15*,0.85*">
                 <Image Source="{Binding IconURL}"
@@ -69,6 +96,33 @@
                        Text="{Binding Name}" 
                        FontAttributes="Bold"
                        VerticalOptions="Center" />
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="MeetingSearchTemplate">
+            <Grid Padding="10"
+                  ColumnDefinitions="0.15*,0.85*">
+                <Image Source="{Binding IconURL}"
+                       HeightRequest="40"
+                       WidthRequest="40" Grid.Column="0"/>
+                <Label Grid.Column="1" 
+                       Text="{Binding Name}" 
+                       FontAttributes="Bold"
+                       VerticalOptions="Center" />
+                <!--<Label Grid.Column="1" 
+                       Text="{Binding StartTime, StringFormat='{0:dd/MM/yyyy}'}" 
+                       FontAttributes="Bold"
+                       VerticalOptions="Center" />-->
+                <!--<Label Grid.Column="1" 
+                       FontAttributes="Bold"
+                       VerticalOptions="Center" >
+                    <Label.Text>
+                        <MultiBinding StringFormat=" {0:dd/MM/yyyy HH:mm} - {1:HH:mm}">
+                            <Binding Path="StartTime"/>
+                            <Binding Path="EndTime" />
+                        </MultiBinding>
+                    </Label.Text>
+                </Label>-->
             </Grid>
         </DataTemplate>
 

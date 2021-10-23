@@ -86,16 +86,16 @@
                       Icon="create.png"
                       ContentTemplate="{DataTemplate views:UserPage}" />
         <Tab Title="Search meetings" Route="domestic" Icon="search.png">
-            <ShellContent Route="cats"
+            <ShellContent Route="MeetingsList"
                           Style="{StaticResource DomesticShell}"
                           Title="list"
-                          Icon="cat.png"
-                          ContentTemplate="{DataTemplate views:CatsPage}" />
-            <ShellContent Route="dogs"
+                          Icon="list.png"
+                          ContentTemplate="{DataTemplate views:MeetingsListPage}" />
+            <ShellContent Route="MeetingsMap"
                           Style="{StaticResource DomesticShell}"
                           Title="map"
-                          Icon="dog.png"
-                          ContentTemplate="{DataTemplate views:DogsPage}" />
+                          Icon="map.png"
+                          ContentTemplate="{DataTemplate views:MeetingsMapPage}" />
         </Tab>
         <!--<ShellContent Title="Search meetings" 
                       Route="bears" 

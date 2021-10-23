@@ -1,26 +1,22 @@
-﻿using LetsMeet.ViewModels;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using System.Linq;
+using LetsMeet.ViewModels;
 
 namespace LetsMeet.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class UserDetailPage : ContentPage
+    public partial class MeetingDetailPage : ContentPage
     {
-        private UserDetailViewModel udvm;
-        public UserDetailPage()
+        public MeetingDetailPage()
         {
             InitializeComponent();
-            udvm = new UserDetailViewModel();
-            BindingContext = udvm;
-        }
-
-        protected override async void OnAppearing()
-        {
-            //InitializeComponent();
-            base.OnAppearing();
-            udvm.LoadUser();
+            BindingContext = new MeetingDetailViewModel();
         }
 
         async void OnCollectionViewSelectionChanged(object sender, SelectionChangedEventArgs e)

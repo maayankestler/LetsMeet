@@ -20,8 +20,8 @@ namespace LetsMeet.Data
             {
                 Id="1",
                 Name = "maayan",
-                UserName = "maayan3002",
-                Password="123456",
+                UserName = "t",
+                Password="a",
                 IconURL = "https://www.onlyou.co.il/data/EIw2xdZedc_500572.jpg",
                 BornDate = new DateTime(1997, 3, 17)
             });
@@ -41,7 +41,7 @@ namespace LetsMeet.Data
                 Id = "3",
                 Name = "tomer",
                 UserName = "t",
-                Password = "a",
+                Password = "t",
                 IconURL = "https://aux.iconspalace.com/uploads/1867938351348566395.png",
                 BornDate = new DateTime(1990, 11, 7)
             });

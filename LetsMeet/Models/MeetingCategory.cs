@@ -9,11 +9,10 @@ public class MeetingCategory {
     public MeetingCategory() {
     }
 
-    public string id;
+    public string Id;
 
-    public string name;
+    public string Name;
 
-    // public image icon;
-
+     public string IconURL;
 
 }

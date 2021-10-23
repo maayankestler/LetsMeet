@@ -19,7 +19,7 @@ namespace LetsMeet.ViewModels
         public ICommand Logout { get; }
         public ICommand AddFriend { get; }
         public ICommand RemoveFriend { get; }
-        private string Id = MainViewModel.GetInstance.CurrentUser.Id;
+        private string Id = null;
 
         public UserDetailViewModel()
         {
@@ -41,7 +41,8 @@ namespace LetsMeet.ViewModels
         {
             try
             {
-                User = UsersData.Users.FirstOrDefault(a => a.Id == Id);
+                string UserId = (Id == null) ? MainViewModel.GetInstance.CurrentUser.Id : Id;
+                User = UsersData.Users.FirstOrDefault(a => a.Id == UserId);
                 IsLoggedOnUser = User.Equals(MainViewModel.GetInstance.CurrentUser);
                 IsFriend = MainViewModel.GetInstance.CurrentUser.IsFreind(User);
                 OnPropertyChanged("User");

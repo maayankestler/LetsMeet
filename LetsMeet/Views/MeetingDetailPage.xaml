@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LetsMeet.Views.MeetingDetailPage"
+             Title="Meeting details">
+    <StackLayout Margin="20">
+        <Label Text="{Binding Meeting.Name}" 
+               HorizontalOptions="Center"
+               FontAttributes="Bold"
+               FontSize="30"
+               Style="{DynamicResource TitleStyle}" />
+        <Image Source="{Binding Meeting.IconURL}" 
+                   HeightRequest="200" 
+                   WidthRequest="200" 
+                   HorizontalOptions="CenterAndExpand" />
+        <Grid RowDefinitions="Auto,Auto,Auto" ColumnDefinitions="150,Auto">
+            <Label Text="time range:" Grid.Row="0" Grid.Column="0"/>
+            <Label FontSize="16" Grid.Row="0" Grid.Column="1">
+                <Label.Text>
+                    <MultiBinding StringFormat="{}{0:dd/MM/yyyy HH:mm} - {1:HH:mm}">
+                        <Binding Path="Meeting.StartTime"/>
+                        <Binding Path="Meeting.EndTime" />
+                    </MultiBinding>
+                </Label.Text>
+            </Label>
+            <Label Text="age range:" Grid.Row="1" Grid.Column="0"/>
+            <Label FontSize="16" Grid.Row="1" Grid.Column="1">
+                <Label.Text>
+                    <MultiBinding StringFormat="{}{0} - {1}">
+                        <Binding Path="Meeting.MinAge"/>
+                        <Binding Path="Meeting.MaxAge" />
+                    </MultiBinding>
+                </Label.Text>
+            </Label>
+            <Label Text="wanted members number:" Grid.Row="2" Grid.Column="0"/>
+            <Label FontSize="16" Grid.Row="2" Grid.Column="1">
+                <Label.Text>
+                    <MultiBinding StringFormat="{}{0} - {1}">
+                        <Binding Path="Meeting.MinMembers"/>
+                        <Binding Path="Meeting.MaxMembers" />
+                    </MultiBinding>
+                </Label.Text>
+            </Label>
+        </Grid>
+        
+        <Button x:Name="JoinMeetingButton" Text="join meeting" Command="{Binding JoinMeeting}">
+            <Button.Triggers>
+                <DataTrigger TargetType="Button" Binding="{Binding IsInMeeting}" Value="True">
+                    <Setter Property="IsVisible" Value="False" />
+                </DataTrigger>
+            </Button.Triggers>
+        </Button>
+        <Button x:Name="QuitMeetingButton" Text="Quit meeting" Command="{Binding QuitMeeting}">
+            <Button.Triggers>
+                <MultiTrigger TargetType="Button">
+                    <MultiTrigger.Conditions>
+                        <BindingCondition Binding="{Binding IsInMeeting}" Value="true"/>
+                        <BindingCondition Binding="{Binding IsOwner}" Value="true"/>
+                    </MultiTrigger.Conditions>
+                    <Setter Property="IsVisible" Value="False" />
+                </MultiTrigger>
+                <DataTrigger TargetType="Button" Binding="{Binding IsInMeeting}" Value="False">
+                    <Setter Property="IsVisible" Value="False" />
+                </DataTrigger>
+            </Button.Triggers>
+        </Button>
+        <Button x:Name="CancelMeetingButton" Text="Cancel meeting" Command="{Binding CancelMeeting}" IsVisible="{Binding IsOwner}"/>
+        <Label>
+            <Label.FormattedText>
+                <FormattedString>
+                    <FormattedString.Spans>
+                        <Span Text="Owner: " FontSize="18"/>
+                        <Span Text="{Binding Meeting.Owner.Name}" FontSize="18" />
+                    </FormattedString.Spans>
+                </FormattedString>
+            </Label.FormattedText>
+        </Label>
+        <!--<Label Text="Owner:" />
+        <CollectionView
+            ItemsSource="{Binding Meeting.Owner}"
+            ItemTemplate="{StaticResource UserTemplate}"/>-->
+        <Label>
+            <Label.FormattedText>
+                <FormattedString>
+                    <FormattedString.Spans>
+                        <Span Text="Members("/>
+                        <Span Text="{Binding Meeting.Members.Count}" />
+                        <Span Text="):"/>
+                    </FormattedString.Spans>
+                </FormattedString>
+            </Label.FormattedText>
+        </Label>
+        <CollectionView
+            ItemsSource="{Binding Meeting.Members}"
+            ItemTemplate="{StaticResource UserTemplate}"/>
+        <!--<CollectionView Margin="20"
+                    ItemsSource="{Binding Meeting.Members}"
+                    ItemTemplate="{StaticResource UserTemplate}"
+                    SelectionMode="Single"
+                    SelectionChanged="OnCollectionViewSelectionChanged" />-->
+    </StackLayout>
+</ContentPage>
