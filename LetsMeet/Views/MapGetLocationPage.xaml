@@ -14,7 +14,8 @@
             <maps:Map.ItemTemplate>
                 <DataTemplate>
                     <maps:Pin Position="{Binding .}"
-                              Label="Choose this location for your meeting"/>
+                              Label="Choose this location for your meeting"
+                              InfoWindowClicked="ChooseLocation"/>
                 </DataTemplate>
             </maps:Map.ItemTemplate>
             <!--<maps:Map.Pins>
@@ -25,6 +26,6 @@
                 </maps:Pin>
             </maps:Map.Pins>-->
         </maps:Map>
-        <Button Text="chose location" />
+        <Button Text="choose location" Clicked="ChooseLocation" />
     </StackLayout>
 </ContentPage>

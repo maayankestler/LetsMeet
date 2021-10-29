@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Web;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Maps;
@@ -12,16 +13,16 @@ using Xamarin.Forms.Xaml;
 namespace LetsMeet.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class CreateMeetingPage : ContentPage
+    public partial class CreateMeetingPage : ContentPage, IQueryAttributable
     {
         public string Name { get; set; }
         public int MinMembers { get; set; }
         public int MaxMembers { get; set; }
         public int MinAge { get; set; }
         public int MaxAge { get; set; }
-        public DateTime StartTime { get; set; }
-        public DateTime EndTime { get; set; }
-        public Position Position { get; set; } = new Position();
+        public DateTime StartTime { get; set; } = DateTime.Now.Add(new TimeSpan(1, 0, 0, 0));
+        public DateTime EndTime { get; set; } = DateTime.Now.Add(new TimeSpan(1, 2, 0, 0));
+        public Position Position { get; set; }
 
         public string TpyeId = "1";
         public MeetingType Type
@@ -54,18 +55,6 @@ namespace LetsMeet.Views
         {
             InitializeComponent();
             IconURL = Type.IconURL;
-            // get location
-            //var request = new GeolocationRequest(GeolocationAccuracy.Medium);
-            //var location = await Geolocation.GetLocationAsync(request);
-            //if (location != null)
-            //{
-            //    position = new position(location.latitude, location.longitude);
-            //}
-
-            //var locator = CrossGeolocator.Current;
-            //var position = await locator.GetPositionAsync(10000);
-            //position = new Position(position.Latitude, position.Longitude);
-
             BindingContext = this;
         }
 
@@ -81,16 +70,29 @@ namespace LetsMeet.Views
 
         protected override async void OnAppearing()
         {
-            var request = new GeolocationRequest(GeolocationAccuracy.Low, TimeSpan.FromSeconds(10));
-            CancellationTokenSource cts = new CancellationTokenSource();
-            Location location = await Geolocation.GetLocationAsync(request, cts.Token);
-
-            if (location != null)
+            // if Position not initialized
+            if (Position.Latitude == 0 && Position.Latitude == 0)
             {
-                Console.WriteLine($"Latitude: {location.Latitude}, Longitude: {location.Longitude}, Altitude: {location.Altitude}");
-                Position = new Position(location.Latitude, location.Longitude);
+                // get current location
+                var request = new GeolocationRequest(GeolocationAccuracy.Low, TimeSpan.FromSeconds(10));
+                CancellationTokenSource cts = new CancellationTokenSource();
+                Location location = await Geolocation.GetLocationAsync(request, cts.Token);
+
+                if (location != null)
+                {
+                    Position = new Position(location.Latitude, location.Longitude);
+                }
             }
             base.OnAppearing();
+        }
+
+        public void ApplyQueryAttributes(IDictionary<string, string> query)
+        {
+            if (query.ContainsKey("Latitude") && query.ContainsKey("Longitude"))
+            {
+                Position = new Position(Convert.ToDouble(HttpUtility.UrlDecode(query["Latitude"])),
+                                        Convert.ToDouble(HttpUtility.UrlDecode(query["Longitude"])));
+            }          
         }
     }
 }

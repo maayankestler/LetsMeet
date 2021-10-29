@@ -11,18 +11,22 @@ using Xamarin.Forms.Xaml;
 using Xamarin.Forms.Maps;
 using Xamarin.Essentials;
 using System.Threading;
+using System.Collections.ObjectModel;
+using System.Collections;
 
 namespace LetsMeet.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MapGetLocationPage : ContentPage, INotifyPropertyChanged
     {
-        public Position CurrentPosition { get; set; } = new Position(32, 35);
-        public List<Position> PositionsList { get; set; } = new List<Position>();
+        public Position CurrentPosition { get; set; } = new Position();
+
+        public ObservableCollection<Position> _positionsList { get; set; } = new ObservableCollection<Position>();
+        public IEnumerable PositionsList => _positionsList;
+       
         public MapGetLocationPage()
         {
             InitializeComponent();
-            PositionsList.Add(CurrentPosition);
             BindingContext = this;
         }
         
@@ -30,8 +34,8 @@ namespace LetsMeet.Views
         {
             CurrentPosition = e.Position;
             //PositionsList = new List<Position>();
-            PositionsList.Add(CurrentPosition);
-            // OnPropertyChanged("CurrentPosition");
+            _positionsList = new ObservableCollection<Position>();
+            _positionsList.Add(CurrentPosition);
             OnPropertyChanged("PositionsList");
         }
 
@@ -48,7 +52,7 @@ namespace LetsMeet.Views
             if (location != null)
             {
                 CurrentPosition = new Position(location.Latitude, location.Longitude);
-                PositionsList.Add(CurrentPosition);
+                _positionsList.Add(CurrentPosition);
                 ChooseMapControl.MoveToRegion(MapSpan.FromCenterAndRadius(CurrentPosition, Distance.FromMiles(1)));
             }
             base.OnAppearing();
@@ -66,5 +70,10 @@ namespace LetsMeet.Views
         }
 
         #endregion
+
+        async private void ChooseLocation(object sender, EventArgs e)
+        {
+            await Shell.Current.GoToAsync($"..?Latitude={CurrentPosition.Latitude}&Longitude={CurrentPosition.Longitude}");
+        }
     }
 }

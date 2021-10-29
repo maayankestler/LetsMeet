@@ -13,9 +13,9 @@
             <Label Text="meeting name:"/>
             <Entry Placeholder="name" Text="{Binding Name}"/>
             <Label Text="start time"/>
-            <DatePicker Date="{Binding StartTime}" Format="dd/MM/yyyy"/>
+            <DatePicker Date="{Binding StartTime}" Format="dd/MM/yyyy - hh:mm:ss"/>
             <Label Text="end time"/>
-            <DatePicker Date="{Binding EndTime}" Format="dd/MM/yyyy"/>
+            <DatePicker Date="{Binding EndTime}" Format="dd/MM/yyyy - hh:mm:ss"/>
             <Label Text="min age"/>
             <Entry Text="{Binding MinAge}"/>
             <Label Text="max age"/>
