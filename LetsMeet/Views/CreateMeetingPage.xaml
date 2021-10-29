@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LetsMeet.Views.CreateMeetingPage"
+             Title="Create Meeting">
+    <ScrollView>
+        <!--<Grid RowDefinitions="Auto,*">
+            <ScrollView Grid.Row="1">-->
+        <StackLayout Orientation="Vertical" 
+                        Padding="16,40,16,40"
+                        Spacing="10">
+            <Image BindingContext="{x:Reference IconURLEntry}" Source="{Binding Path=Text}" HeightRequest="200" WidthRequest="200"/>
+            <Label Text="meeting name:"/>
+            <Entry Placeholder="name" Text="{Binding Name}"/>
+            <Label Text="start time"/>
+            <DatePicker Date="{Binding StartTime}" Format="dd/MM/yyyy"/>
+            <Label Text="end time"/>
+            <DatePicker Date="{Binding EndTime}" Format="dd/MM/yyyy"/>
+            <Label Text="min age"/>
+            <Entry Text="{Binding MinAge}"/>
+            <Label Text="max age"/>
+            <Entry Text="{Binding MaxAge}"/>
+            <Label Text="min members"/>
+            <Entry Text="{Binding MinMembers}"/>
+            <Label Text="max members"/>
+            <Entry Text="{Binding MaxMembers}"/>
+            <Label Text="icon URL"/>
+            <Entry x:Name="IconURLEntry" Placeholder="icon URL" Text="{Binding IconURL, Mode=TwoWay}"/>
+            <Label Text="Position Latitude"/>
+            <Entry Text="{Binding Position.Latitude, Mode=TwoWay}"/>
+            <Label Text="Position Longitude"/>
+            <Entry Text="{Binding Position.Longitude, Mode=TwoWay}"/>
+            <Button Text="set location" Clicked="set_location_clicked"/>
+            <Button Text="Create" Clicked="create_meeting_clicked"/>
+        </StackLayout>
+            <!--</ScrollView>
+        </Grid>-->
+    </ScrollView>
+</ContentPage>

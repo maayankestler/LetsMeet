@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 
 using LetsMeet.Data;
+using Xamarin.Forms.Maps;
 
 public class Meeting {
 
@@ -25,6 +26,7 @@ public class Meeting {
         this.MaxMembers = max_members;
         this.MinAge = min_age;
         this.MaxAge = max_age;
+        this.Position = new Position(); // TODO get from args
     }
 
     public string Id { get; set; }
@@ -92,7 +94,7 @@ public class Meeting {
         }
     }
 
-
+    public Position Position { get; set; }
 
     public void Cancel() {
         // TODO implement here

@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:maps="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps"
+             x:Class="LetsMeet.Views.MapGetLocationPage">
+    <StackLayout>
+        <maps:Map IsShowingUser="True" 
+                  MapType="Street"
+                  x:Name="ChooseMapControl"
+                  ItemsSource="{Binding PositionsList, Mode=TwoWay}"
+                  MapClicked="HandleMapClicked"
+                  HasScrollEnabled="True" 
+                  HasZoomEnabled="True">
+            <maps:Map.ItemTemplate>
+                <DataTemplate>
+                    <maps:Pin Position="{Binding .}"
+                              Label="Choose this location for your meeting"/>
+                </DataTemplate>
+            </maps:Map.ItemTemplate>
+            <!--<maps:Map.Pins>
+                <maps:Pin Label="Santa Cruz"
+                          Address="The city with a boardwalk"
+                          Position="{Binding CurrentPosition}"
+                          Type="Place">
+                </maps:Pin>
+            </maps:Map.Pins>-->
+        </maps:Map>
+        <Button Text="chose location" />
+    </StackLayout>
+</ContentPage>

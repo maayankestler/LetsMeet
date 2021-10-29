@@ -1,12 +1,27 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:maps="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps"
              x:Class="LetsMeet.Views.MeetingsMapPage">
-    <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
-    </ContentPage.Content>
+    <maps:Map IsShowingUser="True" 
+              x:Name="MapControl"
+              MapType="Street" 
+              MapClicked="HandleMapClicked"
+              ItemsSource="{Binding AvailableMeetings }"
+              HasScrollEnabled="True" 
+              HasZoomEnabled="True" >
+        <!--<maps:Map.GestureRecognizers>
+            <TapGestureRecognizer Command="{Binding MapClickedCommand }" />
+        </maps:Map.GestureRecognizers>-->
+        <!--<maps:Map.Behaviors>
+            <bindings:MapClickedToCommandBehavior Command="{Binding MapClickedCommand}"/>
+        </maps:Map.Behaviors>-->
+        <maps:Map.ItemTemplate>
+            <DataTemplate>
+                <maps:Pin Position="{Binding Position}"
+                          Address="change this address"
+                          Label="change this label" />
+            </DataTemplate>
+        </maps:Map.ItemTemplate>
+    </maps:Map>
 </ContentPage>

@@ -11,7 +11,7 @@ namespace LetsMeet.Droid
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-
+            Xamarin.FormsMaps.Init(this, savedInstanceState);
             Window.SetStatusBarColor(Android.Graphics.Color.Argb(255, 0, 0, 0));
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);

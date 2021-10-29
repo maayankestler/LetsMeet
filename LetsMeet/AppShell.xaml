@@ -80,11 +80,11 @@
                       Title="Profile"
                       Icon="profile.png"
                       ContentTemplate="{DataTemplate views:UserDetailPage}"/>
-        <ShellContent Route="elephants"
+        <ShellContent Route="CreateMeeting"
                       Style="{StaticResource ElephantsShell}"
                       Title="Create meeting"
                       Icon="create.png"
-                      ContentTemplate="{DataTemplate views:UserPage}" />
+                      ContentTemplate="{DataTemplate views:CreateMeetingPage}" />
         <Tab Title="Search meetings" Route="domestic" Icon="search.png">
             <ShellContent Route="MeetingsList"
                           Style="{StaticResource DomesticShell}"

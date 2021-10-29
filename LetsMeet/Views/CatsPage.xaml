@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              xmlns:controls="clr-namespace:LetsMeet.Controls"
              xmlns:data="clr-namespace:LetsMeet.Data"
              xmlns:views="clr-namespace:LetsMeet.Views"
@@ -37,7 +36,7 @@
             HorizontalOptions="Center"
             VerticalOptions="Center"/>
     </Shell.TitleView>-->
-    <xct:TabView TabStripPlacement="Top">
+    <!--<xct:TabView TabStripPlacement="Top">
         <xct:TabViewItem Text="list" BackgroundColor="#2196F3" TextColor="White" TextColorSelected="Black"  HeightRequest="70" Icon="list.png">
             <StackLayout Margin="0,0,0,0">
                     <Frame BackgroundColor="#2196F3" Padding="24" CornerRadius="0">
@@ -79,7 +78,7 @@
                 </Label>
             </StackLayout>
         </xct:TabViewItem>
-    </xct:TabView>
+    </xct:TabView>-->
     
     <!--<CollectionView Margin="20"
                     ItemsSource="{x:Static data:CatData.Cats}"

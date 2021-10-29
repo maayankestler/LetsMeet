@@ -29,7 +29,8 @@ namespace LetsMeet
             Routes.Add("UserDetails", typeof(UserDetailPage));
             Routes.Add("MeetingDetails", typeof(MeetingDetailPage));
             Routes.Add("users", typeof(UserPage));
-            
+            Routes.Add("ChooseLocation", typeof(MapGetLocationPage));
+
 
             foreach (var item in Routes)
             {
