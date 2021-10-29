@@ -10,12 +10,6 @@
               ItemsSource="{Binding AvailableMeetings }"
               HasScrollEnabled="True" 
               HasZoomEnabled="True" >
-        <!--<maps:Map.GestureRecognizers>
-            <TapGestureRecognizer Command="{Binding MapClickedCommand }" />
-        </maps:Map.GestureRecognizers>-->
-        <!--<maps:Map.Behaviors>
-            <bindings:MapClickedToCommandBehavior Command="{Binding MapClickedCommand}"/>
-        </maps:Map.Behaviors>-->
         <maps:Map.ItemTemplate>
             <DataTemplate>
                 <maps:Pin Position="{Binding Position}"

@@ -9,28 +9,20 @@ namespace LetsMeet.Data
         public static List<MeetingCategory> MeetingCategories { get; private set; }
         static MeetingCatogriesData()
         {
-            MeetingCategories = new List<MeetingCategory>();
+            MeetingCategories = GetAllMeetingCategories();
+        }
 
-            MeetingCategories.Add(new MeetingCategory
-            {
-                Id="1",
-                Name="Sport",
-                IconURL= "https://png.pngtree.com/png-clipart/20190613/original/pngtree-cartoon-sports-fitness-equipment-png-image_3594503.jpg"
-            });
+        public static List<MeetingCategory> GetAllMeetingCategories()
+        {
+            List<MeetingCategory> MeetingCategoriesList = new List<MeetingCategory>();
 
-            MeetingCategories.Add(new MeetingCategory
-            {
-                Id = "2",
-                Name = "Board and cards games",
-                IconURL = "https://png.pngtree.com/png-clipart/20190920/original/pngtree-card-game-cartoon-illustration-png-image_4651168.jpg"
-            });
+            MeetingCategoriesList.Add(new MeetingCategory("1", "Sport", "https://png.pngtree.com/png-clipart/20190613/original/pngtree-cartoon-sports-fitness-equipment-png-image_3594503.jpg"));
 
-            MeetingCategories.Add(new MeetingCategory
-            {
-                Id = "3",
-                Name = "Social",
-                IconURL = "https://png.pngtree.com/png-clipart/20190604/original/pngtree-friend-png-image_1280871.jpg"
-            });
+            MeetingCategoriesList.Add(new MeetingCategory("2", "Board and cards games", "https://png.pngtree.com/png-clipart/20190920/original/pngtree-card-game-cartoon-illustration-png-image_4651168.jpg"));
+
+            MeetingCategoriesList.Add(new MeetingCategory("3", "Social", "https://png.pngtree.com/png-clipart/20190604/original/pngtree-friend-png-image_1280871.jpg"));
+
+            return MeetingCategoriesList;
         }
 
         public static MeetingCategory GetCategory(string id)

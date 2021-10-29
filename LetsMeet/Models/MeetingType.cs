@@ -11,21 +11,21 @@ public class MeetingType {
         this.Id = id;
         this.Name = name;
         this.IconURL = IconURL;
-        this._categoryId = category_id;
+        this.CategoryId = category_id;
     }
 
-    public string Id;
+    public string Id { get; private set; }
 
     public string Name { get; set; }
 
     public string IconURL { get; set; }
 
-    private string _categoryId;
+    public string CategoryId { get; private set; }
     public MeetingCategory category
     {
         get
         {
-            return MeetingCatogriesData.GetCategory(_categoryId);
+            return MeetingCatogriesData.GetCategory(CategoryId);
         }
     }
 

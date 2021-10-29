@@ -65,5 +65,10 @@ namespace LetsMeet.Data
         {
             return Meetings.FindAll(m => m.Members.Exists(member => member.Id == UserId));
         }
+
+        public static void CreateMeeting(Meeting m)
+        {
+            Meetings.Add(m);
+        }
     }
 }

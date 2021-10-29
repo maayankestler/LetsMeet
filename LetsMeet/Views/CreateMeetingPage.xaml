@@ -1,15 +1,54 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:data="clr-namespace:LetsMeet.Data"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              x:Class="LetsMeet.Views.CreateMeetingPage"
+             xmlns:views="clr-namespace:LetsMeet.Views"
+             x:Name="CreateMeeting"
              Title="Create Meeting">
     <ScrollView>
-        <!--<Grid RowDefinitions="Auto,*">
-            <ScrollView Grid.Row="1">-->
         <StackLayout Orientation="Vertical" 
                         Padding="16,40,16,40"
                         Spacing="10">
             <Image BindingContext="{x:Reference IconURLEntry}" Source="{Binding Path=Text}" HeightRequest="200" WidthRequest="200"/>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="choose meeting type:"/>
+                <Label Text="{Binding Type.Name}" FontAttributes="Bold"/>
+            </StackLayout>
+            <CollectionView ItemsSource="{x:Static data:MeetingCatogriesData.MeetingCategories}"
+                            HeightRequest="300"
+                            BackgroundColor="AliceBlue">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <xct:Expander>
+                            <xct:Expander.Header>
+                                <Grid Padding="10"
+                              RowDefinitions="Auto,Auto"
+                              ColumnDefinitions="Auto,Auto">
+                                    <Image Grid.RowSpan="2" 
+                                   Source="{Binding IconURL}" 
+                                   Aspect="AspectFill"
+                                   HeightRequest="60" 
+                                   WidthRequest="60" />
+                                    <Label Grid.Column="1" 
+                                   Text="{Binding Name}" 
+                                   FontAttributes="Bold" />
+                                </Grid>
+                            </xct:Expander.Header>
+                            <xct:Expander.Content>
+                                <CollectionView ItemsSource="{Binding Types}"
+                                        ItemTemplate="{StaticResource MeetingsTypeTemplate}" 
+                                        Margin="50,0,0,0"
+                                        HeightRequest="300"
+                                        BackgroundColor="Bisque"
+                                        SelectedItem="{Binding Path=Type, Mode=TwoWay, Source={x:Reference Name=CreateMeeting}}"
+                                        SelectionMode="Single"/>
+                            </xct:Expander.Content>
+                        </xct:Expander>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
             <Label Text="meeting name:"/>
             <Entry Placeholder="name" Text="{Binding Name}"/>
             <Label Text="start time"/>
@@ -33,7 +72,5 @@
             <Button Text="set location" Clicked="set_location_clicked"/>
             <Button Text="Create" Clicked="create_meeting_clicked"/>
         </StackLayout>
-            <!--</ScrollView>
-        </Grid>-->
     </ScrollView>
 </ContentPage>

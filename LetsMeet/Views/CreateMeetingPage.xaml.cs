@@ -10,6 +10,10 @@ using Xamarin.Forms;
 using Xamarin.Forms.Maps;
 using Xamarin.Forms.Xaml;
 
+using LetsMeet.Data;
+using LetsMeet.Models;
+using LetsMeet.ViewModels;
+
 namespace LetsMeet.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
@@ -24,33 +28,20 @@ namespace LetsMeet.Views
         public DateTime EndTime { get; set; } = DateTime.Now.Add(new TimeSpan(1, 2, 0, 0));
         public Position Position { get; set; }
 
-        public string TpyeId = "1";
+        private string _typeId = "1";
         public MeetingType Type
         {
             get
             {
-                return Data.MeetingTypesData.GetMeetingType(this.TpyeId);
-            }
-        }
-        private string _iconURL = null;
-        public string IconURL
-        {
-            get
-            {
-                if (_iconURL == null)
-                {
-                    return Type.IconURL;
-                }
-                else
-                {
-                    return _iconURL;
-                }
+                return Data.MeetingTypesData.GetMeetingType(_typeId);
             }
             set
             {
-                _iconURL = value;
+                IconURL = value.IconURL;
+                _typeId = value.Id;
             }
         }
+        public string IconURL { get; set; }
         public CreateMeetingPage()
         {
             InitializeComponent();
@@ -65,7 +56,10 @@ namespace LetsMeet.Views
 
         private void create_meeting_clicked(object sender, EventArgs e)
         {
-
+            Meeting m = new Meeting(
+                "8", // TODO generate ids
+                Name, IconURL, _typeId, StartTime, EndTime, MainViewModel.GetInstance.CurrentUser.Id, MinMembers, MaxMembers, MinAge, MaxAge);
+            MeetingsData.CreateMeeting(m);
         }
 
         protected override async void OnAppearing()
