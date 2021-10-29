@@ -21,11 +21,6 @@ namespace LetsMeet
 
         void RegisterRoutes()
         {
-            Routes.Add("monkeydetails", typeof(MonkeyDetailPage));
-            Routes.Add("beardetails", typeof(BearDetailPage));
-            Routes.Add("catdetails", typeof(CatDetailPage));
-            Routes.Add("dogdetails", typeof(DogDetailPage));
-            Routes.Add("elephantdetails", typeof(ElephantDetailPage));
             Routes.Add("UserDetails", typeof(UserDetailPage));
             Routes.Add("MeetingDetails", typeof(MeetingDetailPage));
             Routes.Add("users", typeof(UserPage));

@@ -11,6 +11,7 @@ using Xamarin.Forms.Xaml;
 using Xamarin.Forms.Maps;
 using LetsMeet.Data;
 using LetsMeet.ViewModels;
+using LetsMeet.Models;
 
 
 namespace LetsMeet.Views

@@ -8,6 +8,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using LetsMeet.Data;
 using LetsMeet.ViewModels;
+using LetsMeet.Models;
 
 namespace LetsMeet.Views
 {
