@@ -16,6 +16,7 @@ using System.Collections.ObjectModel;
 using System.Collections;
 using Xamarin.Essentials;
 using System.Threading;
+using LetsMeet.Controls;
 
 namespace LetsMeet.Views
 {
@@ -34,25 +35,17 @@ namespace LetsMeet.Views
         }
         async private void Pin_InfoWindowClicked(object sender, PinClickedEventArgs e)
         {
-            //string meetingId = (e.CurrentSelection.FirstOrDefault() as Meeting).Id;
-            //await Shell.Current.GoToAsync($"MeetingDetails?id={meetingId}");
+            MeetingPin meeting_pin = sender as MeetingPin;
+            await Shell.Current.GoToAsync($"MeetingDetails?id={meeting_pin.Meeting.Id}");
         }
 
         protected override async void OnAppearing()
         {
-            Location location;
-            location = await Geolocation.GetLastKnownLocationAsync();
-            if (location == null)
-            {
-                var request = new GeolocationRequest(GeolocationAccuracy.Medium, TimeSpan.FromSeconds(10));
-                CancellationTokenSource cts = new CancellationTokenSource();
-                location = await Geolocation.GetLocationAsync(request, cts.Token);
-            }
-            if (location != null)
-            {
-                Position CurrentPosition = new Position(location.Latitude, location.Longitude);
-                MapControl.MoveToRegion(MapSpan.FromCenterAndRadius(CurrentPosition, Distance.FromMiles(1)));
-            }
+            var request = new GeolocationRequest(GeolocationAccuracy.Medium, TimeSpan.FromSeconds(10));
+            CancellationTokenSource cts = new CancellationTokenSource();
+            Location location = await Geolocation.GetLocationAsync(request, cts.Token);
+            Position CurrentPosition = new Position(location.Latitude, location.Longitude);
+            ChooseMapControl.MoveToRegion(MapSpan.FromCenterAndRadius(CurrentPosition, Distance.FromMiles(1)));
             base.OnAppearing();
         }
     }

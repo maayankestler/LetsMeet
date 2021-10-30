@@ -70,12 +70,14 @@ namespace LetsMeet.ViewModels
         void JoinMeeting_Button_Clicked()
         {
             Meeting.AddMember(MainViewModel.GetInstance.CurrentUser);
+            OnPropertyChanged("IsInMeeting"); 
             OnPropertyChanged("Meeting");
         }
 
         void QuitMeeting_Button_Clicked()
         {
             Meeting.RemoveMember(MainViewModel.GetInstance.CurrentUser);
+            OnPropertyChanged("IsInMeeting");
             OnPropertyChanged("Meeting");
         }
 

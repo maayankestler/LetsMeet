@@ -41,7 +41,7 @@ namespace LetsMeet.Data
                 4,
                 16,
                 60,
-                new Position(42, 43)));
+                new Position(32.2155361580173, 34.9895503744483)));
             MeetingsList.Add(new Meeting(
                 "3",
                 "pokerrrr",
@@ -54,7 +54,7 @@ namespace LetsMeet.Data
                 6,
                 18,
                 80,
-                new Position(42.5, 43)));
+                new Position(32.2289114408791, 35.0048205256462)));
 
             return MeetingsList; // TODO return only available
         }
@@ -62,6 +62,11 @@ namespace LetsMeet.Data
         public static List<Meeting> GetMeetingsByUser(User User)
         {
             return Meetings.FindAll(m => m.Members.Contains(User));
+        }
+
+        public static Meeting GetMeetingById(string MeetingId)
+        {
+            return Meetings.Find(m => m.Id == MeetingId);
         }
 
         public static List<Meeting> GetMeetingsByUser(string UserId)
