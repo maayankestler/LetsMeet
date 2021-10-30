@@ -22,12 +22,5 @@ namespace LetsMeet.Views
             base.OnAppearing();
             udvm.LoadUser();
         }
-
-        async void OnCollectionViewSelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            // TODO
-            //string userId = (e.CurrentSelection.FirstOrDefault() as User).Id;
-            //await Shell.Current.GoToAsync($"UserDetails?id={userId}");
-        }
     }
 }

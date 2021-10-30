@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using LetsMeet.Models;
+using Xamarin.Forms.Maps;
 
 namespace LetsMeet.Data
 {
@@ -15,7 +16,7 @@ namespace LetsMeet.Data
         public static List<Meeting> GetAllMeetings()
         {
             List<Meeting> MeetingsList = new List<Meeting>();
-            Meeting m = new Meeting(
+            MeetingsList.Add(new Meeting(
                 "1",
                 "soccer brother",
                 "https://png.pngtree.com/png-clipart/20190611/original/pngtree-beautiful-blue-cartoon-soccer-field-png-image_2749691.jpg",
@@ -23,11 +24,11 @@ namespace LetsMeet.Data
                 new DateTime(2021, 10, 23, 12, 0, 0),
                 new DateTime(2021, 10, 23, 15, 0, 0),
                 "1",
-                10, 
+                10,
                 15,
                 15,
-                30);
-            MeetingsList.Add(m);
+                30,
+                new Position(12, 13)));
             MeetingsList.Add(new Meeting(
                 "2",
                 "catan kings",
@@ -39,7 +40,8 @@ namespace LetsMeet.Data
                 3,
                 4,
                 16,
-                60));
+                60,
+                new Position(32.2155361580173, 34.9895503744483)));
             MeetingsList.Add(new Meeting(
                 "3",
                 "pokerrrr",
@@ -51,9 +53,10 @@ namespace LetsMeet.Data
                 4,
                 6,
                 18,
-                80));
+                80,
+                new Position(32.2289114408791, 35.0048205256462)));
 
-            return MeetingsList;
+            return MeetingsList; // TODO return only available
         }
         
         public static List<Meeting> GetMeetingsByUser(User User)
@@ -61,9 +64,19 @@ namespace LetsMeet.Data
             return Meetings.FindAll(m => m.Members.Contains(User));
         }
 
+        public static Meeting GetMeetingById(string MeetingId)
+        {
+            return Meetings.Find(m => m.Id == MeetingId);
+        }
+
         public static List<Meeting> GetMeetingsByUser(string UserId)
         {
             return Meetings.FindAll(m => m.Members.Exists(member => member.Id == UserId));
+        }
+
+        public static void CreateMeeting(Meeting m)
+        {
+            Meetings.Add(m);
         }
     }
 }

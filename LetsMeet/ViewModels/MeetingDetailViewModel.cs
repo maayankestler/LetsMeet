@@ -15,13 +15,24 @@ namespace LetsMeet.ViewModels
     class MeetingDetailViewModel : IQueryAttributable, INotifyPropertyChanged
     {
         public Meeting Meeting { get; set; }
-        public bool IsInMeeting { get; private set; }
-        public bool IsOwner { get; private set; }
+        public bool IsInMeeting
+        {
+            get
+            {
+                return (Meeting != null && Meeting.Members.Contains(MainViewModel.GetInstance.CurrentUser));
+            }
+        }
+        public bool IsOwner 
+        { 
+            get
+            {
+                return (Meeting != null && Meeting.Owner == MainViewModel.GetInstance.CurrentUser);
+            }
+        }
         public ICommand JoinMeeting { get; }
         public ICommand QuitMeeting { get; }
         public ICommand CancelMeeting { get; }
         public ICommand RemoveMembers { get; }
-        //public ICommand MeetingSelectionCommand { get; }
         public ObservableCollection<object> SelectedObjects { get; set; }
         public List<User> SelectedMembers { get; set; }
 
@@ -49,9 +60,6 @@ namespace LetsMeet.ViewModels
             try
             {
                 Meeting = MeetingsData.Meetings.FirstOrDefault(a => a.Id == id);
-                IsInMeeting = (Meeting.Members.Contains(MainViewModel.GetInstance.CurrentUser));
-                IsOwner = (Meeting.Owner.Id == MainViewModel.GetInstance.CurrentUser.Id);
-                //OnPropertyChanged("Meeting");
             }
             catch (Exception)
             {
@@ -62,14 +70,14 @@ namespace LetsMeet.ViewModels
         void JoinMeeting_Button_Clicked()
         {
             Meeting.AddMember(MainViewModel.GetInstance.CurrentUser);
-            IsInMeeting = true;
+            OnPropertyChanged("IsInMeeting"); 
             OnPropertyChanged("Meeting");
         }
 
         void QuitMeeting_Button_Clicked()
         {
             Meeting.RemoveMember(MainViewModel.GetInstance.CurrentUser);
-            IsInMeeting = false;
+            OnPropertyChanged("IsInMeeting");
             OnPropertyChanged("Meeting");
         }
 
@@ -84,7 +92,7 @@ namespace LetsMeet.ViewModels
             Meeting.Cancel();
         }
 
-        async void SelectedObjectsChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        void SelectedObjectsChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
             SelectedMembers = SelectedObjects.OfType<User>().ToList();
             // remove owner

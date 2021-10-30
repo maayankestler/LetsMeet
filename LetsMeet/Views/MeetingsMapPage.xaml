@@ -2,26 +2,32 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              xmlns:maps="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps"
-             x:Class="LetsMeet.Views.MeetingsMapPage">
-    <maps:Map IsShowingUser="True" 
-              x:Name="MapControl"
-              MapType="Street" 
-              MapClicked="HandleMapClicked"
-              ItemsSource="{Binding AvailableMeetings }"
-              HasScrollEnabled="True" 
-              HasZoomEnabled="True" >
-        <!--<maps:Map.GestureRecognizers>
-            <TapGestureRecognizer Command="{Binding MapClickedCommand }" />
-        </maps:Map.GestureRecognizers>-->
-        <!--<maps:Map.Behaviors>
-            <bindings:MapClickedToCommandBehavior Command="{Binding MapClickedCommand}"/>
-        </maps:Map.Behaviors>-->
-        <maps:Map.ItemTemplate>
-            <DataTemplate>
-                <maps:Pin Position="{Binding Position}"
-                          Address="change this address"
-                          Label="change this label" />
-            </DataTemplate>
-        </maps:Map.ItemTemplate>
-    </maps:Map>
+             xmlns:controls="clr-namespace:LetsMeet.Controls"
+             x:Class="LetsMeet.Views.MeetingsMapPage"
+             Title="Meetings map">
+    <StackLayout>
+        <maps:Map IsShowingUser="True" 
+                  x:Name="ChooseMapControl"
+                  MapType="Street" 
+                  ItemsSource="{Binding AvailableMeetings }"
+                  HasScrollEnabled="True" 
+                  HasZoomEnabled="True" >
+            <maps:Map.ItemTemplate>
+                <DataTemplate>
+                    <controls:MeetingPin Position="{Binding Position}"
+                                         Meeting ="{Binding .}"
+                                         Label="{Binding Name, StringFormat='check {0}' }"
+                                         InfoWindowClicked="Pin_InfoWindowClicked"/>
+                </DataTemplate>
+            </maps:Map.ItemTemplate>
+        </maps:Map>
+        <StackLayout Orientation="Horizontal">
+            <Label Text="owned by me"/>
+            <CheckBox IsChecked="{Binding OwnedByMe, Mode=TwoWay}"/>
+            <Label Text="owned by friend"/>
+            <CheckBox IsChecked="{Binding OwnedByFriend, Mode=TwoWay}"/>
+            <Label Text="I am member"/>
+            <CheckBox IsChecked="{Binding Member, Mode=TwoWay}"/>
+        </StackLayout>
+    </StackLayout>
 </ContentPage>

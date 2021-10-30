@@ -12,7 +12,7 @@ namespace LetsMeet.Models
     {
 
         public Meeting(string id, string name, string IconURL, string type_id, DateTime StartTime, DateTime EndTime,
-                       string owner_id, int min_members, int max_members, int min_age, int max_age)
+                       string owner_id, int min_members, int max_members, int min_age, int max_age, Position position)
         {
             this.Id = id;
             this.Name = name;
@@ -28,7 +28,7 @@ namespace LetsMeet.Models
             this.MaxMembers = max_members;
             this.MinAge = min_age;
             this.MaxAge = max_age;
-            this.Position = new Position(); // TODO get from args
+            this.Position = position;
         }
 
         public string Id { get; set; }
@@ -84,7 +84,7 @@ namespace LetsMeet.Models
 
         public DateTime EndTime { get; set; }
 
-        public string Status { get; }
+        public string Status { get; private set; }
 
         private string _ownerId;
 
@@ -100,12 +100,7 @@ namespace LetsMeet.Models
 
         public void Cancel()
         {
-            // TODO implement here
-        }
-
-        public void start()
-        {
-            // TODO implement here
+            this.Status = "Cancelled";
         }
 
         public void AddMember(User Member)

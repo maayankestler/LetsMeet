@@ -33,11 +33,6 @@
         <Button x:Name="RemoveFriendButton" Text="remove from friend" Command="{Binding RemoveFriend}" IsVisible="{Binding IsFriend}"/>
         <Button x:Name="RemoveFriendsButton" Text="remove selected friends" Command="{Binding RemoveFriends}" IsVisible="{Binding IsLoggedOnUser}"/>
         <Label Text="Friends:" />
-        <!--<CollectionView Margin="20"
-                    ItemsSource="{Binding User.Friends}"
-                    ItemTemplate="{StaticResource UserTemplate}"
-                    SelectionMode="Single"
-                    SelectionChanged="OnCollectionViewSelectionChanged" />-->
         <CollectionView ItemsSource="{Binding User.Friends}"
                         ItemTemplate="{StaticResource UserTemplate}"
                         SelectionMode="None"

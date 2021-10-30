@@ -16,7 +16,13 @@ namespace LetsMeet.ViewModels
     {
         public User User { get; set; }
         public bool IsLoggedOnUser { get; set; }
-        public bool IsFriend { get; set; }
+        public bool IsFriend 
+        { 
+            get
+            {
+                return (User != null && MainViewModel.GetInstance.CurrentUser.IsFreind(User));
+            }
+        }
         public ICommand Logout { get; }
         public ICommand AddFriend { get; }
         public ICommand RemoveFriend { get; }
@@ -52,7 +58,6 @@ namespace LetsMeet.ViewModels
                 string UserId = (Id == null) ? MainViewModel.GetInstance.CurrentUser.Id : Id;
                 User = UsersData.Users.FirstOrDefault(a => a.Id == UserId);
                 IsLoggedOnUser = User.Equals(MainViewModel.GetInstance.CurrentUser);
-                IsFriend = MainViewModel.GetInstance.CurrentUser.IsFreind(User);
                 OnPropertyChanged("User");
             }
             catch (Exception)
@@ -64,14 +69,14 @@ namespace LetsMeet.ViewModels
         void AddFriend_Button_Clicked()
         {
             MainViewModel.GetInstance.CurrentUser.AddFriend(User);
-            IsFriend = true;
+            OnPropertyChanged("IsFriend");
             OnPropertyChanged("User");
         }
 
         void RemoveFriend_Button_Clicked()
         {
             MainViewModel.GetInstance.CurrentUser.RemoveFriend(User);
-            IsFriend = false;
+            OnPropertyChanged("IsFriend");
             OnPropertyChanged("User");
         }
         void RemoveFriends_Button_Clicked()
