@@ -5,19 +5,29 @@
              xmlns:controls="clr-namespace:LetsMeet.Controls"
              x:Class="LetsMeet.Views.MeetingsMapPage"
              Title="Meetings map">
-    <maps:Map IsShowingUser="True" 
-              x:Name="ChooseMapControl"
-              MapType="Street" 
-              ItemsSource="{Binding AvailableMeetings }"
-              HasScrollEnabled="True" 
-              HasZoomEnabled="True" >
-        <maps:Map.ItemTemplate>
-            <DataTemplate>
-                <controls:MeetingPin Position="{Binding Position}"
-                                     Meeting ="{Binding .}"
-                                     Label="{Binding Name, StringFormat='check {0}' }"
-                                     InfoWindowClicked="Pin_InfoWindowClicked"/>
-            </DataTemplate>
-        </maps:Map.ItemTemplate>
-    </maps:Map>
+    <StackLayout>
+        <maps:Map IsShowingUser="True" 
+                  x:Name="ChooseMapControl"
+                  MapType="Street" 
+                  ItemsSource="{Binding AvailableMeetings }"
+                  HasScrollEnabled="True" 
+                  HasZoomEnabled="True" >
+            <maps:Map.ItemTemplate>
+                <DataTemplate>
+                    <controls:MeetingPin Position="{Binding Position}"
+                                         Meeting ="{Binding .}"
+                                         Label="{Binding Name, StringFormat='check {0}' }"
+                                         InfoWindowClicked="Pin_InfoWindowClicked"/>
+                </DataTemplate>
+            </maps:Map.ItemTemplate>
+        </maps:Map>
+        <StackLayout Orientation="Horizontal">
+            <Label Text="owned by me"/>
+            <CheckBox IsChecked="{Binding OwnedByMe, Mode=TwoWay}"/>
+            <Label Text="owned by friend"/>
+            <CheckBox IsChecked="{Binding OwnedByFriend, Mode=TwoWay}"/>
+            <Label Text="I am member"/>
+            <CheckBox IsChecked="{Binding Member, Mode=TwoWay}"/>
+        </StackLayout>
+    </StackLayout>
 </ContentPage>
