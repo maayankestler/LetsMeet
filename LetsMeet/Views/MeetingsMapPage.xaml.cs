@@ -12,38 +12,48 @@ using Xamarin.Forms.Maps;
 using LetsMeet.Data;
 using LetsMeet.ViewModels;
 using LetsMeet.Models;
-
+using System.Collections.ObjectModel;
+using System.Collections;
+using Xamarin.Essentials;
+using System.Threading;
 
 namespace LetsMeet.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MeetingsMapPage : ContentPage, INotifyPropertyChanged
     {
-        public List<Meeting> AvailableMeetings;
+        //public List<Meeting> AvailableMeetings { get; set; }
+        public ObservableCollection<Meeting> _meetingsList { get; set; } = new ObservableCollection<Meeting>(MeetingsData.Meetings);
+        public IEnumerable AvailableMeetings => _meetingsList;
         public MeetingsMapPage()
         {
             InitializeComponent();
-            AvailableMeetings = MeetingsData.Meetings; // TODO handle filters
+            // _meetingsList = MeetingsData.Meetings; // TODO handle filters
             //BindingContext = new MeetingMapViewModel();
+            BindingContext = this;
         }
-
-        private void HandleMapClicked(object sender, MapClickedEventArgs e)
+        async private void Pin_InfoWindowClicked(object sender, PinClickedEventArgs e)
         {
-            var postion = e.Position;
-            // ...
+            //string meetingId = (e.CurrentSelection.FirstOrDefault() as Meeting).Id;
+            //await Shell.Current.GoToAsync($"MeetingDetails?id={meetingId}");
         }
 
-        #region INotifyPropertyChanged
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        protected override async void OnAppearing()
         {
-            PropertyChangedEventHandler handler = PropertyChanged;
-            if (handler != null)
-                handler(this, new PropertyChangedEventArgs(propertyName));
+            Location location;
+            location = await Geolocation.GetLastKnownLocationAsync();
+            if (location == null)
+            {
+                var request = new GeolocationRequest(GeolocationAccuracy.Medium, TimeSpan.FromSeconds(10));
+                CancellationTokenSource cts = new CancellationTokenSource();
+                location = await Geolocation.GetLocationAsync(request, cts.Token);
+            }
+            if (location != null)
+            {
+                Position CurrentPosition = new Position(location.Latitude, location.Longitude);
+                MapControl.MoveToRegion(MapSpan.FromCenterAndRadius(CurrentPosition, Distance.FromMiles(1)));
+            }
+            base.OnAppearing();
         }
-
-        #endregion
     }
 }

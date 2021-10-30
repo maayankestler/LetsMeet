@@ -54,12 +54,13 @@ namespace LetsMeet.Views
             await Shell.Current.GoToAsync("ChooseLocation");
         }
 
-        private void create_meeting_clicked(object sender, EventArgs e)
+        async private void create_meeting_clicked(object sender, EventArgs e)
         {
             Meeting m = new Meeting(
                 "8", // TODO generate ids
-                Name, IconURL, _typeId, StartTime, EndTime, MainViewModel.GetInstance.CurrentUser.Id, MinMembers, MaxMembers, MinAge, MaxAge);
+                Name, IconURL, _typeId, StartTime, EndTime, MainViewModel.GetInstance.CurrentUser.Id, MinMembers, MaxMembers, MinAge, MaxAge, Position);
             MeetingsData.CreateMeeting(m);
+            await Shell.Current.GoToAsync("//MeetingsList");
         }
 
         protected override async void OnAppearing()

@@ -6,15 +6,14 @@
     <maps:Map IsShowingUser="True" 
               x:Name="MapControl"
               MapType="Street" 
-              MapClicked="HandleMapClicked"
               ItemsSource="{Binding AvailableMeetings }"
               HasScrollEnabled="True" 
               HasZoomEnabled="True" >
         <maps:Map.ItemTemplate>
             <DataTemplate>
                 <maps:Pin Position="{Binding Position}"
-                          Address="change this address"
-                          Label="change this label" />
+                          Label="{Binding Name, StringFormat='join {0}' }"
+                          InfoWindowClicked="Pin_InfoWindowClicked"/>
             </DataTemplate>
         </maps:Map.ItemTemplate>
     </maps:Map>
