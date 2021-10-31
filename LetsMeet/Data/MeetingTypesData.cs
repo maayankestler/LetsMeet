@@ -67,9 +67,13 @@ namespace LetsMeet.Data
 
         public static List<MeetingType> GetAllMeetingByCategory(string CategoryId)
         {
-            List<MeetingType> AllTypes = GetAllMeetingType();
-            return AllTypes.FindAll(t => t.CategoryId == CategoryId);
+            return MeetingsTypes.FindAll(t => t.CategoryId == CategoryId);
 
+        }
+
+        public static void CreateMeetingType(MeetingType m)
+        {
+            MeetingsTypes.Add(m);
         }
     }
 }

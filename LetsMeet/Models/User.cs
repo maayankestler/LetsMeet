@@ -6,11 +6,8 @@ using System.Text;
 using LetsMeet.Models;
 using LetsMeet.Data;
 
-public class User {
-
-    public User() {
-    }
-
+public class User 
+{
     public string Id { get; set; } // TODO add auto genrator
 
     public string Name { get; set; }
@@ -18,6 +15,14 @@ public class User {
     public string UserName { get; set; }
 
     public string Password { get; set; }
+    private readonly string _adminID = "1"; 
+    public bool IsAdmin 
+    { 
+        get
+        {
+            return (Id == _adminID); // TODO better verify
+        }
+    }
 
     private List<string> _favoriteTypesIds = new List<string>();
 

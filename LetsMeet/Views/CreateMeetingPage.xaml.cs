@@ -33,7 +33,7 @@ namespace LetsMeet.Views
         {
             get
             {
-                return Data.MeetingTypesData.GetMeetingType(_typeId);
+                return MeetingTypesData.GetMeetingType(_typeId);
             }
             set
             {

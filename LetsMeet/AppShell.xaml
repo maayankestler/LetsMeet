@@ -4,6 +4,7 @@
        xmlns:controls="clr-namespace:LetsMeet.Controls"
        xmlns:sys="clr-namespace:System;assembly=netstandard"
        xmlns:views="clr-namespace:LetsMeet.Views"
+       xmlns:vm="clr-namespace:LetsMeet.ViewModels"
        x:Class="LetsMeet.AppShell"
        x:Name="shell"
        FlyoutBackgroundImage="photo.jpg"
@@ -25,7 +26,7 @@
         </Style>
         <Style TargetType="ShellItem"
                BasedOn="{StaticResource BaseStyle}" />
-        <Style x:Key="DomesticShell"
+        <Style x:Key="MeetingsShell"
                TargetType="Element"
                BasedOn="{StaticResource BaseStyle}">
             <Setter Property="Shell.BackgroundColor"
@@ -43,11 +44,17 @@
             <Setter Property="Shell.BackgroundColor"
                     Value="#ED3B3B" />
         </Style>
-        <Style x:Key="BearsShell"
+        <Style x:Key="UsersShell"
                TargetType="Element"
                BasedOn="{StaticResource BaseStyle}">
             <Setter Property="Shell.BackgroundColor"
                     Value="#546DFE" />
+        </Style>
+        <Style x:Key="AdminShell"
+               TargetType="Element"
+               BasedOn="{StaticResource BaseStyle}">
+            <Setter Property="Shell.BackgroundColor"
+                    Value="LightCoral" />
         </Style>
         <Style x:Key="AboutShell"
                TargetType="Element"
@@ -73,7 +80,8 @@
         <ShellContent ContentTemplate="{DataTemplate views:RegistrationPage}"/>
     </ShellItem>
 
-    <FlyoutItem Route="animals"
+    <FlyoutItem Route="main"
+                Title="MainFlyout"
                 FlyoutDisplayOptions="AsMultipleItems">
         <ShellContent Route="profile"
                       Style="{StaticResource ProfileShell}"
@@ -87,23 +95,18 @@
                       ContentTemplate="{DataTemplate views:CreateMeetingPage}" />
         <Tab Title="Search meetings" Route="domestic" Icon="search.png">
             <ShellContent Route="MeetingsList"
-                          Style="{StaticResource DomesticShell}"
+                          Style="{StaticResource MeetingsShell}"
                           Title="list"
                           Icon="list.png"
                           ContentTemplate="{DataTemplate views:MeetingsListPage}" />
             <ShellContent Route="MeetingsMap"
-                          Style="{StaticResource DomesticShell}"
+                          Style="{StaticResource MeetingsShell}"
                           Title="map"
                           Icon="map.png"
                           ContentTemplate="{DataTemplate views:MeetingsMapPage}" />
         </Tab>
-        <!--<ShellContent Title="Search meetings" 
-                      Route="bears" 
-                      Icon="search.png" 
-                      Style="{StaticResource DomesticShell}" 
-                      ContentTemplate="{DataTemplate views:CatsPage}"/>-->
         <ShellContent Route="users"
-                      Style="{StaticResource BearsShell}"
+                      Style="{StaticResource UsersShell}"
                       Title="Users"
                       Icon="list.png"
                       ContentTemplate="{DataTemplate views:UserPage}" />
@@ -114,10 +117,5 @@
                   Title="About"
                   Icon="info.png"
                   ContentTemplate="{DataTemplate views:AboutPage}" />
-
-    <!--<MenuItem Text="Help"
-              IconImageSource="help.png"
-              Command="{Binding HelpCommand}"
-              CommandParameter="https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/shell" />-->
 
 </Shell>

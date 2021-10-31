@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LetsMeet.Views.CreateMeetingCategoryPage">
+    <ScrollView>
+        <StackLayout Orientation="Vertical" 
+                        Padding="16,40,16,40"
+                        Spacing="10">
+            <Image BindingContext="{x:Reference IconURLEntry}" Source="{Binding Path=Text}" HeightRequest="200" WidthRequest="200"/>
+            <Label Text="meeting name:"/>
+            <Entry Placeholder="name" Text="{Binding Name}"/>
+            <Label Text="icon URL"/>
+            <Entry x:Name="IconURLEntry" Placeholder="icon URL" Text="{Binding IconURL, Mode=TwoWay}"/>
+            <Button Text="Create" Clicked="create_button_clicked"/>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

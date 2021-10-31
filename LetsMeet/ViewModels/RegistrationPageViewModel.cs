@@ -12,7 +12,7 @@ namespace LetsMeet.ViewModels
         public string UserName { get; set; }
         public string Password { get; set; }
         public string Name { get; set; }
-        public DateTime BornDate { get; set; }
+        public DateTime BornDate { get; set; } = DateTime.Now.AddYears(-18);
         public string IconURL { get; set; } = "https://www.kindpng.com/picc/m/495-4952535_create-digital-profile-icon-blue-user-profile-icon.png";
 
         public ICommand SignUp { get; }

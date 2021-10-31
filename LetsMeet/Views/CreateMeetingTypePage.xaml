@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:data="clr-namespace:LetsMeet.Data"
+             x:Class="LetsMeet.Views.CreateMeetingTypePage">
+    <ScrollView>
+        <StackLayout Orientation="Vertical" 
+                        Padding="16,40,16,40"
+                        Spacing="10">
+            <Image BindingContext="{x:Reference IconURLEntry}" Source="{Binding Path=Text}" HeightRequest="200" WidthRequest="200"/>
+            <CollectionView ItemsSource="{x:Static data:MeetingCatogriesData.MeetingCategories}"
+                            HeightRequest="300"
+                            SelectionMode="Single"
+                            SelectedItem="{Binding Category}"
+                            BackgroundColor="AliceBlue">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Padding="10"
+                                  RowDefinitions="Auto,Auto"
+                                  ColumnDefinitions="Auto,Auto">
+                            <Image Grid.RowSpan="2" Source="{Binding IconURL}" Aspect="AspectFill" HeightRequest="60" WidthRequest="60" />
+                            <Label Grid.Column="1" Text="{Binding Name}" FontAttributes="Bold" />
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <Label Text="meeting name:"/>
+            <Entry Placeholder="name" Text="{Binding Name}"/>
+            <Label Text="icon URL"/>
+            <Entry x:Name="IconURLEntry" Placeholder="icon URL" Text="{Binding IconURL, Mode=TwoWay}"/>
+            <Button Text="Create" Clicked="create_button_clicked"/>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

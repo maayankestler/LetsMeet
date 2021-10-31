@@ -34,5 +34,10 @@ namespace LetsMeet.Data
             }
             return Category;
         }
+
+        public static void CreateMeetingCategory(MeetingCategory m)
+        {
+            MeetingCategories.Add(m);
+        }
     }
 }

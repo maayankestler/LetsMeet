@@ -35,6 +35,34 @@ namespace LetsMeet.ViewModels
         public void Login(string UserName, string Password)
         {
             CurrentUser = UsersData.GetUser(UserName, Password);
+            // if admin
+            if (CurrentUser.IsAdmin) 
+            {
+                
+                foreach (var item in Shell.Current.Items)
+                {
+                    if (item.Title == "MainFlyout")
+                    {
+                        Tab AdminTab = new Tab() { Title = "Admin", Icon = "admin.png" };
+                        AdminTab.Items.Add(new ShellContent()
+                        {
+                            Route = "CreateMeetingType",
+                            Title = "Create meeting type",
+                            Style = (Style)AppShell.Current.Resources["AdminShell"],
+                            Content = new LetsMeet.Views.CreateMeetingTypePage()
+                        });
+                        AdminTab.Items.Add(new ShellContent()
+                        {
+                            Route = "CreateMeetingCategory",
+                            Title = "Create meeting category",
+                            Style = (Style)AppShell.Current.Resources["AdminShell"],
+                            Content = new LetsMeet.Views.CreateMeetingCategoryPage()
+                        });
+
+                        item.Items.Add(AdminTab);
+                    }
+                }
+            }
         }
 
         public bool IsLoggedIn()
