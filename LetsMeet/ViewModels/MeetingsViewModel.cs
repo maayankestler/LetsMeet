@@ -18,6 +18,7 @@ using LetsMeet.Data;
 using LetsMeet.ViewModels;
 using LetsMeet.Models;
 using System.Windows.Input;
+using System.Globalization;
 
 namespace LetsMeet.ViewModels
 {
@@ -89,5 +90,20 @@ namespace LetsMeet.ViewModels
         }
 
         #endregion
+    }
+
+    public class LocationToPosistionConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            Location l = (Location)value;
+            return new Position(l.Latitude, l.Longitude);
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            Position l = (Position)value;
+            return new Location(l.Latitude, l.Longitude);
+        }
     }
 }

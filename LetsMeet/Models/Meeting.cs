@@ -10,11 +10,12 @@ namespace LetsMeet.Models
     using MongoDB.Bson;
     using MongoDB.Bson.Serialization.Attributes;
     using MongoDB.Bson.Serialization.IdGenerators;
+    using Xamarin.Essentials;
 
     public class Meeting
     {
         public Meeting(string name, string IconURL, string type_id, DateTime StartTime, DateTime EndTime,
-                       string owner_id, int min_members, int max_members, int min_age, int max_age, Position position)
+                       string owner_id, int min_members, int max_members, int min_age, int max_age, Location position)
         {
             this.Name = name;
             this.IconURL = IconURL;
@@ -116,7 +117,7 @@ namespace LetsMeet.Models
         }
 
         [BsonElement("Position")]
-        public Position Position { get; set; }
+        public Location Position { get; set; }
 
         public void Cancel()
         {

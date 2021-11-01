@@ -4,6 +4,7 @@
              xmlns:maps="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps"
              xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              xmlns:controls="clr-namespace:LetsMeet.Controls"
+             xmlns:vm="clr-namespace:LetsMeet.ViewModels"
              x:Class="LetsMeet.Views.MeetingsMapPage"
              Title="Meetings map">
     <ContentPage.Behaviors>
@@ -11,6 +12,11 @@
                 EventName="Appearing"
                 Command="{Binding PageAppearingCommand}" />
     </ContentPage.Behaviors>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <vm:LocationToPosistionConverter x:Key="LocToPos" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <StackLayout>
         <maps:Map IsShowingUser="True" 
                   x:Name="ChooseMapControl"
@@ -20,7 +26,7 @@
                   HasZoomEnabled="True" >
             <maps:Map.ItemTemplate>
                 <DataTemplate>
-                    <controls:MeetingPin Position="{Binding Position}"
+                    <controls:MeetingPin Position="{Binding Position, Converter={StaticResource  LocToPos}}"
                                          Meeting ="{Binding .}"
                                          Label="{Binding Name, StringFormat='check {0}' }"
                                          InfoWindowClicked="Pin_InfoWindowClicked"/>

@@ -26,7 +26,7 @@ namespace LetsMeet.Views
         public int MaxAge { get; set; }
         public DateTime StartTime { get; set; } = DateTime.Now.Add(new TimeSpan(1, 0, 0, 0));
         public DateTime EndTime { get; set; } = DateTime.Now.Add(new TimeSpan(1, 2, 0, 0));
-        public Position Position { get; set; }
+        public Location Location { get; set; }
 
         private string _typeId = null;
         public MeetingType Type
@@ -61,7 +61,7 @@ namespace LetsMeet.Views
 
         async private void create_meeting_clicked(object sender, EventArgs e)
         {
-            Meeting m = new Meeting(Name, IconURL, _typeId, StartTime, EndTime, MainViewModel.GetInstance.CurrentUser.Id, MinMembers, MaxMembers, MinAge, MaxAge, Position);
+            Meeting m = new Meeting(Name, IconURL, _typeId, StartTime, EndTime, MainViewModel.GetInstance.CurrentUser.Id, MinMembers, MaxMembers, MinAge, MaxAge, Location);
             MeetingsData.CreateMeeting(m);
             await Shell.Current.GoToAsync("//MeetingsList");
         }
@@ -69,7 +69,7 @@ namespace LetsMeet.Views
         protected override async void OnAppearing()
         {
             // if Position not initialized
-            if (Position.Latitude == 0 && Position.Latitude == 0)
+            if (Location == null)
             {
                 // get current location
                 var request = new GeolocationRequest(GeolocationAccuracy.Low, TimeSpan.FromSeconds(10));
@@ -78,7 +78,7 @@ namespace LetsMeet.Views
 
                 if (location != null)
                 {
-                    Position = new Position(location.Latitude, location.Longitude);
+                    Location = location;
                 }
             }
             base.OnAppearing();
@@ -88,7 +88,7 @@ namespace LetsMeet.Views
         {
             if (query.ContainsKey("Latitude") && query.ContainsKey("Longitude"))
             {
-                Position = new Position(Convert.ToDouble(HttpUtility.UrlDecode(query["Latitude"])),
+                Location = new Location(Convert.ToDouble(HttpUtility.UrlDecode(query["Latitude"])),
                                         Convert.ToDouble(HttpUtility.UrlDecode(query["Longitude"])));
             }          
         }
