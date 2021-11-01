@@ -21,7 +21,7 @@
                 <MultiTrigger TargetType="Button">
                     <MultiTrigger.Conditions>
                         <BindingCondition Binding="{Binding IsFriend}" Value="False"/>
-                        <BindingCondition Binding="{Binding IsLoggedOnUser}" Value="true"/>
+                        <BindingCondition Binding="{Binding IsLoggedOnUser}" Value="True"/>
                     </MultiTrigger.Conditions>
                     <Setter Property="IsVisible" Value="False" />
                 </MultiTrigger>
@@ -31,6 +31,16 @@
             </Button.Triggers>
         </Button>
         <Button x:Name="RemoveFriendButton" Text="remove from friend" Command="{Binding RemoveFriend}" IsVisible="{Binding IsFriend}"/>
+        <Button x:Name="RemoveUserButton" Text="remove this user" Command="{Binding RemoveUser}" IsVisible="False" BackgroundColor="Red">
+            <Button.Triggers>
+                <DataTrigger TargetType="Button" Binding="{Binding IsAdmin}" Value="True">
+                    <Setter Property="IsVisible" Value="True" />
+                </DataTrigger>
+                <DataTrigger TargetType="Button" Binding="{Binding IsLoggedOnUser}" Value="True">
+                    <Setter Property="IsVisible" Value="True" />
+                </DataTrigger>
+            </Button.Triggers>
+        </Button>
         <Button x:Name="RemoveFriendsButton" Text="remove selected friends" Command="{Binding RemoveFriends}" IsVisible="{Binding IsLoggedOnUser}"/>
         <Label Text="Friends:" />
         <CollectionView ItemsSource="{Binding User.Friends}"

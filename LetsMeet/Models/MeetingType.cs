@@ -29,6 +29,6 @@ public class MeetingType {
         }
     }
 
-    private string template_id;
+    // private string template_id;
 
 }

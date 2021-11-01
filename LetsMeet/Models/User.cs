@@ -42,7 +42,9 @@ public class User
         get
         {
             List<User> friends = _friendsIds.ConvertAll(new Converter<string, User>(UsersData.GetUser));
-            return new HashSet<User>(friends);
+            HashSet<User> FriendsHashSet = new HashSet<User>(friends);
+            FriendsHashSet.Remove(null);
+            return FriendsHashSet;
         }
     }
 
@@ -73,36 +75,31 @@ public class User
         return (Id == U.Id);
     }
 
-    public Meeting[] GetMeetings() {
-        // TODO implement here
-        return new Meeting[] { };
-    }
+    //public void AddFavoriteType (MeetingType meeting_type)
+    //{
+    //    if (!this.FavoriteTypes.Contains(meeting_type))
+    //    {
+    //        this.FavoriteTypes.Add(meeting_type);
+    //        // TODO add to DB
+    //    }
+    //}
 
-    public void AddFavoriteType (MeetingType meeting_type)
-    {
-        if (!this.FavoriteTypes.Contains(meeting_type))
-        {
-            this.FavoriteTypes.Add(meeting_type);
-            // TODO add to DB
-        }
-    }
-
-    public void RemoveFavoriteType(MeetingType meeting_type)
-    {
-        if (this.FavoriteTypes.Contains(meeting_type))
-        {
-            this.FavoriteTypes.Remove(meeting_type);
-            // TODO remove from db
-        }
-        else
-        {
-            // TODO can't find user
-        }
-    }
+    //public void RemoveFavoriteType(MeetingType meeting_type)
+    //{
+    //    if (this.FavoriteTypes.Contains(meeting_type))
+    //    {
+    //        this.FavoriteTypes.Remove(meeting_type);
+    //        // TODO remove from db
+    //    }
+    //    else
+    //    {
+    //        // TODO can't find user
+    //    }
+    //}
 
     public void AddFriend(User user)
     {
-        if (!this.Friends.Contains(user))
+        if (user!= null && !this.Friends.Contains(user))
         {
             //this.Friends.Add(user);
             _friendsIds.Add(user.Id);

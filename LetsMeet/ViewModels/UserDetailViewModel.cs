@@ -14,8 +14,32 @@ namespace LetsMeet.ViewModels
 {
     public class UserDetailViewModel : IQueryAttributable, INotifyPropertyChanged
     {
-        public User User { get; set; }
-        public bool IsLoggedOnUser { get; set; }
+        private string _userId = null;
+        public string UserId
+        {
+            get
+            {
+                return (_userId == null) ? MainViewModel.GetInstance.CurrentUser.Id : _userId;
+            }
+            set
+            {
+                _userId = value;
+            }
+        }
+        public User User 
+        { 
+            get
+            {
+                return UsersData.GetUser(UserId);
+            }
+        }
+        public bool IsLoggedOnUser 
+        { 
+            get
+            {
+                return User.Equals(MainViewModel.GetInstance.CurrentUser);
+            }
+        }
         public bool IsFriend 
         { 
             get
@@ -23,13 +47,21 @@ namespace LetsMeet.ViewModels
                 return (User != null && MainViewModel.GetInstance.CurrentUser.IsFreind(User));
             }
         }
+        public bool IsAdmin
+        {
+            get
+            {
+                return MainViewModel.GetInstance.CurrentUser.IsAdmin;
+            }
+        }
         public ICommand Logout { get; }
         public ICommand AddFriend { get; }
         public ICommand RemoveFriend { get; }
         public ICommand RemoveFriends { get; }
+        public ICommand RemoveUser { get; }
         public ObservableCollection<object> SelectedObjects { get; set; }
         public List<User> SelectedMembers { get; set; }
-        private string Id = null;
+
 
         public UserDetailViewModel()
         {
@@ -37,6 +69,7 @@ namespace LetsMeet.ViewModels
             AddFriend = new Command(AddFriend_Button_Clicked);
             RemoveFriend = new Command(RemoveFriend_Button_Clicked);
             RemoveFriends = new Command(RemoveFriends_Button_Clicked);
+            RemoveUser = new Command(RemoveUser_Button_Clicked);
             SelectedObjects = new ObservableCollection<object>();
             SelectedObjects.CollectionChanged += SelectedObjectsChanged;
             SelectedMembers = new List<User>();
@@ -47,23 +80,13 @@ namespace LetsMeet.ViewModels
             if (query.ContainsKey("id"))
             {
                 // Only a single query parameter is passed, which needs URL decoding.
-                Id = HttpUtility.UrlDecode(query["id"]);
+                UserId = HttpUtility.UrlDecode(query["id"]);
             }
         }
 
         public void LoadUser()
         {
-            try
-            {
-                string UserId = (Id == null) ? MainViewModel.GetInstance.CurrentUser.Id : Id;
-                User = UsersData.Users.FirstOrDefault(a => a.Id == UserId);
-                IsLoggedOnUser = User.Equals(MainViewModel.GetInstance.CurrentUser);
-                OnPropertyChanged("User");
-            }
-            catch (Exception)
-            {
-                Console.WriteLine("Failed to load user.");
-            }
+            OnPropertyChanged("User");
         }
 
         void AddFriend_Button_Clicked()
@@ -85,7 +108,18 @@ namespace LetsMeet.ViewModels
             OnPropertyChanged("User");
         }
 
-        async void SelectedObjectsChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        async void RemoveUser_Button_Clicked()
+        {
+            bool WasLoggedOnUser = IsLoggedOnUser;
+            UsersData.RemoveUser(UserId);
+            if (WasLoggedOnUser)
+                Logout.Execute(null);
+            else
+                await Shell.Current.GoToAsync("//users");
+            OnPropertyChanged("Users");
+        }
+
+        void SelectedObjectsChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
             SelectedMembers = SelectedObjects.OfType<User>().ToList();
             // remove owner

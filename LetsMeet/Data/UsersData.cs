@@ -59,9 +59,9 @@ namespace LetsMeet.Data
             return User;
         }
 
-        public static User GetUser(string id)
+        public static User GetUser(string UserId)
         {
-            var User = Users.Find(x => x.Id == id);
+            var User = Users.Find(x => x.Id == UserId);
             if (User == null)
             {
                 System.Diagnostics.Debug.WriteLine("can't find user"); // TODO make display alert
@@ -72,6 +72,17 @@ namespace LetsMeet.Data
         public static void CreateUser(User NewUser)
         {
             Users.Add(NewUser);
+        }
+
+        public static bool RemoveUser(User UserToRemove)
+        {
+            return Users.Remove(UserToRemove);
+        }
+
+        public static bool RemoveUser(string UserId)
+        {
+            User UserToRemove = GetUser(UserId);
+            return RemoveUser(UserToRemove);
         }
     }
 }

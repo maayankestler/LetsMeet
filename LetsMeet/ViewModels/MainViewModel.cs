@@ -36,7 +36,7 @@ namespace LetsMeet.ViewModels
         {
             CurrentUser = UsersData.GetUser(UserName, Password);
             // if admin
-            if (CurrentUser.IsAdmin) 
+            if (CurrentUser!= null && CurrentUser.IsAdmin) 
             {
                 
                 foreach (var item in Shell.Current.Items)

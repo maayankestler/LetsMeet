@@ -18,7 +18,6 @@ namespace LetsMeet.Views
 
         protected override async void OnAppearing()
         {
-            //InitializeComponent();
             base.OnAppearing();
             udvm.LoadUser();
         }
