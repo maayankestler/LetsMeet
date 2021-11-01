@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using LetsMeet.Models;
+using LetsMeet.ViewModels;
 
 namespace LetsMeet.Views
 {
@@ -16,6 +17,7 @@ namespace LetsMeet.Views
         public UserPage()
         {
             InitializeComponent();
+            BindingContext = new UsersViewModel();
         }
 
         async void OnCollectionViewSelectionChanged(object sender, SelectionChangedEventArgs e)

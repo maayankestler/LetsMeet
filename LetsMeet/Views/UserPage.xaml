@@ -4,6 +4,7 @@
              xmlns:controls="clr-namespace:LetsMeet.Controls"
              xmlns:data="clr-namespace:LetsMeet.Data"
              xmlns:views="clr-namespace:LetsMeet.Views"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              x:Class="LetsMeet.Views.UserPage">
     <ContentPage.Resources>
         <Style TargetType="Grid">
@@ -22,6 +23,11 @@
             </Setter>
         </Style>
     </ContentPage.Resources>
+    <ContentPage.Behaviors>
+        <xct:EventToCommandBehavior
+                EventName="Appearing"
+                Command="{Binding PageAppearingCommand}" />
+    </ContentPage.Behaviors>
 
     <Shell.SearchHandler>
         <controls:UsersSearchHandler Placeholder="Enter search term"
@@ -30,15 +36,19 @@
                                       Users="{x:Static data:UsersData.Users}"
                                       SelectedItemNavigationTarget="{x:Type views:UserDetailPage}" />
     </Shell.SearchHandler>
-    <!--<Shell.TitleView>
-        <Image Source="LogoHorizontalTransparent.png"
-            HorizontalOptions="Center"
-            VerticalOptions="Center"/>
-    </Shell.TitleView>-->
-
-    <CollectionView Margin="20"
-                    ItemsSource="{x:Static data:UsersData.Users}"
-                    ItemTemplate="{StaticResource UserTemplate}"
-                    SelectionMode="Single"
-                    SelectionChanged="OnCollectionViewSelectionChanged" />
+    <StackLayout>
+        <CollectionView Margin="20"
+                        ItemsSource="{Binding AvailableUsers}"
+                        ItemTemplate="{StaticResource UserTemplate}"
+                        SelectionMode="Single"
+                        SelectionChanged="OnCollectionViewSelectionChanged" />
+        <StackLayout Orientation="Horizontal">
+            <Label Text="friends"/>
+            <CheckBox IsChecked="{Binding IsFriend, Mode=TwoWay}"/>
+            <Label Text="min age"/>
+            <Entry Text="{Binding MinAge}" Keyboard="Numeric"/>
+            <Label Text="max age"/>
+            <Entry Text="{Binding MaxAge}" Keyboard="Numeric"/>
+        </StackLayout>
+    </StackLayout>
 </ContentPage>

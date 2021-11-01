@@ -71,12 +71,14 @@ namespace LetsMeet.Models
         //public GeoCoordinate Location;
 
         private List<string> _membersIds = new List<string>();
-        public List<User> Members
+        public HashSet<User> Members
         {
             get
             {
                 List<User> members = _membersIds.ConvertAll(new Converter<string, User>(UsersData.GetUser));
-                return members;
+                HashSet<User> MembersHashSet = new HashSet<User>(members);
+                MembersHashSet.Remove(null);
+                return MembersHashSet;
             }
         }
 

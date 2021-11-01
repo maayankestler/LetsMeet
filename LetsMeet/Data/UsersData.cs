@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using LetsMeet.Models;
+using LetsMeet.Data;
 
 namespace LetsMeet.Data
 {
@@ -75,6 +76,8 @@ namespace LetsMeet.Data
 
         public static bool RemoveUser(string UserId)
         {
+            // remove meetings
+            MeetingsData.Meetings.FindAll(m => m.Owner.Id == UserId).ForEach(m => MeetingsData.RemoveMeeting(m));
             User UserToRemove = GetUser(UserId);
             return RemoveUser(UserToRemove);
         }

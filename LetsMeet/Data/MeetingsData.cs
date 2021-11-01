@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using LetsMeet.Models;
 using Xamarin.Forms.Maps;
+using LetsMeet.Data;
 
 namespace LetsMeet.Data
 {
@@ -68,12 +69,17 @@ namespace LetsMeet.Data
 
         public static List<Meeting> GetMeetingsByUser(string UserId)
         {
-            return Meetings.FindAll(m => m.Members.Exists(member => member.Id == UserId));
+            return GetMeetingsByUser(UsersData.GetUser(UserId));
         }
 
         public static void CreateMeeting(Meeting m)
         {
             Meetings.Add(m);
+        }
+
+        public static bool RemoveMeeting(Meeting m)
+        {
+            return Meetings.Remove(m);
         }
     }
 }

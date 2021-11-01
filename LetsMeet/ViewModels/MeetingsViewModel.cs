@@ -83,13 +83,13 @@ namespace LetsMeet.ViewModels
             };
 
             if (OwnedByMe)
-                MeetingsData.Meetings.FindAll(m => m.Owner.Id == MainViewModel.GetInstance.CurrentUser.Id).ForEach(VerifyAdd);
+                MeetingsData.Meetings.FindAll(m => m.Owner != null && m.Owner.Id == MainViewModel.GetInstance.CurrentUser.Id).ForEach(VerifyAdd);
             if (OwnedByFriend)
                 MeetingsData.Meetings.FindAll(m => MainViewModel.GetInstance.CurrentUser.Friends.Contains(m.Owner)).ForEach(VerifyAdd);
             if (Member)
                 MeetingsData.Meetings.FindAll(m => m.Members.Contains(MainViewModel.GetInstance.CurrentUser)).ForEach(VerifyAdd);
             if (!OwnedByMe && !OwnedByFriend && !Member)
-                temp_meetings_list = new ObservableCollection<Meeting>(MeetingsData.Meetings.FindAll(m => m .Status == MeetingStatus.Available));
+                MeetingsData.Meetings.ForEach(VerifyAdd);
 
             _meetingsList = temp_meetings_list;
         }

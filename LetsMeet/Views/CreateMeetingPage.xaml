@@ -57,13 +57,13 @@
             <Label Text="end time"/>
             <DatePicker Date="{Binding EndTime}" Format="dd/MM/yyyy - hh:mm:ss"/>
             <Label Text="min age"/>
-            <Entry Text="{Binding MinAge}"/>
+            <Entry Text="{Binding MinAge}" Keyboard="Numeric"/>
             <Label Text="max age"/>
-            <Entry Text="{Binding MaxAge}"/>
+            <Entry Text="{Binding MaxAge}" Keyboard="Numeric"/>
             <Label Text="min members"/>
-            <Entry Text="{Binding MinMembers}"/>
+            <Entry Text="{Binding MinMembers}" Keyboard="Numeric"/>
             <Label Text="max members"/>
-            <Entry Text="{Binding MaxMembers}"/>
+            <Entry Text="{Binding MaxMembers}" Keyboard="Numeric"/>
             <Label Text="icon URL"/>
             <Entry x:Name="IconURLEntry" Placeholder="icon URL" Text="{Binding IconURL, Mode=TwoWay}"/>
             <Label Text="Position Latitude"/>
