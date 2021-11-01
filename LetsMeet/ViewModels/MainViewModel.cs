@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Text;
 using Xamarin.Forms;
 using LetsMeet.Data;
-//using Navigation.NavigationStack;
 
 namespace LetsMeet.ViewModels
 {

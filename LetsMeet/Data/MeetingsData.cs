@@ -3,68 +3,32 @@ using System.Collections.Generic;
 using LetsMeet.Models;
 using Xamarin.Forms.Maps;
 using LetsMeet.Data;
+using LetsMeet.Data.DAL;
+using MongoDB.Driver;
 
 namespace LetsMeet.Data
 {
     public static class MeetingsData
     {
-        public static List<Meeting> Meetings { get; private set; }
-        static MeetingsData()
+        private static IMongoCollection<Meeting> collection = MongoDBConnection.GetInstance.DataBase.GetCollection<Meeting>("Meetings");
+        public static List<Meeting> AllMeetings
         {
-            Meetings = GetAllMeetings(); 
-        }
-
-        public static List<Meeting> GetAllMeetings()
-        {
-            List<Meeting> MeetingsList = new List<Meeting>();
-            MeetingsList.Add(new Meeting(
-                "soccer brother",
-                "https://png.pngtree.com/png-clipart/20190611/original/pngtree-beautiful-blue-cartoon-soccer-field-png-image_2749691.jpg",
-                "1",
-                new DateTime(2021, 10, 23, 12, 0, 0),
-                new DateTime(2021, 10, 23, 15, 0, 0),
-                "1",
-                10,
-                15,
-                15,
-                30,
-                new Position(32.2271155528261, 34.9893602728844)));
-            MeetingsList.Add(new Meeting(
-                "catan kings",
-                "https://e7.pngegg.com/pngimages/692/115/png-clipart-catan-boardgamegeek-dice-board-game-dice-game-dice-thumbnail.png",
-                "5",
-                new DateTime(2021, 10, 24, 20, 0, 0),
-                new DateTime(2021, 10, 24, 22, 0, 0),
-                "3",
-                3,
-                4,
-                16,
-                60,
-                new Position(32.2155361580173, 34.9895503744483)));
-            MeetingsList.Add(new Meeting(
-                "pokerrrr",
-                null,
-                "4",
-                new DateTime(2021, 11, 1, 20, 0, 0),
-                new DateTime(2021, 11, 1, 22, 0, 0),
-                "2",
-                4,
-                6,
-                18,
-                80,
-                new Position(32.2289114408791, 35.0048205256462)));
-
-            return MeetingsList; // TODO return only available
+            get
+            {
+                IFindFluent<Meeting, Meeting> f = collection.Find(_ => true);
+                List<Meeting> t = f.ToList();
+                return t; // TODO delete
+            }
         }
         
         public static List<Meeting> GetMeetingsByUser(User User)
         {
-            return Meetings.FindAll(m => m.Members.Contains(User));
+            return collection.Find(m => m.Members.Contains(User)).ToList();
         }
 
         public static Meeting GetMeetingById(string MeetingId)
         {
-            return Meetings.Find(m => m.Id == MeetingId);
+            return collection.Find(m => m.Id == MeetingId).SingleOrDefault();
         }
 
         public static List<Meeting> GetMeetingsByUser(string UserId)
@@ -74,12 +38,44 @@ namespace LetsMeet.Data
 
         public static void CreateMeeting(Meeting m)
         {
-            Meetings.Add(m);
+            collection.InsertOne(m);
         }
 
-        public static bool RemoveMeeting(Meeting m)
+        public static void RemoveMeeting(Meeting MeetingToRemove)
         {
-            return Meetings.Remove(m);
+            collection.DeleteOne(m => m.Id == MeetingToRemove.Id);
+        }
+
+        public static void RemoveMeetingByOwner(string OwnerId)
+        {
+            collection.DeleteMany(m => m.OwnerId == OwnerId);
+        }
+
+        public static List<Meeting> SearchMeetings(bool OwnedByMe, bool OwnedByFriend, bool Member, MeetingStatus status, User CurrenUser)
+        {
+            List<Meeting> temp_meetings_list = new List<Meeting>();
+
+            void VerifyAdd(Meeting m)
+            {
+                if (!temp_meetings_list.Contains(m) && m.Status == status)
+                    temp_meetings_list.Add(m);
+            };
+
+            if (OwnedByMe)
+                collection.Find(m => m.OwnerId == CurrenUser.Id).ToList().ForEach(VerifyAdd);
+            if (OwnedByFriend)
+                collection.Find(m => CurrenUser.FriendsIds.Contains(m.OwnerId)).ToList().ForEach(VerifyAdd);
+            if (Member)
+                collection.Find(m => m.MembersIds.Contains(CurrenUser.Id)).ToList().ForEach(VerifyAdd);
+            if (!OwnedByMe && !OwnedByFriend && !Member)
+                MeetingsData.AllMeetings.ForEach(VerifyAdd);
+
+            return temp_meetings_list;
+        }
+
+        public static void UpdateMeeting(Meeting Meeting)
+        {
+            collection.ReplaceOne(m => m.Id == Meeting.Id, Meeting);
         }
     }
 }

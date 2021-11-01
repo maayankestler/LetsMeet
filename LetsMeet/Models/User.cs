@@ -6,62 +6,72 @@ using System.Text;
 using LetsMeet.Models;
 using LetsMeet.Data;
 using System.Threading;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 
 public class User 
 {
     public User(string name, string UserName, string Password, string IconURL, DateTime BornDate)
     {
-        this.Id = Interlocked.Increment(ref nextId).ToString();
         this.Name = name;
         this.UserName = UserName;
         this.Password = Password;
         this.IconURL = IconURL;
         this.BornDate = BornDate;
+        this.FriendsIds = new HashSet<string>();
+        this.type = UserType.User;
     }
 
-    static int nextId = 0;
-    public string Id { get; set; } // TODO add auto genrator
+    [BsonId, BsonElement("_id"), BsonRepresentation(BsonType.ObjectId)]
+    public string Id { get; set; }
 
+    [BsonElement("Name")]
     public string Name { get; set; }
 
+    [BsonElement("UserName")]
     public string UserName { get; set; }
 
+    [BsonElement("Password")]
     public string Password { get; set; }
-    private readonly string _adminID = "1"; 
+    [BsonElement("Type")]
+    public UserType type { get; private set; }
     public bool IsAdmin 
     { 
         get
         {
-            return (Id == _adminID); // TODO better verify
+            return (type == UserType.Admin);
         }
     }
 
-    private List<string> _favoriteTypesIds = new List<string>();
+    //private List<string> _favoriteTypesIds = new List<string>();
 
-    public HashSet<MeetingType> FavoriteTypes
-    {
-        get
-        {
-            List<MeetingType> types = _favoriteTypesIds.ConvertAll(new Converter<string, MeetingType>(MeetingTypesData.GetMeetingType));
-            return new HashSet<MeetingType>(types);
-        }
-    }
+    //public HashSet<MeetingType> FavoriteTypes
+    //{
+    //    get
+    //    {
+    //        List<MeetingType> types = _favoriteTypesIds.ConvertAll(new Converter<string, MeetingType>(MeetingTypesData.GetMeetingType));
+    //        return new HashSet<MeetingType>(types);
+    //    }
+    //}
 
-    private List<string> _friendsIds = new List<string>();
+    [BsonElement("FriendsIds")]
+    public HashSet<string> FriendsIds = new HashSet<string>();
 
     public HashSet<User> Friends
     {
         get
         {
-            List<User> friends = _friendsIds.ConvertAll(new Converter<string, User>(UsersData.GetUser));
+            List<User> friends = FriendsIds.ToList().ConvertAll(new Converter<string, User>(UsersData.GetUser));
             HashSet<User> FriendsHashSet = new HashSet<User>(friends);
             FriendsHashSet.Remove(null);
             return FriendsHashSet;
         }
     }
 
+    [BsonElement("IconURL")]
     public string IconURL { get; set; }
 
+    [BsonElement("BornDate")]
     public DateTime BornDate { get; set; }
 
     public int age {
@@ -111,26 +121,26 @@ public class User
 
     public void AddFriend(User user)
     {
-        if (user!= null && !this.Friends.Contains(user))
+        if (user != null && !this.FriendsIds.Contains(user.Id))
         {
-            //this.Friends.Add(user);
-            _friendsIds.Add(user.Id);
+            FriendsIds.Add(user.Id);
             user.AddFriend(this);
-            // TODO add to DB
+            UsersData.UpdateUser(this);
         }
     }
 
     public bool IsFreind(User user)
     {
-        return !this.Equals(user) && _friendsIds.Contains(user.Id);
+        return !this.Equals(user) && FriendsIds.Contains(user.Id);
     }
 
     public void RemoveFriend(User friend)
     {
         if (IsFreind(friend))
         {
-            _friendsIds.Remove(friend.Id);
+            FriendsIds.Remove(friend.Id);
             friend.RemoveFriend(this);
+            UsersData.UpdateUser(this);
         }    
     }
 
@@ -139,4 +149,10 @@ public class User
         Friends.ForEach(f => RemoveFriend(f));
     }
 
+}
+
+public enum UserType
+{
+    Admin,
+    User
 }

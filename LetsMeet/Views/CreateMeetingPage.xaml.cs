@@ -28,12 +28,17 @@ namespace LetsMeet.Views
         public DateTime EndTime { get; set; } = DateTime.Now.Add(new TimeSpan(1, 2, 0, 0));
         public Position Position { get; set; }
 
-        private string _typeId = "1";
+        private string _typeId = null;
         public MeetingType Type
         {
             get
             {
-                return MeetingTypesData.GetMeetingType(_typeId);
+                MeetingType m;
+                if (_typeId == null)
+                    m = MeetingTypesData.GetFirst();
+                else
+                    m = MeetingTypesData.GetMeetingType(_typeId);
+                return m;
             }
             set
             {
@@ -56,8 +61,7 @@ namespace LetsMeet.Views
 
         async private void create_meeting_clicked(object sender, EventArgs e)
         {
-            Meeting m = new Meeting(
-                Name, IconURL, _typeId, StartTime, EndTime, MainViewModel.GetInstance.CurrentUser.Id, MinMembers, MaxMembers, MinAge, MaxAge, Position);
+            Meeting m = new Meeting(Name, IconURL, _typeId, StartTime, EndTime, MainViewModel.GetInstance.CurrentUser.Id, MinMembers, MaxMembers, MinAge, MaxAge, Position);
             MeetingsData.CreateMeeting(m);
             await Shell.Current.GoToAsync("//MeetingsList");
         }

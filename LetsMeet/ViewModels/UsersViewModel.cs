@@ -20,7 +20,7 @@ namespace LetsMeet.ViewModels
             FilterUsers();
             PageAppearingCommand = new Command(FilterUsers);
         }
-        public ObservableCollection<User> _usersList { get; set; } = new ObservableCollection<User>(UsersData.Users);
+        public ObservableCollection<User> _usersList { get; set; }
         public IEnumerable AvailableUsers => _usersList;
         public ICommand PageAppearingCommand { get; }
         private bool _isFriend = false;
@@ -76,9 +76,9 @@ namespace LetsMeet.ViewModels
             };
 
             if (IsFriend)
-                UsersData.Users.FindAll(u =>MainViewModel.GetInstance.CurrentUser.IsFreind(u)).ForEach(VerifyAdd);
+                UsersData.AllUsers.FindAll(u =>MainViewModel.GetInstance.CurrentUser.IsFreind(u)).ForEach(VerifyAdd);
             if (!IsFriend)
-                UsersData.Users.ForEach(VerifyAdd);
+                UsersData.AllUsers.ForEach(VerifyAdd);
 
             _usersList = temp_users_list;
         }

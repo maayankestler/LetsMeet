@@ -59,7 +59,7 @@ namespace LetsMeet.ViewModels
         {
             try
             {
-                Meeting = MeetingsData.Meetings.FirstOrDefault(a => a.Id == id);
+                Meeting = MeetingsData.GetMeetingById(id);
             }
             catch (Exception)
             {

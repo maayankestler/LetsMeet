@@ -33,7 +33,7 @@
         <controls:UsersSearchHandler Placeholder="Enter search term"
                                       ShowsResults="true"
                                       ItemTemplate="{StaticResource DefaultSearchTemplate}"
-                                      Users="{x:Static data:UsersData.Users}"
+                                      Users="{x:Static data:UsersData.AllUsers}"
                                       SelectedItemNavigationTarget="{x:Type views:UserDetailPage}" />
     </Shell.SearchHandler>
     <StackLayout>

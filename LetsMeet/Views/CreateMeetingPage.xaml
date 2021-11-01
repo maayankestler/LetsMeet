@@ -16,7 +16,7 @@
                 <Label Text="choose meeting type:"/>
                 <Label Text="{Binding Type.Name}" FontAttributes="Bold"/>
             </StackLayout>
-            <CollectionView ItemsSource="{x:Static data:MeetingCatogriesData.MeetingCategories}"
+            <CollectionView ItemsSource="{x:Static data:MeetingCatogriesData.AllMeetingCategories}"
                             HeightRequest="300"
                             BackgroundColor="AliceBlue">
                 <CollectionView.ItemTemplate>
