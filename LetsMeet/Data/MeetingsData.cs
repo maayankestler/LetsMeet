@@ -17,7 +17,6 @@ namespace LetsMeet.Data
         {
             List<Meeting> MeetingsList = new List<Meeting>();
             MeetingsList.Add(new Meeting(
-                "1",
                 "soccer brother",
                 "https://png.pngtree.com/png-clipart/20190611/original/pngtree-beautiful-blue-cartoon-soccer-field-png-image_2749691.jpg",
                 "1",
@@ -28,9 +27,8 @@ namespace LetsMeet.Data
                 15,
                 15,
                 30,
-                new Position(12, 13)));
+                new Position(32.2271155528261, 34.9893602728844)));
             MeetingsList.Add(new Meeting(
-                "2",
                 "catan kings",
                 "https://e7.pngegg.com/pngimages/692/115/png-clipart-catan-boardgamegeek-dice-board-game-dice-game-dice-thumbnail.png",
                 "5",
@@ -43,7 +41,6 @@ namespace LetsMeet.Data
                 60,
                 new Position(32.2155361580173, 34.9895503744483)));
             MeetingsList.Add(new Meeting(
-                "3",
                 "pokerrrr",
                 null,
                 "4",

@@ -2,14 +2,20 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              xmlns:maps="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              xmlns:controls="clr-namespace:LetsMeet.Controls"
              x:Class="LetsMeet.Views.MeetingsMapPage"
              Title="Meetings map">
+    <ContentPage.Behaviors>
+        <xct:EventToCommandBehavior
+                EventName="Appearing"
+                Command="{Binding PageAppearingCommand}" />
+    </ContentPage.Behaviors>
     <StackLayout>
         <maps:Map IsShowingUser="True" 
                   x:Name="ChooseMapControl"
                   MapType="Street" 
-                  ItemsSource="{Binding AvailableMeetings }"
+                  ItemsSource="{Binding AvailableMeetings}"
                   HasScrollEnabled="True" 
                   HasZoomEnabled="True" >
             <maps:Map.ItemTemplate>

@@ -57,7 +57,6 @@ namespace LetsMeet.Views
         async private void create_meeting_clicked(object sender, EventArgs e)
         {
             Meeting m = new Meeting(
-                "8", // TODO generate ids
                 Name, IconURL, _typeId, StartTime, EndTime, MainViewModel.GetInstance.CurrentUser.Id, MinMembers, MaxMembers, MinAge, MaxAge, Position);
             MeetingsData.CreateMeeting(m);
             await Shell.Current.GoToAsync("//MeetingsList");

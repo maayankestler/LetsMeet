@@ -5,9 +5,21 @@ using System.Linq;
 using System.Text;
 using LetsMeet.Models;
 using LetsMeet.Data;
+using System.Threading;
 
 public class User 
 {
+    public User(string name, string UserName, string Password, string IconURL, DateTime BornDate)
+    {
+        this.Id = Interlocked.Increment(ref nextId).ToString();
+        this.Name = name;
+        this.UserName = UserName;
+        this.Password = Password;
+        this.IconURL = IconURL;
+        this.BornDate = BornDate;
+    }
+
+    static int nextId = 0;
     public string Id { get; set; } // TODO add auto genrator
 
     public string Name { get; set; }

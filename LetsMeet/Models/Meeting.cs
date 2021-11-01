@@ -4,17 +4,16 @@ namespace LetsMeet.Models
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
-
+    using System.Threading;
     using LetsMeet.Data;
     using Xamarin.Forms.Maps;
 
     public class Meeting
     {
-
-        public Meeting(string id, string name, string IconURL, string type_id, DateTime StartTime, DateTime EndTime,
+        public Meeting(string name, string IconURL, string type_id, DateTime StartTime, DateTime EndTime,
                        string owner_id, int min_members, int max_members, int min_age, int max_age, Position position)
         {
-            this.Id = id;
+            this.Id = Interlocked.Increment(ref nextId).ToString();
             this.Name = name;
             this.IconURL = IconURL;
             this._tpyeId = type_id;
@@ -23,7 +22,7 @@ namespace LetsMeet.Models
             this._ownerId = owner_id;
             this._membersIds = new List<string>();
             this._membersIds.Add(_ownerId);
-            this.Status = "Available"; // TODO manage statuses (Available/Cancelled/Done/Inprogress/Template .....)
+            this.Status = MeetingStatus.Available;  //"Available"; // TODO manage statuses (Available/Cancelled/Done/Inprogress/Template .....)
             this.MinMembers = min_members;
             this.MaxMembers = max_members;
             this.MinAge = min_age;
@@ -31,7 +30,8 @@ namespace LetsMeet.Models
             this.Position = position;
         }
 
-        public string Id { get; set; }
+        static int nextId = 0;
+        public string Id { get; private set; }
 
         public string Name { get; set; }
 
@@ -84,7 +84,7 @@ namespace LetsMeet.Models
 
         public DateTime EndTime { get; set; }
 
-        public string Status { get; private set; }
+        public MeetingStatus Status { get; private set; }
 
         private string _ownerId;
 
@@ -100,7 +100,7 @@ namespace LetsMeet.Models
 
         public void Cancel()
         {
-            this.Status = "Cancelled";
+            this.Status = MeetingStatus.Cancelled;
         }
 
         public void AddMember(User Member)
@@ -121,4 +121,13 @@ namespace LetsMeet.Models
         }
 
     }
+}
+
+public enum MeetingStatus
+{
+    Available,
+    Cancelled,
+    Done,
+    Inprogress,
+    Template
 }

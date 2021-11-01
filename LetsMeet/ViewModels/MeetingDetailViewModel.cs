@@ -87,9 +87,10 @@ namespace LetsMeet.ViewModels
             OnPropertyChanged("Meeting");
         }
 
-        void CancelMeeting_Button_Clicked()
+        async void CancelMeeting_Button_Clicked()
         {
             Meeting.Cancel();
+            await Shell.Current.GoToAsync("..");
         }
 
         void SelectedObjectsChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)

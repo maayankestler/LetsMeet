@@ -3,17 +3,18 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using LetsMeet.Data;
 
 public class MeetingType {
 
     public MeetingType(string id, string name, string IconURL, string category_id) {
-        this.Id = id;
+        this.Id = Interlocked.Increment(ref nextId).ToString();
         this.Name = name;
         this.IconURL = IconURL;
         this.CategoryId = category_id;
     }
-
+    static int nextId = 0;
     public string Id { get; private set; }
 
     public string Name { get; set; }

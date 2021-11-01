@@ -15,7 +15,7 @@ namespace LetsMeet.Views
     public partial class CreateMeetingCategoryPage : ContentPage
     {
         public string Name { get; set; }
-        public string IconURL { get; set; }
+        public string IconURL { get; set; } = "https://png.pngtree.com/png-clipart/20210725/original/pngtree-free-download-png-online-class-learning-illustration-png-image_6569957.jpg";
         public CreateMeetingCategoryPage()
         {
             InitializeComponent();

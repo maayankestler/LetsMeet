@@ -4,16 +4,18 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 
 public class MeetingCategory {
 
     public MeetingCategory(string id, string name, string IconURL)
     {
-        this.Id = id;
+        this.Id = Interlocked.Increment(ref nextId).ToString();
         this.Name = name;
         this.IconURL = IconURL;
     }
 
+    static int nextId = 0;
     public string Id { get; private set; }
 
     public string Name { get; set; }

@@ -16,35 +16,29 @@ namespace LetsMeet.Data
         {
             List<User> UsersList = new List<User>();
 
-            UsersList.Add(new User
-            {
-                Id="1",
-                Name = "maayan",
-                UserName = "t",
-                Password="a",
-                IconURL = "https://www.onlyou.co.il/data/EIw2xdZedc_500572.jpg",
-                BornDate = new DateTime(1997, 3, 17)
-            });
+            UsersList.Add(new User(
+                "maayan",
+                "t",
+                "a",
+                "https://www.onlyou.co.il/data/EIw2xdZedc_500572.jpg",
+                new DateTime(1997, 3, 17)
+            ));
 
-            UsersList.Add(new User
-            {
-                Id = "2",
-                Name = "ido",
-                UserName = "ido5",
-                Password = "555",
-                IconURL = "https://png.pngtree.com/png-vector/20191101/ourmid/pngtree-cartoon-color-simple-male-avatar-png-image_1934459.jpg",
-                BornDate = new DateTime(1999, 4, 10)
-            });
+            UsersList.Add(new User(
+                "ido",
+                "ido5",
+                "555",
+                "https://png.pngtree.com/png-vector/20191101/ourmid/pngtree-cartoon-color-simple-male-avatar-png-image_1934459.jpg",
+                new DateTime(1999, 4, 10)
+            ));
 
-            UsersList.Add(new User
-            {
-                Id = "3",
-                Name = "tomer",
-                UserName = "t",
-                Password = "t",
-                IconURL = "https://aux.iconspalace.com/uploads/1867938351348566395.png",
-                BornDate = new DateTime(1990, 11, 7)
-            });
+            UsersList.Add(new User(
+                "tomer",
+                "t",
+                "t",
+                "https://aux.iconspalace.com/uploads/1867938351348566395.png",
+                new DateTime(1990, 11, 7)
+            ));
 
             return UsersList;
         }

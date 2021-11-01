@@ -25,15 +25,7 @@ namespace LetsMeet.ViewModels
 
         async void SignUp_Button_Clicked()
         {
-            User NewUser = new User
-            {
-                Id = "4", // TODO: delete this
-                Name = Name,
-                UserName = UserName,
-                Password = Password,
-                IconURL = IconURL,
-                BornDate = BornDate
-            };
+            User NewUser = new User(Name, UserName, Password, IconURL, BornDate);
             UsersData.CreateUser(NewUser);
             MainViewModel.GetInstance.Login(UserName, Password);
             await Shell.Current.GoToAsync("//profile");

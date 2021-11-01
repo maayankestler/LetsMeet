@@ -14,7 +14,7 @@ namespace LetsMeet.Views
     public partial class CreateMeetingTypePage : ContentPage
     {
         public string Name { get; set; }
-        public string IconURL { get; set; }
+        public string IconURL { get; set; } = "https://png.pngtree.com/png-vector/20190330/ourmid/pngtree-vector-meeting-icon-png-image_894665.jpg";
         private string _categoryId = "1";
         public MeetingCategory Category
         {
