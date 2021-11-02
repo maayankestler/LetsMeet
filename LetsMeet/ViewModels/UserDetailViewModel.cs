@@ -24,13 +24,16 @@ namespace LetsMeet.ViewModels
             set
             {
                 _userId = value;
+                _user = UsersData.GetUser(UserId);
             }
         }
+
+        private User _user = null;
         public User User 
         { 
             get
             {
-                return UsersData.GetUser(UserId);
+                return (_user == null) ? MainViewModel.GetInstance.CurrentUser : _user;
             }
         }
         public bool IsLoggedOnUser 
@@ -44,7 +47,7 @@ namespace LetsMeet.ViewModels
         { 
             get
             {
-                return (User != null && MainViewModel.GetInstance.CurrentUser.IsFreind(User));
+                return MainViewModel.GetInstance.CurrentUser.IsFreind(User);
             }
         }
         public bool IsAdmin
@@ -61,7 +64,6 @@ namespace LetsMeet.ViewModels
         public ICommand RemoveUser { get; }
         public ObservableCollection<object> SelectedObjects { get; set; }
         public List<User> SelectedMembers { get; set; }
-
 
         public UserDetailViewModel()
         {
@@ -81,6 +83,9 @@ namespace LetsMeet.ViewModels
             {
                 // Only a single query parameter is passed, which needs URL decoding.
                 UserId = HttpUtility.UrlDecode(query["id"]);
+                OnPropertyChanged("User");
+                OnPropertyChanged("IsFriend");
+                OnPropertyChanged("IsLoggedOnUser");
             }
         }
 
@@ -127,7 +132,6 @@ namespace LetsMeet.ViewModels
             if (itemToRemove != null)
             {
                 SelectedMembers.Remove(itemToRemove);
-                // SelectedObjects.Remove(itemToRemove);
             }
         }
 

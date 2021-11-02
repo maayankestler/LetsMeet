@@ -15,7 +15,7 @@ namespace LetsMeet.Models
     public class Meeting
     {
         public Meeting(string name, string IconURL, string type_id, DateTime StartTime, DateTime EndTime,
-                       string owner_id, int min_members, int max_members, int min_age, int max_age, Location position)
+                       string owner_id, int min_members, int max_members, int min_age, int max_age, Location Location)
         {
             this.Name = name;
             this.IconURL = IconURL;
@@ -30,7 +30,7 @@ namespace LetsMeet.Models
             this.MaxMembers = max_members;
             this.MinAge = min_age;
             this.MaxAge = max_age;
-            this.Position = position;
+            this.Location = Location;
         }
 
         [BsonId, BsonElement("_id"), BsonRepresentation(BsonType.ObjectId)]
@@ -116,8 +116,8 @@ namespace LetsMeet.Models
             }
         }
 
-        [BsonElement("Position")]
-        public Location Position { get; set; }
+        [BsonElement("Location")]
+        public Location Location { get; set; }
 
         public void Cancel()
         {

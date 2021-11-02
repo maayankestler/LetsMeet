@@ -15,9 +15,7 @@ namespace LetsMeet.Data
         {
             get
             {
-                IFindFluent<Meeting, Meeting> f = collection.Find(_ => true);
-                List<Meeting> t = f.ToList();
-                return t; // TODO delete
+                return collection.Find(_ => true).ToList();
             }
         }
         

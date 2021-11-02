@@ -17,7 +17,6 @@ namespace LetsMeet.ViewModels
     {
         public UsersViewModel()
         {
-            FilterUsers();
             PageAppearingCommand = new Command(FilterUsers);
         }
         public ObservableCollection<User> _usersList { get; set; }

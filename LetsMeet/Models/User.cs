@@ -131,7 +131,7 @@ public class User
 
     public bool IsFreind(User user)
     {
-        return !this.Equals(user) && FriendsIds.Contains(user.Id);
+        return user != null && !this.Equals(user) && FriendsIds.Contains(user.Id);
     }
 
     public void RemoveFriend(User friend)

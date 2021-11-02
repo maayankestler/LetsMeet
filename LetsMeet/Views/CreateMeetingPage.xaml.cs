@@ -29,16 +29,23 @@ namespace LetsMeet.Views
         public Location Location { get; set; }
 
         private string _typeId = null;
+        private MeetingType _type = null;
         public MeetingType Type
         {
             get
             {
-                MeetingType m;
                 if (_typeId == null)
-                    m = MeetingTypesData.GetFirst();
-                else
-                    m = MeetingTypesData.GetMeetingType(_typeId);
-                return m;
+                {
+                    _type = MeetingTypesData.GetFirst();
+                    _typeId = _type.Id;
+                }
+                else if(_typeId != _type.Id)
+                {
+                    _type = MeetingTypesData.GetMeetingType(_typeId);
+                }
+                    
+                
+                return _type;
             }
             set
             {

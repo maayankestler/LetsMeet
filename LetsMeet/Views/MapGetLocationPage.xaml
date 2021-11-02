@@ -18,13 +18,6 @@
                               InfoWindowClicked="ChooseLocation"/>
                 </DataTemplate>
             </maps:Map.ItemTemplate>
-            <!--<maps:Map.Pins>
-                <maps:Pin Label="Santa Cruz"
-                          Address="The city with a boardwalk"
-                          Position="{Binding CurrentPosition}"
-                          Type="Place">
-                </maps:Pin>
-            </maps:Map.Pins>-->
         </maps:Map>
         <Button Text="choose location" Clicked="ChooseLocation" />
     </StackLayout>

@@ -14,19 +14,35 @@ namespace LetsMeet.ViewModels
 {
     class MeetingDetailViewModel : IQueryAttributable, INotifyPropertyChanged
     {
-        public Meeting Meeting { get; set; }
+        private string _meetingId = null;
+        public string MeetingId
+        {
+            get
+            {
+                return _meetingId;
+            }
+            set
+            {
+                if (_meetingId != value)
+                {
+                    _meetingId = value;
+                    Meeting = MeetingsData.GetMeetingById(_meetingId);
+                }
+            }
+        }
+        public Meeting Meeting { get; private set; }
         public bool IsInMeeting
         {
             get
             {
-                return (Meeting != null && Meeting.Members.Contains(MainViewModel.GetInstance.CurrentUser));
+                return (Meeting != null && Meeting.MembersIds.Contains(MainViewModel.GetInstance.CurrentUser.Id));
             }
         }
-        public bool IsOwner 
-        { 
+        public bool IsOwner
+        {
             get
             {
-                return (Meeting != null && Meeting.Owner == MainViewModel.GetInstance.CurrentUser);
+                return (Meeting != null && Meeting.OwnerId == MainViewModel.GetInstance.CurrentUser.Id);
             }
         }
         public ICommand JoinMeeting { get; }
@@ -50,20 +66,8 @@ namespace LetsMeet.ViewModels
         {
             if (query.ContainsKey("id"))
             {
-                // Only a single query parameter is passed, which needs URL decoding.
-                LoadMeeting(HttpUtility.UrlDecode(query["id"]));
-            }
-        }
-
-        public void LoadMeeting(string id)
-        {
-            try
-            {
-                Meeting = MeetingsData.GetMeetingById(id);
-            }
-            catch (Exception)
-            {
-                Console.WriteLine("Failed to load Meeting.");
+                MeetingId = HttpUtility.UrlDecode(query["id"]);
+                OnPropertyChanged("Meeting");
             }
         }
 
@@ -101,7 +105,6 @@ namespace LetsMeet.ViewModels
             if (itemToRemove != null)
             {
                 SelectedMembers.Remove(itemToRemove);
-                // SelectedObjects.Remove(itemToRemove);
             }
         }
 

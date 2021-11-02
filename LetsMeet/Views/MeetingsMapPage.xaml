@@ -26,7 +26,7 @@
                   HasZoomEnabled="True" >
             <maps:Map.ItemTemplate>
                 <DataTemplate>
-                    <controls:MeetingPin Position="{Binding Position, Converter={StaticResource  LocToPos}}"
+                    <controls:MeetingPin Position="{Binding Location, Converter={StaticResource  LocToPos}}"
                                          Meeting ="{Binding .}"
                                          Label="{Binding Name, StringFormat='check {0}' }"
                                          InfoWindowClicked="Pin_InfoWindowClicked"/>
