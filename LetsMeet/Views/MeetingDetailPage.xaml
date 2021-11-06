@@ -13,9 +13,11 @@
                    HeightRequest="200" 
                    WidthRequest="200" 
                    HorizontalOptions="CenterAndExpand" />
-        <Grid RowDefinitions="Auto,Auto,Auto" ColumnDefinitions="150,Auto">
-            <Label Text="time range:" Grid.Row="0" Grid.Column="0"/>
-            <Label FontSize="16" Grid.Row="0" Grid.Column="1">
+        <Grid RowDefinitions="Auto,Auto,Auto,Auto" ColumnDefinitions="150,Auto">
+            <Label Text="Type:" Grid.Row="0" Grid.Column="0" />
+            <Label Text="{Binding Meeting.Type.Name}" FontSize="16" Grid.Row="0" Grid.Column="1"/>
+            <Label Text="time range:" Grid.Row="1" Grid.Column="0"/>
+            <Label FontSize="16" Grid.Row="1" Grid.Column="1">
                 <Label.Text>
                     <MultiBinding StringFormat="{}{0:dd/MM/yyyy HH:mm} - {1:HH:mm}">
                         <Binding Path="Meeting.StartTime"/>
@@ -23,8 +25,8 @@
                     </MultiBinding>
                 </Label.Text>
             </Label>
-            <Label Text="age range:" Grid.Row="1" Grid.Column="0"/>
-            <Label FontSize="16" Grid.Row="1" Grid.Column="1">
+            <Label Text="age range:" Grid.Row="2" Grid.Column="0"/>
+            <Label FontSize="16" Grid.Row="2" Grid.Column="1">
                 <Label.Text>
                     <MultiBinding StringFormat="{}{0} - {1}">
                         <Binding Path="Meeting.MinAge"/>
@@ -32,8 +34,8 @@
                     </MultiBinding>
                 </Label.Text>
             </Label>
-            <Label Text="wanted members number:" Grid.Row="2" Grid.Column="0"/>
-            <Label FontSize="16" Grid.Row="2" Grid.Column="1">
+            <Label Text="wanted members number:" Grid.Row="3" Grid.Column="0"/>
+            <Label FontSize="16" Grid.Row="3" Grid.Column="1">
                 <Label.Text>
                     <MultiBinding StringFormat="{}{0} - {1}">
                         <Binding Path="Meeting.MinMembers"/>

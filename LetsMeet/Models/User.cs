@@ -102,7 +102,7 @@ public class User
     //    if (!this.FavoriteTypes.Contains(meeting_type))
     //    {
     //        this.FavoriteTypes.Add(meeting_type);
-    //        // TODO add to DB
+    //        
     //    }
     //}
 
@@ -111,11 +111,11 @@ public class User
     //    if (this.FavoriteTypes.Contains(meeting_type))
     //    {
     //        this.FavoriteTypes.Remove(meeting_type);
-    //        // TODO remove from db
+    //        
     //    }
     //    else
     //    {
-    //        // TODO can't find user
+    //        
     //    }
     //}
 
