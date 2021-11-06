@@ -90,10 +90,10 @@
                       ContentTemplate="{DataTemplate views:UserDetailPage}"/>
         <ShellContent Route="CreateMeeting"
                       Style="{StaticResource ElephantsShell}"
-                      Title="Create meeting"
+                      Title="Create"
                       Icon="create.png"
                       ContentTemplate="{DataTemplate views:CreateMeetingPage}" />
-        <Tab Title="Search meetings" Route="domestic" Icon="search.png">
+        <Tab Title="Search" Route="domestic" Icon="search.png">
             <ShellContent Route="MeetingsList"
                           Style="{StaticResource MeetingsShell}"
                           Title="list"

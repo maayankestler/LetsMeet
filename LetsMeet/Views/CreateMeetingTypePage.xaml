@@ -8,6 +8,10 @@
                         Padding="16,40,16,40"
                         Spacing="10">
             <Image BindingContext="{x:Reference IconURLEntry}" Source="{Binding Path=Text}" HeightRequest="200" WidthRequest="200"/>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="choose category:"/>
+                <Label Text="{Binding Category.Name}" FontAttributes="Bold"/>
+            </StackLayout>
             <CollectionView ItemsSource="{x:Static data:MeetingCatogriesData.AllMeetingCategories}"
                             HeightRequest="300"
                             SelectionMode="Single"
@@ -24,13 +28,13 @@
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
-            <Label FontAttributes="Bold">
+            <!--<Label FontAttributes="Bold">
                 <Label.Text>
                     <MultiBinding StringFormat="{}category: {0}">
                         <Binding Path="Category.Name"/>
                     </MultiBinding>
                 </Label.Text>
-            </Label>
+            </Label>-->
             <Label Text="meeting name:"/>
             <Entry Placeholder="name" Text="{Binding Name}"/>
             <Label Text="icon URL"/>
