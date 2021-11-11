@@ -54,10 +54,10 @@ namespace LetsMeet.ViewModels
 
         public MeetingDetailViewModel()
         {
-            JoinMeeting = new Command(JoinMeeting_Button_Clicked);
-            QuitMeeting = new Command(QuitMeeting_Button_Clicked);
-            CancelMeeting = new Command(CancelMeeting_Button_Clicked);
-            RemoveMembers = new Command(RemoveMembers_Button_Clicked);
+            JoinMeeting = new Command(JoinMeetingButtonClicked);
+            QuitMeeting = new Command(QuitMeetingButtonClicked);
+            CancelMeeting = new Command(CancelMeetingButtonClicked);
+            RemoveMembers = new Command(RemoveMembersButtonClicked);
             SelectedObjects = new ObservableCollection<object>();
             SelectedObjects.CollectionChanged += SelectedObjectsChanged;
             SelectedMembers = new List<User>();
@@ -71,27 +71,27 @@ namespace LetsMeet.ViewModels
             }
         }
 
-        void JoinMeeting_Button_Clicked()
+        void JoinMeetingButtonClicked()
         {
             Meeting.AddMember(MainViewModel.GetInstance.CurrentUser);
             OnPropertyChanged("IsInMeeting"); 
             OnPropertyChanged("Meeting");
         }
 
-        void QuitMeeting_Button_Clicked()
+        void QuitMeetingButtonClicked()
         {
             Meeting.RemoveMember(MainViewModel.GetInstance.CurrentUser);
             OnPropertyChanged("IsInMeeting");
             OnPropertyChanged("Meeting");
         }
 
-        void RemoveMembers_Button_Clicked()
+        void RemoveMembersButtonClicked()
         {
             Meeting.RemoveMembers(SelectedMembers);
             OnPropertyChanged("Meeting");
         }
 
-        async void CancelMeeting_Button_Clicked()
+        async void CancelMeetingButtonClicked()
         {
             Meeting.Cancel();
             await Shell.Current.GoToAsync("..");

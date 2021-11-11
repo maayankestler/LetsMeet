@@ -14,23 +14,23 @@ namespace LetsMeet.Models
 
     public class Meeting
     {
-        public Meeting(string name, string IconURL, string type_id, DateTime StartTime, DateTime EndTime,
-                       string owner_id, int min_members, int max_members, int min_age, int max_age, Location Location)
+        public Meeting(string name, string iconURL, string typeId, DateTime startTime, DateTime endTime,
+                       string ownerId, int minMembers, int maxMembers, int minAge, int maxAge, Location location)
         {
             this.Name = name;
-            this.IconURL = IconURL;
-            this._tpyeId = type_id;
-            this.StartTime = StartTime;
-            this.EndTime = EndTime;
-            this.OwnerId = owner_id;
+            this.IconURL = iconURL;
+            this._tpyeId = typeId;
+            this.StartTime = startTime;
+            this.EndTime = endTime;
+            this.OwnerId = ownerId;
             this.MembersIds = new HashSet<string>();
             this.MembersIds.Add(OwnerId);
             this.Status = MeetingStatus.Available;
-            this.MinMembers = min_members;
-            this.MaxMembers = max_members;
-            this.MinAge = min_age;
-            this.MaxAge = max_age;
-            this.Location = Location;
+            this.MinMembers = minMembers;
+            this.MaxMembers = maxMembers;
+            this.MinAge = minAge;
+            this.MaxAge = maxAge;
+            this.Location = location;
         }
 
         [BsonId, BsonElement("_id"), BsonRepresentation(BsonType.ObjectId)]
@@ -125,25 +125,25 @@ namespace LetsMeet.Models
             MeetingsData.UpdateMeeting(this);
         }
 
-        public void AddMember(User Member)
+        public void AddMember(User member)
         {
-            if (Member.age >= MinAge && Member.age <= MaxAge && MembersIds.Count < MaxMembers)
+            if (member.age >= MinAge && member.age <= MaxAge && MembersIds.Count < MaxMembers)
             {
-                MembersIds.Add(Member.Id);
+                MembersIds.Add(member.Id);
                 MeetingsData.UpdateMeeting(this);
             }
             else
                 Console.WriteLine("can't join meeting");
         }
-        public void RemoveMember(User Member)
+        public void RemoveMember(User member)
         {
-            MembersIds.Remove(Member.Id);
+            MembersIds.Remove(member.Id);
             MeetingsData.UpdateMeeting(this);
         }
 
-        public void RemoveMembers(List<User> Members)
+        public void RemoveMembers(List<User> members)
         {
-            Members.ForEach(m => RemoveMember(m));
+            members.ForEach(m => RemoveMember(m));
             MeetingsData.UpdateMeeting(this);
         }
 
@@ -155,6 +155,6 @@ public enum MeetingStatus
     Available,
     Cancelled,
     Done,
-    Inprogress,
+    InProgress,
     Template
 }

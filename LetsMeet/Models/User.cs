@@ -11,13 +11,13 @@ using MongoDB.Bson.Serialization.Attributes;
 
 public class User 
 {
-    public User(string name, string UserName, string Password, string IconURL, DateTime BornDate)
+    public User(string name, string userName, string password, string iconURL, DateTime bornDate)
     {
         this.Name = name;
-        this.UserName = UserName;
-        this.Password = Password;
-        this.IconURL = IconURL;
-        this.BornDate = BornDate;
+        this.UserName = userName;
+        this.Password = password;
+        this.IconURL = iconURL;
+        this.BornDate = bornDate;
         this.FriendsIds = new HashSet<string>();
         this.type = UserType.User;
     }
@@ -35,24 +35,6 @@ public class User
     public string Password { get; set; }
     [BsonElement("Type")]
     public UserType type { get; private set; }
-    public bool IsAdmin 
-    { 
-        get
-        {
-            return (type == UserType.Admin);
-        }
-    }
-
-    //private List<string> _favoriteTypesIds = new List<string>();
-
-    //public HashSet<MeetingType> FavoriteTypes
-    //{
-    //    get
-    //    {
-    //        List<MeetingType> types = _favoriteTypesIds.ConvertAll(new Converter<string, MeetingType>(MeetingTypesData.GetMeetingType));
-    //        return new HashSet<MeetingType>(types);
-    //    }
-    //}
 
     [BsonElement("FriendsIds")]
     public HashSet<string> FriendsIds = new HashSet<string>();
@@ -62,9 +44,9 @@ public class User
         get
         {
             List<User> friends = FriendsIds.ToList().ConvertAll(new Converter<string, User>(UsersData.GetUser));
-            HashSet<User> FriendsHashSet = new HashSet<User>(friends);
-            FriendsHashSet.Remove(null);
-            return FriendsHashSet;
+            HashSet<User> friendsHashSet = new HashSet<User>(friends);
+            friendsHashSet.Remove(null);
+            return friendsHashSet;
         }
     }
 
@@ -84,6 +66,17 @@ public class User
             ((end.Month == start.Month) && (end.Day >= start.Day))) ? 1 : 0);
         }
     }
+
+    //private List<string> _favoriteTypesIds = new List<string>();
+
+    //public HashSet<MeetingType> FavoriteTypes
+    //{
+    //    get
+    //    {
+    //        List<MeetingType> types = _favoriteTypesIds.ConvertAll(new Converter<string, MeetingType>(MeetingTypesData.GetMeetingType));
+    //        return new HashSet<MeetingType>(types);
+    //    }
+    //}
 
     public override bool Equals(object obj) => this.Equals(obj as User);
 

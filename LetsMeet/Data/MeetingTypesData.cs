@@ -8,34 +8,34 @@ namespace LetsMeet.Data
 {
     public static class MeetingTypesData
     {
-        private static IMongoCollection<MeetingType> collection = MongoDBConnection.GetInstance.DataBase.GetCollection<MeetingType>("MeetingsTypes");
+        private static IMongoCollection<MeetingType> _collection = MongoDBConnection.GetInstance.DataBase.GetCollection<MeetingType>("MeetingsTypes");
         public static List<MeetingType> AllMeetingsTypes
         {
             get
             {
-                return collection.Find(_ => true).ToList();
+                return _collection.Find(_ => true).ToList();
             }
         }
 
         public static MeetingType GetMeetingType(string id)
         {
-            return collection.Find(m => m.Id == id).SingleOrDefault();
+            return _collection.Find(m => m.Id == id).SingleOrDefault();
         }
 
-        public static List<MeetingType> GetAllMeetingByCategory(string CategoryId)
+        public static List<MeetingType> GetAllMeetingByCategory(string categoryId)
         {
-            return collection.Find(t => t.CategoryId == CategoryId).ToList();
+            return _collection.Find(t => t.CategoryId == categoryId).ToList();
 
         }
 
-        public static void CreateMeetingType(MeetingType m)
+        public static void CreateMeetingType(MeetingType type)
         {
-            collection.InsertOne(m);
+            _collection.InsertOne(type);
         }
 
         public static MeetingType GetFirst()
         {
-            return collection.Find(_ => true).Limit(1).Single();
+            return _collection.Find(_ => true).Limit(1).Single();
         }
     }
 }

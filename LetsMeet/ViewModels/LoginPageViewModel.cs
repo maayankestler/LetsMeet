@@ -17,11 +17,11 @@ namespace LetsMeet.ViewModels
 
         public LoginPageViewModel ()
         {
-            Login = new Command(Login_Button_Clicked);
-            Register = new Command(Register_Button_Clicked);
+            Login = new Command(LoginButtonClicked);
+            Register = new Command(RegisterButtonClicked);
         }
 
-        async void Login_Button_Clicked()
+        async void LoginButtonClicked()
         {
             MainViewModel.GetInstance.Login(UserName, Password);
             if (MainViewModel.GetInstance.IsLoggedIn())
@@ -34,7 +34,7 @@ namespace LetsMeet.ViewModels
             }
         }
 
-        async void Register_Button_Clicked()
+        async void RegisterButtonClicked()
         {
             await Shell.Current.GoToAsync("//register");
         }

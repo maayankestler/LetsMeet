@@ -28,13 +28,6 @@
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
-            <!--<Label FontAttributes="Bold">
-                <Label.Text>
-                    <MultiBinding StringFormat="{}category: {0}">
-                        <Binding Path="Category.Name"/>
-                    </MultiBinding>
-                </Label.Text>
-            </Label>-->
             <Label Text="meeting name:"/>
             <Entry Placeholder="name" Text="{Binding Name}"/>
             <Label Text="icon URL"/>

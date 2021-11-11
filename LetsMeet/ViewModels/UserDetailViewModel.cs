@@ -54,7 +54,7 @@ namespace LetsMeet.ViewModels
         {
             get
             {
-                return MainViewModel.GetInstance.CurrentUser.IsAdmin;
+                return MainViewModel.GetInstance.CurrentUser.type == UserType.Admin;
             }
         }
         public ICommand Logout { get; }

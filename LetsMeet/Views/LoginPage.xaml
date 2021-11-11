@@ -35,17 +35,4 @@
             </ScrollView>
         </Grid>
     </ScrollView>
-    <!--<StackLayout VerticalOptions="Center" HorizontalOptions="FillAndExpand">
-        <Image Source="LogoHorizontalTransparent.png" Aspect="Fill" VerticalOptions="Center" Margin="0,0,0,0"/>
-        <Label Text="Username:"/>
-        <Entry Placeholder="Username"/>
-        <Label Text="Password:"/>
-        <Entry IsPassword="True" Placeholder="Password"/>
-        <Button Text="Login" Clicked="Button_Clicked"/>
-        <Label Text="Register" HorizontalOptions="Center">
-            <Label.GestureRecognizers>
-                <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
-            </Label.GestureRecognizers>
-        </Label>
-    </StackLayout>-->
 </ContentPage>

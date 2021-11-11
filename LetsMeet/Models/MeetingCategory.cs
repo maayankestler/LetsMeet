@@ -10,10 +10,10 @@ using MongoDB.Bson.Serialization.Attributes;
 
 public class MeetingCategory {
 
-    public MeetingCategory(string name, string IconURL)
+    public MeetingCategory(string name, string iconURL)
     {
         this.Name = name;
-        this.IconURL = IconURL;
+        this.IconURL = iconURL;
     }
 
     [BsonId, BsonElement("_id"), BsonRepresentation(BsonType.ObjectId)]

@@ -10,46 +10,46 @@ namespace LetsMeet.Data
 {
     public static class MeetingsData
     {
-        private static IMongoCollection<Meeting> collection = MongoDBConnection.GetInstance.DataBase.GetCollection<Meeting>("Meetings");
+        private static IMongoCollection<Meeting> _collection = MongoDBConnection.GetInstance.DataBase.GetCollection<Meeting>("Meetings");
         public static List<Meeting> AllMeetings
         {
             get
             {
-                return collection.Find(_ => true).ToList();
+                return _collection.Find(_ => true).ToList();
             }
         }
         
-        public static List<Meeting> GetMeetingsByUser(User User)
+        public static List<Meeting> GetMeetingsByUser(User user)
         {
-            return collection.Find(m => m.Members.Contains(User)).ToList();
+            return _collection.Find(m => m.Members.Contains(user)).ToList();
         }
 
-        public static Meeting GetMeetingById(string MeetingId)
+        public static Meeting GetMeetingById(string meetingId)
         {
-            return collection.Find(m => m.Id == MeetingId).SingleOrDefault();
+            return _collection.Find(m => m.Id == meetingId).SingleOrDefault();
         }
 
-        public static List<Meeting> GetMeetingsByUser(string UserId)
+        public static List<Meeting> GetMeetingsByUser(string userId)
         {
-            return GetMeetingsByUser(UsersData.GetUser(UserId));
+            return GetMeetingsByUser(UsersData.GetUser(userId));
         }
 
-        public static void CreateMeeting(Meeting m)
+        public static void CreateMeeting(Meeting meeting)
         {
-            collection.InsertOne(m);
+            _collection.InsertOne(meeting);
         }
 
-        public static void RemoveMeeting(Meeting MeetingToRemove)
+        public static void RemoveMeeting(Meeting meetingToRemove)
         {
-            collection.DeleteOne(m => m.Id == MeetingToRemove.Id);
+            _collection.DeleteOne(m => m.Id == meetingToRemove.Id);
         }
 
-        public static void RemoveMeetingByOwner(string OwnerId)
+        public static void RemoveMeetingByOwner(string ownerId)
         {
-            collection.DeleteMany(m => m.OwnerId == OwnerId);
+            _collection.DeleteMany(m => m.OwnerId == ownerId);
         }
 
-        public static List<Meeting> SearchMeetings(bool OwnedByMe, bool OwnedByFriend, bool Member, MeetingStatus status, User CurrenUser)
+        public static List<Meeting> SearchMeetings(bool ownedByMe, bool ownedByFriend, bool member, MeetingStatus status, User currenUser)
         {
             List<Meeting> temp_meetings_list = new List<Meeting>();
 
@@ -59,21 +59,21 @@ namespace LetsMeet.Data
                     temp_meetings_list.Add(m);
             };
 
-            if (OwnedByMe)
-                collection.Find(m => m.OwnerId == CurrenUser.Id).ToList().ForEach(VerifyAdd);
-            if (OwnedByFriend)
-                collection.Find(m => CurrenUser.FriendsIds.Contains(m.OwnerId)).ToList().ForEach(VerifyAdd);
-            if (Member)
-                collection.Find(m => m.MembersIds.Contains(CurrenUser.Id)).ToList().ForEach(VerifyAdd);
-            if (!OwnedByMe && !OwnedByFriend && !Member)
+            if (ownedByMe)
+                _collection.Find(m => m.OwnerId == currenUser.Id).ToList().ForEach(VerifyAdd);
+            if (ownedByFriend)
+                _collection.Find(m => currenUser.FriendsIds.Contains(m.OwnerId)).ToList().ForEach(VerifyAdd);
+            if (member)
+                _collection.Find(m => m.MembersIds.Contains(currenUser.Id)).ToList().ForEach(VerifyAdd);
+            if (!ownedByMe && !ownedByFriend && !member)
                 MeetingsData.AllMeetings.ForEach(VerifyAdd);
 
             return temp_meetings_list;
         }
 
-        public static void UpdateMeeting(Meeting Meeting)
+        public static void UpdateMeeting(Meeting meeting)
         {
-            collection.ReplaceOne(m => m.Id == Meeting.Id, Meeting);
+            _collection.ReplaceOne(m => m.Id == meeting.Id, meeting);
         }
     }
 }

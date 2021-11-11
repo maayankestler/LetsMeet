@@ -66,12 +66,12 @@ namespace LetsMeet.ViewModels
 
         private void FilterUsers()
         {
-            ObservableCollection<User> temp_users_list = new ObservableCollection<User>();
+            ObservableCollection<User> tempUsersList = new ObservableCollection<User>();
 
             void VerifyAdd(User u)
             {
-                if (!temp_users_list.Contains(u) && u.age < MaxAge && u.age > MinAge)
-                    temp_users_list.Add(u);
+                if (!tempUsersList.Contains(u) && u.age < MaxAge && u.age > MinAge)
+                    tempUsersList.Add(u);
             };
 
             if (IsFriend)
@@ -79,7 +79,7 @@ namespace LetsMeet.ViewModels
             if (!IsFriend)
                 UsersData.AllUsers.ForEach(VerifyAdd);
 
-            _usersList = temp_users_list;
+            _usersList = tempUsersList;
         }
 
         #region INotifyPropertyChanged

@@ -21,12 +21,10 @@ namespace LetsMeet.Controls
         {
             get
             {
-                //return MeetingsData.GetMeetingById(_meetingId);
                 return (Meeting)GetValue(MeetingProperty);
             }
             set
             {
-                //_meetingId = value.Id;
                 SetValue(MeetingProperty, value);
             }
         }

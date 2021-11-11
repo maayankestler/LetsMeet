@@ -26,13 +26,6 @@
                 EventName="Appearing"
                 Command="{Binding PageAppearingCommand}" />
     </ContentPage.Behaviors>
-    <!--<Shell.SearchHandler>
-        <controls:MeetingsSearchHandler Placeholder="Enter search term"
-                                       ShowsResults="true"
-                                       ItemTemplate="{StaticResource MeetingSearchTemplate}"
-                                       Meetings="{x:Static data:MeetingsData.Meetings}"
-                                       SelectedItemNavigationTarget="{x:Type views:MeetingDetailPage}" />
-    </Shell.SearchHandler>-->
     <StackLayout>
         <CollectionView Margin="20"
                         ItemsSource="{Binding AvailableMeetings}"

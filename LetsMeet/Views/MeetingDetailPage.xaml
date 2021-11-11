@@ -97,11 +97,6 @@
                 </FormattedString>
             </Label.FormattedText>
         </Label>
-        <!--<CollectionView ItemsSource="{Binding Meeting.Members}"
-                    ItemTemplate="{StaticResource UserTemplate}"
-                    SelectionMode="Multiple"
-                    SelectedItems="{Binding SelectedObjects, Mode=TwoWay}"
-                    IsVisible="{Binding IsOwner}"/>-->
         <CollectionView ItemsSource="{Binding Meeting.Members}"
                         ItemTemplate="{StaticResource UserTemplate}"
                         SelectionMode="None"
@@ -112,10 +107,5 @@
                 </DataTrigger>
             </CollectionView.Triggers>
         </CollectionView>
-        <!--<CollectionView Margin="20"
-                    ItemsSource="{Binding Meeting.Members}"
-                    ItemTemplate="{StaticResource UserTemplate}"
-                    SelectionMode="Single"
-                    SelectionChanged="OnCollectionViewSelectionChanged" />-->
     </StackLayout>
 </ContentPage>

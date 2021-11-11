@@ -9,7 +9,7 @@ namespace LetsMeet.Data
 {
     public static class UsersData
     {
-        private static IMongoCollection<User> collection = MongoDBConnection.GetInstance.DataBase.GetCollection<User>("Users");
+        private static IMongoCollection<User> _collection = MongoDBConnection.GetInstance.DataBase.GetCollection<User>("Users");
         public static List<User> AllUsers
         {
             get
@@ -20,12 +20,12 @@ namespace LetsMeet.Data
 
         public static List<User> GetAllUsers()
         {
-            return collection.Find(_ => true).ToList();
+            return _collection.Find(_ => true).ToList();
         }
 
-        public static User GetUser(string UserName, string Password)
+        public static User GetUser(string userName, string password)
         {
-            var User = collection.Find(x => x.UserName == UserName && x.Password == Password).SingleOrDefault();
+            var User = _collection.Find(x => x.UserName == userName && x.Password == password).SingleOrDefault();
             if (User == null)
             {
                 System.Diagnostics.Debug.WriteLine("login failed"); //todo make display alert
@@ -33,31 +33,31 @@ namespace LetsMeet.Data
             return User;
         }
 
-        public static User GetUser(string UserId)
+        public static User GetUser(string userId)
         {
-            return collection.Find(x => x.Id == UserId).SingleOrDefault();
+            return _collection.Find(x => x.Id == userId).SingleOrDefault();
         }
 
-        public static void CreateUser(User NewUser)
+        public static void CreateUser(User newUser)
         {
-            collection.InsertOne(NewUser);
+            _collection.InsertOne(newUser);
         }
 
-        public static void RemoveUser(User UserToRemove)
+        public static void RemoveUser(User userToRemove)
         {
-            RemoveUser(UserToRemove.Id);
+            RemoveUser(userToRemove.Id);
         }
 
-        public static void RemoveUser(string UserId)
+        public static void RemoveUser(string userId)
         {
             // remove meetings
-            MeetingsData.RemoveMeetingByOwner(UserId);
-            collection.DeleteOne(u => u.Id == UserId);
+            MeetingsData.RemoveMeetingByOwner(userId);
+            _collection.DeleteOne(u => u.Id == userId);
         }
 
-        public static void UpdateUser(User User)
+        public static void UpdateUser(User user)
         {
-            collection.ReplaceOne(u => u.Id == User.Id, User);
+            _collection.ReplaceOne(u => u.Id == user.Id, user);
         }
     }
 }
