@@ -5,21 +5,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 
 public class MeetingCategory {
 
-    public MeetingCategory(string id, string name, string IconURL)
+    public MeetingCategory(string name, string iconURL)
     {
-        this.Id = Interlocked.Increment(ref nextId).ToString();
         this.Name = name;
-        this.IconURL = IconURL;
+        this.IconURL = iconURL;
     }
 
-    static int nextId = 0;
+    [BsonId, BsonElement("_id"), BsonRepresentation(BsonType.ObjectId)]
     public string Id { get; private set; }
 
+    [BsonElement("Name")]
     public string Name { get; set; }
 
+    [BsonElement("IconURL")]
     public string IconURL { get; set; }
 
     public List<MeetingType> Types

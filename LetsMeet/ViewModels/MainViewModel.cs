@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Text;
 using Xamarin.Forms;
 using LetsMeet.Data;
-//using Navigation.NavigationStack;
 
 namespace LetsMeet.ViewModels
 {
@@ -36,7 +35,7 @@ namespace LetsMeet.ViewModels
         {
             CurrentUser = UsersData.GetUser(UserName, Password);
             // if admin
-            if (CurrentUser!= null && CurrentUser.IsAdmin) 
+            if (CurrentUser!= null && CurrentUser.type == UserType.Admin) 
             {
                 
                 foreach (var item in Shell.Current.Items)

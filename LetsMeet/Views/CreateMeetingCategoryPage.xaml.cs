@@ -24,7 +24,7 @@ namespace LetsMeet.Views
 
         async private void create_button_clicked(object sender, EventArgs e)
         {
-            MeetingCategory m = new MeetingCategory("4", Name, IconURL); // TODO change Id hardcoded
+            MeetingCategory m = new MeetingCategory(Name, IconURL);
             MeetingCatogriesData.CreateMeetingCategory(m);
             await Shell.Current.GoToAsync("//CreateMeetingType");
         }

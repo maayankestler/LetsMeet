@@ -18,6 +18,7 @@ using LetsMeet.Data;
 using LetsMeet.ViewModels;
 using LetsMeet.Models;
 using System.Windows.Input;
+using System.Globalization;
 
 namespace LetsMeet.ViewModels
 {
@@ -29,7 +30,7 @@ namespace LetsMeet.ViewModels
             PageAppearingCommand = new Command(FilterMeetings);
         }
 
-        public ObservableCollection<Meeting> _meetingsList { get; set; } = new ObservableCollection<Meeting>(MeetingsData.Meetings);
+        public ObservableCollection<Meeting> _meetingsList { get; set; }
         public IEnumerable AvailableMeetings => _meetingsList;
         public ICommand PageAppearingCommand { get; }
         private bool _onwedByMe = false;
@@ -74,24 +75,7 @@ namespace LetsMeet.ViewModels
 
         private void FilterMeetings()
         {
-            ObservableCollection<Meeting> temp_meetings_list = new ObservableCollection<Meeting>();
-
-            void VerifyAdd(Meeting m)
-            {
-                if (!temp_meetings_list.Contains(m) && m.Status == MeetingStatus.Available)
-                    temp_meetings_list.Add(m);
-            };
-
-            if (OwnedByMe)
-                MeetingsData.Meetings.FindAll(m => m.Owner != null && m.Owner.Id == MainViewModel.GetInstance.CurrentUser.Id).ForEach(VerifyAdd);
-            if (OwnedByFriend)
-                MeetingsData.Meetings.FindAll(m => MainViewModel.GetInstance.CurrentUser.Friends.Contains(m.Owner)).ForEach(VerifyAdd);
-            if (Member)
-                MeetingsData.Meetings.FindAll(m => m.Members.Contains(MainViewModel.GetInstance.CurrentUser)).ForEach(VerifyAdd);
-            if (!OwnedByMe && !OwnedByFriend && !Member)
-                MeetingsData.Meetings.ForEach(VerifyAdd);
-
-            _meetingsList = temp_meetings_list;
+            _meetingsList = new ObservableCollection<Meeting>(MeetingsData.SearchMeetings(OwnedByMe, OwnedByFriend, Member, MeetingStatus.Available, MainViewModel.GetInstance.CurrentUser));
         }
 
         #region INotifyPropertyChanged
@@ -106,5 +90,20 @@ namespace LetsMeet.ViewModels
         }
 
         #endregion
+    }
+
+    public class LocationToPosistionConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            Location l = (Location)value;
+            return new Position(l.Latitude, l.Longitude);
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            Position l = (Position)value;
+            return new Location(l.Latitude, l.Longitude);
+        }
     }
 }

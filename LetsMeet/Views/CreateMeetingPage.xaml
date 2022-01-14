@@ -16,7 +16,7 @@
                 <Label Text="choose meeting type:"/>
                 <Label Text="{Binding Type.Name}" FontAttributes="Bold"/>
             </StackLayout>
-            <CollectionView ItemsSource="{x:Static data:MeetingCatogriesData.MeetingCategories}"
+            <CollectionView ItemsSource="{x:Static data:MeetingCatogriesData.AllMeetingCategories}"
                             HeightRequest="300"
                             BackgroundColor="AliceBlue">
                 <CollectionView.ItemTemplate>
@@ -66,10 +66,10 @@
             <Entry Text="{Binding MaxMembers}" Keyboard="Numeric"/>
             <Label Text="icon URL"/>
             <Entry x:Name="IconURLEntry" Placeholder="icon URL" Text="{Binding IconURL, Mode=TwoWay}"/>
-            <Label Text="Position Latitude"/>
-            <Entry Text="{Binding Position.Latitude, Mode=TwoWay}"/>
-            <Label Text="Position Longitude"/>
-            <Entry Text="{Binding Position.Longitude, Mode=TwoWay}"/>
+            <Label Text="Location Latitude"/>
+            <Entry Text="{Binding Location.Latitude, Mode=TwoWay}"/>
+            <Label Text="Location Longitude"/>
+            <Entry Text="{Binding Location.Longitude, Mode=TwoWay}"/>
             <Button Text="set location" Clicked="set_location_clicked"/>
             <Button Text="Create" Clicked="create_meeting_clicked"/>
         </StackLayout>

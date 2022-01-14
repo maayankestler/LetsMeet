@@ -10,7 +10,6 @@ namespace LetsMeet
     public partial class AppShell : Shell
     {
         public Dictionary<string, Type> Routes { get; private set; } = new Dictionary<string, Type>();
-        public ICommand HelpCommand => new Command<string>(async (url) => await Launcher.OpenAsync(url));
 
         public AppShell()
         {
@@ -31,11 +30,6 @@ namespace LetsMeet
             {
                 Routing.RegisterRoute(item.Key, item.Value);
             }
-        }
-
-        private void Tab_Appearing(object sender, EventArgs e)
-        {
-
         }
     }
 }

@@ -14,19 +14,35 @@ namespace LetsMeet.ViewModels
 {
     class MeetingDetailViewModel : IQueryAttributable, INotifyPropertyChanged
     {
-        public Meeting Meeting { get; set; }
+        private string _meetingId = null;
+        public string MeetingId
+        {
+            get
+            {
+                return _meetingId;
+            }
+            set
+            {
+                if (_meetingId != value)
+                {
+                    _meetingId = value;
+                    Meeting = MeetingsData.GetMeetingById(_meetingId);
+                }
+            }
+        }
+        public Meeting Meeting { get; private set; }
         public bool IsInMeeting
         {
             get
             {
-                return (Meeting != null && Meeting.Members.Contains(MainViewModel.GetInstance.CurrentUser));
+                return (Meeting != null && Meeting.MembersIds.Contains(MainViewModel.GetInstance.CurrentUser.Id));
             }
         }
-        public bool IsOwner 
-        { 
+        public bool IsOwner
+        {
             get
             {
-                return (Meeting != null && Meeting.Owner == MainViewModel.GetInstance.CurrentUser);
+                return (Meeting != null && Meeting.OwnerId == MainViewModel.GetInstance.CurrentUser.Id);
             }
         }
         public ICommand JoinMeeting { get; }
@@ -38,10 +54,10 @@ namespace LetsMeet.ViewModels
 
         public MeetingDetailViewModel()
         {
-            JoinMeeting = new Command(JoinMeeting_Button_Clicked);
-            QuitMeeting = new Command(QuitMeeting_Button_Clicked);
-            CancelMeeting = new Command(CancelMeeting_Button_Clicked);
-            RemoveMembers = new Command(RemoveMembers_Button_Clicked);
+            JoinMeeting = new Command(JoinMeetingButtonClicked);
+            QuitMeeting = new Command(QuitMeetingButtonClicked);
+            CancelMeeting = new Command(CancelMeetingButtonClicked);
+            RemoveMembers = new Command(RemoveMembersButtonClicked);
             SelectedObjects = new ObservableCollection<object>();
             SelectedObjects.CollectionChanged += SelectedObjectsChanged;
             SelectedMembers = new List<User>();
@@ -50,44 +66,32 @@ namespace LetsMeet.ViewModels
         {
             if (query.ContainsKey("id"))
             {
-                // Only a single query parameter is passed, which needs URL decoding.
-                LoadMeeting(HttpUtility.UrlDecode(query["id"]));
+                MeetingId = HttpUtility.UrlDecode(query["id"]);
+                OnPropertyChanged("Meeting");
             }
         }
 
-        public void LoadMeeting(string id)
-        {
-            try
-            {
-                Meeting = MeetingsData.Meetings.FirstOrDefault(a => a.Id == id);
-            }
-            catch (Exception)
-            {
-                Console.WriteLine("Failed to load Meeting.");
-            }
-        }
-
-        void JoinMeeting_Button_Clicked()
+        void JoinMeetingButtonClicked()
         {
             Meeting.AddMember(MainViewModel.GetInstance.CurrentUser);
             OnPropertyChanged("IsInMeeting"); 
             OnPropertyChanged("Meeting");
         }
 
-        void QuitMeeting_Button_Clicked()
+        void QuitMeetingButtonClicked()
         {
             Meeting.RemoveMember(MainViewModel.GetInstance.CurrentUser);
             OnPropertyChanged("IsInMeeting");
             OnPropertyChanged("Meeting");
         }
 
-        void RemoveMembers_Button_Clicked()
+        void RemoveMembersButtonClicked()
         {
             Meeting.RemoveMembers(SelectedMembers);
             OnPropertyChanged("Meeting");
         }
 
-        async void CancelMeeting_Button_Clicked()
+        async void CancelMeetingButtonClicked()
         {
             Meeting.Cancel();
             await Shell.Current.GoToAsync("..");
@@ -101,7 +105,6 @@ namespace LetsMeet.ViewModels
             if (itemToRemove != null)
             {
                 SelectedMembers.Remove(itemToRemove);
-                // SelectedObjects.Remove(itemToRemove);
             }
         }
 
