@@ -23,9 +23,7 @@ namespace LetsMeet.Controls
             }
             else
             {
-                ItemsSource = Users
-                    .Where(user => user.Name.ToLower().Contains(newValue.ToLower()))
-                    .ToList<User>();
+                ItemsSource = Users.Where(user => user.Name.ToLower().Contains(newValue.ToLower())).ToList<User>();
             }
         }
 
