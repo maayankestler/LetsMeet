@@ -28,7 +28,7 @@
                 <DataTemplate>
                     <controls:MeetingPin Position="{Binding Location, Converter={StaticResource  LocToPos}}"
                                          Meeting ="{Binding .}"
-                                         Label="{Binding Name, StringFormat='check {0}' }"
+                                         Label="{Binding Name, StringFormat='{0}' }"
                                          InfoWindowClicked="Pin_InfoWindowClicked"/>
                 </DataTemplate>
             </maps:Map.ItemTemplate>
