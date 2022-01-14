@@ -6,7 +6,13 @@ This app was written for my final project for object oriented programming worksh
 <img src="Screenshots/LogoVerticalTransparent.png" title="login screen"/>
 </p>
 
+</br></br></br></br>
+The [project papers](project.pdf) (written in Hebrew) include: User Manual, Object-Oriented Analysis Document (OOA) and Object-Oriented Design Document (OOD)
+</br></br></br></br>
 
+
+### Screenshots:
+<br/>
 <div align="center">
 <img src="Screenshots/image012.png" title="login screen" width="387" height ="795"/>
 <img src="Screenshots/image013.png" title="sign up screen" width="387" height ="795"/>
